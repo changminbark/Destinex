@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://team08:jHG7GCpyVd6UcLpu@cluster0.dwdsrxf.mongodb.net/?retryWrites=true&w=majority
+      database: Cluster0
