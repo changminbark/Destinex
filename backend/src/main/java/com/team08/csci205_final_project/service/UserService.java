@@ -21,6 +21,7 @@ package com.team08.csci205_final_project.service;
 import com.team08.csci205_final_project.model.User;
 import com.team08.csci205_final_project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.management.RuntimeErrorException;
@@ -31,6 +32,10 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+    /** A BcryptPassword Encoder object to encode the password */
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Autowired
     public UserRepository userRepository;
 
@@ -38,6 +43,10 @@ public class UserService {
     public User userRegister(User user) {
         // Automatically set the register date
         user.setRegisterDate(LocalDate.now());
+
+        // Encode the user password to store in the database
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         return userRepository.save(user);
     }
 

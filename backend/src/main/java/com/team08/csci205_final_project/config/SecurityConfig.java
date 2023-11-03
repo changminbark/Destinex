@@ -18,5 +18,16 @@
  */
 package com.team08.csci205_final_project.config;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+@Configuration
 public class SecurityConfig {
+
+    /** Method to encrypt the password using BCrypt dependency */
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }

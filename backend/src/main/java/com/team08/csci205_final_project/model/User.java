@@ -28,6 +28,9 @@ public class User {
     /** Email address of the user */
     private String email;
 
+    /** Password of the user */
+    private String password;
+
     /** Date of birth of the user */
     private LocalDate dateOfBirth;
 
