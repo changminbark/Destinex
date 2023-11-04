@@ -35,7 +35,7 @@ public class UserController {
     private UserService userService;
 
     /** API endpoint to create a new user */
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.userRegister(user));
     }
@@ -75,4 +75,5 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
+
 }

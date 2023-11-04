@@ -18,5 +18,55 @@
  */
 package com.team08.csci205_final_project.controller;
 
+import com.team08.csci205_final_project.model.User;
+import com.team08.csci205_final_project.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.team08.csci205_final_project.model.LoginRequest;
+import com.team08.csci205_final_project.model.LoginResponse;
+import com.team08.csci205_final_project.security.JwtUtil;
+
+@RestController
+@RequestMapping("/api/auth")
 public class AuthController {
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @PostMapping("/login")
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginRequest loginRequest) {
+        try {
+            Authentication authenticate = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequest.getUsername(),
+                            loginRequest.getPassword()
+                    )
+            );
+
+            final String jwt = jwtUtil.generateToken(authenticate);
+
+            return ResponseEntity.ok(new LoginResponse(jwt));
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(401).build();
+        }
+    }
 }
