@@ -42,6 +42,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/login",
                                 "/api/users/register").permitAll()
                         .requestMatchers("/api/users").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/api/transactions/delete/").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/api/transactions/add").hasAnyAuthority("ROLE_PROVIDER", "ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

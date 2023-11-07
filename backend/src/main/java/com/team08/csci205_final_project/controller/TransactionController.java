@@ -62,8 +62,8 @@ public class TransactionController {
         return transaction.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    /** API endpoint to delete a transcation based on transaction_id */
-    @DeleteMapping("/{id}")
+    /** API endpoint to delete a transaction based on transaction_id */
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteTransaction(@PathVariable String id) {
         transactionService.deleteTransactionById(id);
         return ResponseEntity.noContent().build();
