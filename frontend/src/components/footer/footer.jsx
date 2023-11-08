@@ -17,25 +17,27 @@ function Footer() {
             <div className={"bottomLinksContainer"}>
                 <img className={"Appstore_Logo"} src={Appstore_Icon} alt={"Appstore Logo"} />
                 <div className={"bottomLinks"}>
-                    <span className={"bottomLinksText"}>About Destinex</span>
-                    <span className={"bottomLinksText"}>Our Portfolio</span>
-                    <span className={"bottomLinksText"}>Careers</span>
-                    <span className={"bottomLinksText"}>Contact</span>
-                    <span className={"bottomLinksText"}>Help Center</span>
-                </div>
-                <div className={"bottomLinks"}>
-                    <span className={"bottomLinksText"}>Sign up to grant</span>
-                    <span className={"bottomLinksText"}>Privacy Policy</span>
-                    <span className={"bottomLinksText"}>Terms and Conditions</span>
+                    <div className={"bottomLinksTextBox"}>
+                        <span className={"bottomLinksText"}>About Destinex</span>
+                        <span className={"bottomLinksText"}>Our Portfolio</span>
+                        <span className={"bottomLinksText"}>Careers</span>
+                        <span className={"bottomLinksText"}>Contact</span>
+                        <span className={"bottomLinksText"}>Help Center</span>
+                    </div>
+                    <div className={"bottomLinksTextBox"}>
+                        <span className={"bottomLinksText"}>Sign up to grant</span>
+                        <span className={"bottomLinksText"}>Privacy Policy</span>
+                        <span className={"bottomLinksText"}>Terms and Conditions</span>
+                    </div>
                 </div>
             </div>
             <div className={"bottomSocMed"}>
                 <span className={"bottomSocMedFollowText"}>Follow Destinex</span>
-                <img src={Facebook_Icon} alt={"Facebook Logo"} />
-                <img src={Instagram_Icon} alt={"Instagram Logo"} />
-                <img src={Linkedin_Icon} alt={"Linkedin Logo"} />
-                <img src={X_Icon} alt={"X Logo"} />
-                <img src={Youtube_Icon} alt={"Youtube Logo"} />
+                <img className={"bottomSocMedLogo"} src={Facebook_Icon} alt={"Facebook Logo"} />
+                <img className={"bottomSocMedLogo"} src={Instagram_Icon} alt={"Instagram Logo"} />
+                <img className={"bottomSocMedLogo"} src={Linkedin_Icon} alt={"Linkedin Logo"} />
+                <img className={"bottomSocMedLogo"} src={X_Icon} alt={"X Logo"} />
+                <img className={"bottomSocMedLogo"} src={Youtube_Icon} alt={"Youtube Logo"} />
             </div>
             <div className={"bottomCopyright"}>
                 <span className={"bottomCopyrightText"}>@2023 Destinex. All Rights Reserved.</span>
