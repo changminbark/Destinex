@@ -89,6 +89,7 @@ input[type='tel'] {
     font-size: 1.5rem;
     color: #545454;
     margin-left: 1rem;
+    color: #545454;
 }
 
 .automatedSMSText, .stopSMSText {

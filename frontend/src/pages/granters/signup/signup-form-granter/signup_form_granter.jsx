@@ -49,7 +49,6 @@ function SignupForm () {
 
                 <div className='stopSMSText'>
                     <span>
-                        Reply STOP to opt-out and reply HELP for help. Message and data rates may apply and frequency may vary.
                     </span>
                 </div>
 
