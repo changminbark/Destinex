@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 import './signin_form.css'
 
 function SigninForm () {
@@ -33,7 +33,7 @@ function SigninForm () {
 
             <div className='createAccount'>
                 Don’t have an account yet?
-                <Link to="/" className='createAccountSignup'>Sign Up</Link>
+                <Link to="/" className='createAccountSignup'>Sign Un</Link>
             </div>
         
         </div>
