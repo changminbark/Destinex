@@ -41,7 +41,6 @@ public class JobService {
      */
     public Job createJob(Job job) {
         job.setCreatedDate(LocalDate.now());
-
         return jobRepository.save(job);
     }
 
