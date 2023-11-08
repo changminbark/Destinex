@@ -8,15 +8,21 @@ import {
 } from "react-router-dom";
 
 import './App.css';
-import Signup from './pages/wishers/signup/signup';
-import Signin from './pages/wishers/signin/signin';
+
+// Import files for wishers
+import SignupWisher from './pages/wishers/signup/signup';
+import SigninWisher from './pages/wishers/signin/signin';
+
+// Import files for granters
+import SignupGranter from './pages/granters/signup/signup';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Signup/>}/>
-        <Route path="/signin" element={<Signin/>}/>
+        <Route path="/signup" element={<SignupGranter/>}/>
+        <Route path="/" element={<SignupWisher/>}/>
+        <Route path="/signin" element={<SigninWisher/>}/>
       </Routes>
     </BrowserRouter>
   );

@@ -1,5 +1,5 @@
 // import Header from "../../components/header/header";
-import SignupForm from "./signup-form/signup_form";
+import SignupForm from "./signup-form-wisher/signup_form_wisher";
 // import Footer from "../../components/footer/footer";
 import './signup.css'
 

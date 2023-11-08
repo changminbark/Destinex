@@ -1,16 +1,16 @@
 // import Header from "../../components/header/header";
-import SigninForm from "./signin-form-wisher/signin_form_wisher";
+import SignupForm from "./signup-form-granter/signup_form_granter";
 // import Footer from "../../components/footer/footer";
-import './signin.css'
+import './signup.css'
 
-function Signin() {
+function Signup() {
     return (
-      <div className="signin">
+      <div className="signup">
           {/* <Header></Header> */}
-          <SigninForm></SigninForm>
+          <SignupForm></SignupForm>
           {/* <Footer></Footer> */}
       </div>
     );
   }
   
-export default Signin;
+export default Signup;
