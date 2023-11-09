@@ -8,7 +8,7 @@ import { DemoUser } from '../../assets/img/demo-user.png';
 
 function Header() {
     return (
-        <div className="header-container">
+        <div className="header">
             <div className="icon-menu">
                 <img src={IconMenu} />
             </div>
@@ -19,7 +19,24 @@ function Header() {
                 <button>Wish</button>
                 <button>Grant</button>
             </div>
-            <div class="divider"></div>
+            <div class="location">
+                <div class="divider"></div>
+                <div class="location">South Campus Apartment (Building 4)</div>
+            </div>
+            <div class="icon-bell">
+                <img src={IconBell} />
+            </div>
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img src={DemoUser} />
+                </div>
+                <div class="username">
+                    <p>Hello Hung</p>
+                </div>
+                <div class="user-browse">
+                    <img src={IconBrowse}>
+                </div>
+            </div>
         </div>
     );
 }
