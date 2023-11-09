@@ -1,14 +1,14 @@
-// import Header from "../../components/header/header";
-import SigninForm from "./signin-form/signin_form";
-// import Footer from "../../components/footer/footer";
-import './signin.css'
+// import Header from '../../components/header/header';
+import SigninForm from './signin-form-wisher/signin_form_wisher';
+import Footer from '../../../components/footer/footer';
+import './signin.css';
 
 function Signin() {
     return (
       <div className="signin">
           {/* <Header></Header> */}
           <SigninForm></SigninForm>
-          {/* <Footer></Footer> */}
+           <Footer />
       </div>
     );
   }

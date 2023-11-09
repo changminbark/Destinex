@@ -1,48 +1,58 @@
-/* signin_form.css */
+/* signup_form.css */
 
-.signinForm {
+.signupForm {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 2rem;
 }
 
-.signinFormTitle {
-    margin-bottom: 2rem;
+.signupFormTitle {
+    margin-bottom: 3rem;
 }
 
-.signinFormTitleText {
+.signupFormTitleText {
     font-size: 2rem;
     font-weight: bold;
     color: #000;
 }
 
-.signinFormTitleDestinex {
+.signupFormTitleDestinex {
     font-size: 2rem;
     font-weight: bold;
     color: #8B00FF;
 }
 
-.signinFormInput {
+.signupFormInput {
     width: 100%;
-    max-width: 500px;
+    max-width: 32rem;
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
 }
 
-.email, .password {
+.nameContainer {
+    display: flex;
+    gap: 5rem;
+}
+
+.firstName input, .lastName input {
+    width: 100%;
+}
+
+.firstName, .lastName, .email, .password {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.emailText, .passwordText {
+.firstNameText, .lastNameText, .emailText, .passwordText {
     color: #545454;
     font-size: 1rem;
     font-weight: 500;
 }
 
+input[type='text'],
 input[type='email'],
 input[type='password'] {
     padding: 0.8rem;
@@ -51,28 +61,43 @@ input[type='password'] {
     font-size: 1rem;
 }
 
-.forgotPassword {
-    display: flex;
-    width: 100%; 
-    margin-top: 0.5rem; 
-}
-
-.forgotPasswordText {
-    color: #8B00FF;
-    font-size: 1rem;
+input[type='checkbox'] {
+    border: 0.15rem solid #B5B5B5;
+    border-radius: 0.25rem;
     cursor: pointer;
-    text-decoration: underline;
+    transform: scale(2);
+    margin-right: 1.25rem;
 }
 
-.signinButton {
-    width: 100%;
-    max-width: 500px;
+.agreement {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.agreementText {
+    font-size: 1rem;
+    color: #545454;
+}
+
+.linkStyle {
+    text-decoration: underline;
+    color: #8B00FF;
+    cursor: pointer;
+}
+  
+.linkStyle:hover {
+    text-decoration: none;
+    text-decoration: underline;
+    color: #7000CD;
+}
+
+.signupButton {
     display: flex;
     justify-content: center;
-    margin-top: 2.5rem;
 }
 
-.signinButtonText {
+.signupButtonText {
     width: 100%;
     background-color: #8B00FF;
     color: white;
@@ -85,23 +110,35 @@ input[type='password'] {
     text-decoration: none;
 }
 
-.signinButtonText:hover {
+.signupButtonText:hover {
     background-color: #7000CD;
 }
 
-.createAccount {
+.alreadyHaveAccount {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 2rem;
+    justify-content: center;
+    gap: 0.5rem;
+    padding-bottom: 2rem;
 }
 
-.createAccountSignup {
+.alreadyHaveAccountText {
+    font-size: 1rem;
+    color: #545454;
+}
+
+.alreadyHaveAccountLogin {
     color: #8B00FF;
     font-size: 1rem;
     cursor: pointer;
     text-decoration: underline;
-    margin-left: 0.5rem;
+}
+
+.alreadyHaveAccountLogin:hover {
+    text-decoration: none;
+    text-decoration: underline;
+    color: #7000CD;
 }
 
 /* Add media queries for responsive design if needed */

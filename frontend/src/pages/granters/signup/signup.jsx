@@ -1,7 +1,7 @@
 // import Header from '../../../components/header/header';
-import SignupForm from './signup-form-wisher/signup_form_wisher';
+import SignupForm from './signup-form-granter/signup_form_granter';
 import Footer from '../../../components/footer/footer';
-import './signup.css';
+import './signup.css'
 
 function Signup() {
     return (
@@ -12,5 +12,5 @@ function Signup() {
       </div>
     );
   }
-
+  
 export default Signup;
