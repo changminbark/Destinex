@@ -10,6 +10,7 @@ import {
 import './App.css';
 import Signup from './pages/wishers/signup/signup';
 import Signin from './pages/wishers/signin/signin';
+import ErrorPage from "./pages/common/ErrorPage/ErrorPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Signup/>}/>
         <Route path="/signin" element={<Signin/>}/>
+        <Route path="/error" element={<ErrorPage/>}/>
       </Routes>
     </BrowserRouter>
   );
