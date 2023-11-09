@@ -1,6 +1,6 @@
 // import Header from '../../../components/header/header';
 import SignupForm from './signup-form-wisher/signup_form_wisher';
-import Footer from '../../../components/footer/footer';
+import Footer from '../../../components/Footer/footer';
 import './signup.css';
 
 function Signup() {
