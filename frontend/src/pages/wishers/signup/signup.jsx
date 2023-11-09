@@ -1,6 +1,5 @@
 // import Header from "../../components/header/header";
 import SignupForm from "./signup-form/signup_form";
-// import Footer from "../../components/footer/footer";
 import './signup.css'
 import Footer from "../../../components/footer/footer";
 import React from "react";
