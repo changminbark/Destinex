@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import './signup_form.css'
+import './signup_form_wisher.css'
 
 function SignupForm () {
 

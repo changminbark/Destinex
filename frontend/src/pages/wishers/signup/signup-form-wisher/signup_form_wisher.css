@@ -8,7 +8,7 @@
 }
 
 .signupFormTitle {
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 .signupFormTitleText {
@@ -25,7 +25,7 @@
 
 .signupFormInput {
     width: 100%;
-    max-width: 500px;
+    max-width: 32rem;
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
@@ -62,11 +62,11 @@ input[type='password'] {
 }
 
 input[type='checkbox'] {
-    width: 1.5rem;
-    height: 1.5rem;
     border: 0.15rem solid #B5B5B5;
     border-radius: 0.25rem;
     cursor: pointer;
+    transform: scale(2);
+    margin-right: 1.25rem;
 }
 
 .agreement {
@@ -88,6 +88,8 @@ input[type='checkbox'] {
   
 .linkStyle:hover {
     text-decoration: none;
+    text-decoration: underline;
+    color: #7000CD;
 }
 
 .signupButton {
@@ -130,6 +132,12 @@ input[type='checkbox'] {
     font-size: 1rem;
     cursor: pointer;
     text-decoration: underline;
+}
+
+.alreadyHaveAccountLogin:hover {
+    text-decoration: none;
+    text-decoration: underline;
+    color: #7000CD;
 }
 
 /* Add media queries for responsive design if needed */

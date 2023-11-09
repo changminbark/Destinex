@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom"
-import './signin_form.css'
+import './signin_form_wisher.css'
 
 function SigninForm () {
 
@@ -33,7 +33,7 @@ function SigninForm () {
 
             <div className='createAccount'>
                 Don’t have an account yet?
-                <Link to="/" className='createAccountSignup'>Sign Un</Link>
+                <Link to="/" className='createAccountSignup'>Sign Up</Link>
             </div>
         
         </div>
