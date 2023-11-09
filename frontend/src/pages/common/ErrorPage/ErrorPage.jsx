@@ -12,7 +12,7 @@ function ErrorPage() {
                     <img className={"errorPic"} src={errorPic} alt={"404_error.png"} />
                 </div>
                 <div className={"errorLink"}>
-                    <Link to={"home"} className={"errorToHome"}>Wish Your Way Home</Link>
+                    <Link to={"/home"} className={"errorToHome"}>Wish Your Way Home</Link>
                 </div>
             </div>
             <Footer />
