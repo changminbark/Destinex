@@ -18,6 +18,7 @@ import SignupGranter from './pages/granters/signup/signup';
 
 // Import error page
 import ErrorPage from "./pages/common/ErrorPage/ErrorPage";
+import CongratsPage from "./pages/granters/CongratsPage/CongratsPage";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/" element={<SignupWisher/>}/>
         <Route path="/signin" element={<SigninWisher/>}/>
         <Route path="/error" element={<ErrorPage/>}/>
+        <Route path="/congrats" element={<CongratsPage />}/>
       </Routes>
     </BrowserRouter>
   );
