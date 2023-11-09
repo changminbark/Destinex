@@ -1,6 +1,6 @@
 import React from 'react';
 
-import IconBellBlack from '../../../assets/svg/icon-bell-black.svg';
+import IconBellWhite from '../../../assets/svg/icon-bell-white.svg';
 import IconBrowseBlack from '../../../assets/svg/icon-browse-black.svg';
 import IconHeader from '../../../assets/svg/icon-header.svg';
 import IconMenuBlack from '../../../assets/svg/icon-menu-black.svg'
@@ -40,7 +40,7 @@ function Header(props) {
             {isLogin ? ( // Changed to a ternary operator for better readability
                 <div className="right-sided">
                     <div className="icon-bell">
-                        <img src={IconBellBlack} alt="Bell Icon" /> {/* Added alt attribute */}
+                        <img src={IconBellWhite} alt="Bell Icon" /> {/* Added alt attribute */}
                     </div>
                     <div className="user-profile">
                         <div className="user-avatar">

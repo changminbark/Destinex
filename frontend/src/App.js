@@ -19,14 +19,14 @@ import SignupGranter from './pages/granters/signup/signup';
 // Import error page
 import ErrorPage from "./pages/common/ErrorPage/ErrorPage";
 import CongratsPage from "./pages/granters/CongratsPage/CongratsPage";
-
+import Home from "./pages/wishers/home/Home";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Home/>}/>
         <Route path="/signup" element={<SignupGranter/>}/>
-        <Route path="/" element={<SignupWisher/>}/>
         <Route path="/signin" element={<SigninWisher/>}/>
         <Route path="/error" element={<ErrorPage/>}/>
         <Route path="/congrats" element={<CongratsPage />}/>
