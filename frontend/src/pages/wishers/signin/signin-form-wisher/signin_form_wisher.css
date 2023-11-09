@@ -94,6 +94,7 @@ input[type='password'] {
     flex-direction: row;
     align-items: center;
     margin-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 .createAccountSignup {
