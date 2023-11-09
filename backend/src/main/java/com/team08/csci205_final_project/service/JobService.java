@@ -36,7 +36,9 @@ public class JobService {
 
     /**
      * Create a job in the database and return
-     * @param job the information of the job
+     * @param job the information of the job including
+     *            "userId", "category", "description", "receiverName".
+     *            "receiverAddress", "receiverPhone"
      * @return the job after created with added information
      */
     public Job createJob(Job job) {
@@ -44,4 +46,28 @@ public class JobService {
         return jobRepository.save(job);
     }
 
+    public Optional<Job> findJobById(String id) {
+        return jobRepository.findById(id);
+    }
+
+    public List<Job> findJobByUser(String id) {
+        return jobRepository.findByUserId();
+    }
+
+    public Job updateJob(Job job) {
+        return null;
+    }
+
+    /**
+     * Soft delete the job from database
+     * @param id the Job id
+     * @return true or false if the deletion is successful
+     */
+    public boolean deleteJob(String id) {
+        if (jobRepository.existsById(id)) {
+            jobRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }

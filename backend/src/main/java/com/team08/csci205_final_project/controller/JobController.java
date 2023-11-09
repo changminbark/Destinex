@@ -35,6 +35,13 @@ public class JobController {
     @Autowired
     private JobService jobService;
 
+    /**
+     * The interface for requesting a job
+     * @param job the information of the job including
+     *            "userId", "category", "description", "receiverName"
+     *            "receiverAddress", "receiverPhone"
+     * @return The response from the request
+     */
     @PostMapping
     public ResponseEntity<Job> createJob(@RequestBody Job job) {
         return ResponseEntity.ok(jobService.createJob(job));
@@ -42,7 +49,9 @@ public class JobController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Job> getJobById(@PathVariable String id) {
-        return ResponseEntity.ok(jobService.findJobById(id));
+        return jobService.findJobById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.badRequest().build());
     }
 
     @GetMapping("/user/{id}")
@@ -56,5 +65,15 @@ public class JobController {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(jobService.updateJob(job));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
+        if (jobService.deleteJob(id)) {
+            return ResponseEntity.noContent().build();
+        }
+        else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
