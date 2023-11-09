@@ -6,8 +6,8 @@ import './signin.css';
 function Signin() {
     return (
       <div className="signin">
-          {/* <Header></Header> */}
-          <SigninForm></SigninForm>
+          {/*<Header></Header>*/}
+           <SigninForm></SigninForm>
            <Footer />
       </div>
     );

@@ -1,0 +1,101 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    color: #fff;
+    background-color: #8B00FF;
+}
+
+.left-sided {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-grow: 1;
+}
+
+.icon-menu {
+    font-size: large;
+}
+
+.icon-menu,
+.logo,
+.location,
+.icon-bell,
+.user-profile {
+    display: flex;
+    align-items: center;
+}
+
+.role-option {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.role-option button {
+    border: none;
+    font-weight: 600;
+    border-radius: 40px;
+    padding: 0.5rem 2rem;
+    flex: none;
+    cursor: pointer;
+}
+
+.logo-destinex {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.btn-wish {
+    background-color: #000;
+    color: white;
+}
+
+.btn-grant {
+    background-color: #fff;
+    color: black;
+}
+
+.location {
+    gap: 1rem;
+    font-weight: 600;
+}
+
+.user-profile {
+    gap: 1rem;
+}
+
+.user-avatar {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: end;
+}
+
+.user-avatar img {
+    width: 50%;
+}
+
+.username {
+    font-size: large;
+}
+
+.divider {
+    height: 30px;
+    width: 4px;
+    background: #000;
+    margin: 0 1rem;
+}
+
+.right-sided {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.username {
+    margin-right: 0.5rem;
+}
