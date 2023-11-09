@@ -8,7 +8,7 @@ function Signin() {
       <div className="signin">
           {/* <Header></Header> */}
           <SigninForm></SigninForm>
-           <Footer />
+          <Footer />
       </div>
     );
   }
