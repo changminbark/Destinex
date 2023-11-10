@@ -1,11 +1,20 @@
 import Header from '../../../components/Header/HeaderPurple/Header';
 import Footer from '../../../components/footer/footer';
+import { useAuth } from '../../../networks/hooks/useAuth';
 
 function Signup() {
+    const { isLoggedIn } = useAuth();
+
     return (
         <div className="signup">
-            {/*<Header isLogin={false}></Header>*/}
-            <Header isLogin={true}></Header>
+            {
+                isLoggedIn ? (
+                    <Header isLogin={true}></Header>
+                ) : (
+                    <Header isLogin={false}></Header>
+                )
+            }
+
             <div>This is a placeholder home page</div>
             <Footer></Footer>
         </div>

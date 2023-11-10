@@ -1,17 +1,21 @@
 import React, {useState} from 'react'
-import { Link } from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
+import { useAuth } from "../../../../networks/hooks/useAuth";
+
 import './signin_form_wisher.css'
-import {useAuth} from "../../../../networks/hooks/useAuth";
 
 function SigninForm () {
-
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const {login, error} = useAuth();
+    const { login, error } = useAuth();
+    const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        login(username, password);
+        const success = await login(username, password);
+        if (success) {
+            navigate('/');
+        }
     };
 
     return (
@@ -41,13 +45,14 @@ function SigninForm () {
                                 placeholder='Enter your password'/>
                         <div className='forgotPassword'> {/* This should be inside the password div */}
                             <span className='forgotPasswordText'>Forgot Password?</span>
+                            <br/>
+                            {error && <span>{error}</span>}
                         </div>
                     </div>
                 </div>
 
                 <div className='signinButton'>
                     <button type="submit" className='signinButtonText'>Sign In</button>
-                    {error && <p className="error">{error}</p>}
                 </div>
 
                 <div className='createAccount'>
