@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
-import * as authService from '../networks/api/authService';
-import * as authUtils from '../networks/utils/authUtils';
+import * as authService from '../networks/api/AuthService';
+import * as authUtils from '../networks/utils/AuthUtils';
 
 export const AuthContext = createContext();
 

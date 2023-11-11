@@ -1,12 +1,12 @@
 import {Link} from "react-router-dom";
-import Footer from "../../../components/footer/footer";
+import Footer from "../../../components/footer/Footer";
 import errorPic from "../../../assets/img/404_error.png";
-import "./ErrorPage.css"
+import "./error_page.css"
 
 function ErrorPage() {
     return (
         <div className={"errorBody"}>
-            {/*<Header />*/}
+            {/*<header />*/}
             <div className={"errorMessage"}>
                 <div className={"errorPicBody"}>
                     <img className={"errorPic"} src={errorPic} alt={"404_error.png"} />

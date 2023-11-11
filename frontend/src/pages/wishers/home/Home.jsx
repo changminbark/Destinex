@@ -1,6 +1,6 @@
-import Header from '../../../components/Header/HeaderPurple/Header';
-import Footer from '../../../components/footer/footer';
-import { useAuth } from '../../../networks/hooks/useAuth';
+import Header from '../../../components/header/header-purple/Header';
+import Footer from '../../../components/footer/Footer';
+import { useAuth } from '../../../networks/hooks/UseAuth';
 
 function Signup() {
     const { isLoggedIn } = useAuth();

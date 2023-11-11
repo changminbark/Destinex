@@ -1,12 +1,12 @@
-import './CongratsPage.css'
-import Footer from "../../../components/footer/footer";
+import './congrats_page.css'
+import Footer from "../../../components/footer/Footer";
 import congratsPic from "../../../assets/img/congrats_granter.png"
 import {Link} from "react-router-dom";
 
 function CongratsPage(){
     return(
         <div className={"congratsBody"}>
-            {/*<Header />*/}
+            {/*<header />*/}
             <div className={"congratsContentBody"}>
                 <div className={"congratsPicContainer"}>
                     <img className={"congratsPic"} src={congratsPic} alt={"congratsPic"} />

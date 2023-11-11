@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Link, useNavigate} from "react-router-dom"
-import { useAuth } from "../../../../networks/hooks/useAuth";
+import { useAuth } from "../../../../networks/hooks/UseAuth";
 
 import './signin_form_wisher.css'
 

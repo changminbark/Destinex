@@ -10,16 +10,16 @@ import {
 import './App.css';
 
 // Import files for wishers
-import SignupWisher from './pages/wishers/signup/signup';
-import SigninWisher from './pages/wishers/signin/signin';
+import SignupWisher from './pages/wishers/signup/Signup';
+import SigninWisher from './pages/wishers/signin/Signin';
 
 // Import files for granters
-import SignupGranter from './pages/granters/signup/signup';
-import SetupPage from './pages/granters/setup/setup';
+import SignupGranter from './pages/granters/signup/Signup';
+import SetupPage from './pages/granters/setup/Setup';
 
 // Import error page
-import ErrorPage from "./pages/common/ErrorPage/ErrorPage";
-import CongratsPage from "./pages/granters/CongratsPage/CongratsPage";
+import ErrorPage from "./pages/common/error/ErrorPage";
+import CongratsPage from "./pages/granters/congrats/CongratsPage";
 import Home from "./pages/wishers/home/Home";
 import {AuthProvider} from "./context/AuthContext";
 
@@ -30,11 +30,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/signup" element={<SignupWisher/>}/>
+            <Route path="/signin" element={<SigninWisher/>}/>
             <Route path="/granter/signup" element={<SignupGranter/>}/>
             <Route path="/granter/setup" element={<SetupPage/>}/>
-            <Route path="/signin" element={<SigninWisher/>}/>
+            <Route path="/granter/congrats" element={<CongratsPage />}/>
             <Route path="/error" element={<ErrorPage/>}/>
-            <Route path="/congrats" element={<CongratsPage />}/>
           </Routes>
         </BrowserRouter>
       </AuthProvider>
