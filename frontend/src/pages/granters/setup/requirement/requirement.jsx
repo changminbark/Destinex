@@ -1,5 +1,6 @@
 import React from 'react';
 import './requirement.css';
+import requirementPic from '../../../../assets/img/requirement.png';
 
 function Requirement () {
 
@@ -16,7 +17,7 @@ function Requirement () {
             </div>
 
             <div className='requirementContent'>
-
+                <img className={"requirementPic"} src={requirementPic} alt={"requirement.png"} />
             </div>
 
         </div>

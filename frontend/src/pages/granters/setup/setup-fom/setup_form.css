@@ -4,7 +4,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem;
 }
 
 .setupFormInput {
@@ -77,11 +76,6 @@ select,
     padding: 0.75rem;
 }
 
-input[type='file'] {
-    border: none;]
-    background-color: #B5B5B5;
-}
-
 /* Agreement Checkbox styles */
 .agreement {
     display: flex;
@@ -123,7 +117,7 @@ input[type='file'] {
     text-decoration: none;
     display: block;
     margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
 }
 
 .continueButtonText:hover {
