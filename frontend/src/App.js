@@ -28,7 +28,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home/>}/>
-            <Route path="/signup" element={<SignupGranter/>}/>
+            <Route path="/signup" element={<SignupWisher/>}/>
+            <Route path="/granter/signup" element={<SignupGranter/>}/>
             <Route path="/signin" element={<SigninWisher/>}/>
             <Route path="/error" element={<ErrorPage/>}/>
             <Route path="/congrats" element={<CongratsPage />}/>

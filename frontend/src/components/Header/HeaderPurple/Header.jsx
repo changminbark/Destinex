@@ -13,6 +13,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 import '../header.css';
+import {Link} from "react-router-dom";
 
 function Header(props) {
     const { isLogin } = props;
@@ -56,8 +57,8 @@ function Header(props) {
                 </div>
             ) : (
                 <div className="right-sided">
-                    <button className="sign-in">Sign in</button>
-                    <button className="sign-up">Sign up</button>
+                    <Link to={"/signin"}><button className="sign-in">Sign in</button></Link>
+                    <Link to={"/signup"}><button className="sign-up">Sign up</button></Link>
                 </div>
             )}
         </div>
