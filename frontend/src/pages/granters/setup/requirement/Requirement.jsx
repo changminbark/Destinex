@@ -8,7 +8,7 @@ function Requirement () {
         <div className='requirement'>
 
             <div className='requirementTitle'>
-                <span className='requirementTitleText'>Sign Up to Become a </span>
+                <span className='requirementTitleText'>Set Up to Become a </span>
                 <span className='requirementTitleGranter'>Granter</span>
             </div>
 
