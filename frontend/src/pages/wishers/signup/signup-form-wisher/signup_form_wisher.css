@@ -48,7 +48,8 @@
     font-weight: 500;
 }
 
-input[type='text'],
+input[type='firstName'],
+input[type='lastName'],
 input[type='email'],
 input[type='password'] {
     padding: 0.8rem;
