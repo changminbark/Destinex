@@ -116,7 +116,6 @@ input[type='checkbox'] {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding-bottom: 2rem;
 }
 
 .alreadyHaveAccountText {

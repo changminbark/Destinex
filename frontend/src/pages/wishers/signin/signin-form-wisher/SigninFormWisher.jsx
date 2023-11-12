@@ -52,12 +52,12 @@ function SigninForm () {
                 </div>
 
                 <div className='signinButton'>
-                    <button type="submit" className='signinButtonText'>Sign In</button>
+                    <Link to="/home" className='signinButtonText'>Sign In</Link>
                 </div>
 
                 <div className='createAccount'>
                     Don’t have an account yet?
-                    <Link to="/" className='createAccountSignup'>Sign Up</Link>
+                    <Link to="/signup" className='createAccountSignup'>Sign Up</Link>
                 </div>
 
             </div>

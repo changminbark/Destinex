@@ -97,7 +97,7 @@ function SetupPage () {
                     </span>
                 </div>
 
-                <Link to="/" className='continueButtonText'>
+                <Link to="/granter/bank" className='continueButtonText'>
                     Continue
                 </Link>
 

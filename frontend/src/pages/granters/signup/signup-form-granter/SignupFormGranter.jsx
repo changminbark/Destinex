@@ -52,7 +52,7 @@ function SignupForm () {
                     </span>
                 </div>
 
-                <Link to="" className='signupButtonText'>
+                <Link to="/granter/setup" className='signupButtonText'>
                     Sign Up
                 </Link>
             </div>
