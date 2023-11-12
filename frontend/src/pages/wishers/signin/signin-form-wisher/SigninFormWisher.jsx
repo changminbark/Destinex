@@ -52,7 +52,8 @@ function SigninForm () {
                 </div>
 
                 <div className='signinButton'>
-                    <Link to="/home" className='signinButtonText'>Sign In</Link>
+                    {/*<Link to="/home" className='signinButtonText'>Sign In</Link>*/}
+                    <button type="submit" className={'signinButtonText'}>Sign In</button>
                 </div>
 
                 <div className='createAccount'>
