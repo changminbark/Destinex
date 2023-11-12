@@ -16,6 +16,7 @@ import SigninWisher from './pages/wishers/signin/Signin';
 // Import files for granters
 import SignupGranter from './pages/granters/signup/Signup';
 import SetupPage from './pages/granters/setup/Setup';
+import BankAcc from './pages/granters/bank/Bank';
 
 // Import error page
 import ErrorPage from "./pages/common/error/ErrorPage";
@@ -33,6 +34,7 @@ function App() {
             <Route path="/signin" element={<SigninWisher/>}/>
             <Route path="/granter/signup" element={<SignupGranter/>}/>
             <Route path="/granter/setup" element={<SetupPage/>}/>
+            <Route path="/granter/bank" element={<BankAcc/>}/>
             <Route path="/granter/congrats" element={<CongratsPage />}/>
             <Route path="/error" element={<ErrorPage/>}/>
           </Routes>

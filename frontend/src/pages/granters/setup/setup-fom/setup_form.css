@@ -76,23 +76,21 @@ select,
     padding: 0.75rem;
 }
 
-/* Agreement Checkbox styles */
 .agreement {
     display: flex;
     flex-direction: row;
-    align-items: center; /* Align checkbox with the text */
-    gap: 0.5rem; /* Space between checkbox and label */
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.875rem;
     margin-bottom: 1rem;
 }
 
 .agreement input[type='checkbox'] {
     cursor: pointer;
-    /* For a custom checkbox, you may need additional styles or a library */
 }
 
 .agreementText {
-    color: #666; /* Darker grey for readable contrast */
+    color: #545454;
 }
 
 .linkStyle {
@@ -105,8 +103,8 @@ select,
 }
 
 .continueButtonText {
-    width: 100%; /* Full width */
-    background-color: #8B00FF; /* Brand color */
+    width: 100%;
+    background-color: #8B00FF;
     color: white;
     border: none;
     border-radius: 2rem;
@@ -117,11 +115,11 @@ select,
     text-decoration: none;
     display: block;
     margin-top: 1rem;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
 }
 
 .continueButtonText:hover {
-    background-color: #7000CD; /* Darker shade for hover state */
+    background-color: #7000CD;
 }
 
 /* Add further customizations and responsive adjustments as needed */

@@ -36,10 +36,6 @@
     gap: 5rem;
 }
 
-.firstName input, .lastName input {
-    width: 100%;
-}
-
 .firstName, .lastName, .email, .password {
     display: flex;
     flex-direction: column;
