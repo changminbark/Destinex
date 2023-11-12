@@ -23,7 +23,10 @@ import com.team08.csci205_final_project.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;

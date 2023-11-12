@@ -24,7 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 
@@ -44,9 +46,19 @@ public class JobController {
      */
     @PostMapping
     public ResponseEntity<Job> createJob(@RequestBody Job job) {
-        return ResponseEntity.ok(jobService.createJob(job));
+        Job savedJob = jobService.createJob(job);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("{id}")
+                .buildAndExpand(savedJob.getId())
+                .toUri();
+        return ResponseEntity.created(location).body(savedJob);
     }
 
+    /**
+     * Get the job with its ID
+     * @param id ID of the job
+     * @return the job
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Job> getJobById(@PathVariable String id) {
         return jobService.findJobById(id)
@@ -54,6 +66,11 @@ public class JobController {
                 .orElse(ResponseEntity.badRequest().build());
     }
 
+    /**
+     * Get all the job from one user
+     * @param id Id of the user
+     * @return All the job of that user
+     */
     @GetMapping("/user/{id}")
     public ResponseEntity<List<Job>> getJobByUser(@PathVariable String id) {
         return ResponseEntity.ok(jobService.findJobByUser(id));
