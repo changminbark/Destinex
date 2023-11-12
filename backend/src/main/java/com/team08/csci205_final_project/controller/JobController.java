@@ -48,7 +48,7 @@ public class JobController {
     public ResponseEntity<Job> createJob(@RequestBody Job job) {
         Job savedJob = jobService.createJob(job);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("{id}")
+                .path("/{id}")
                 .buildAndExpand(savedJob.getId())
                 .toUri();
         return ResponseEntity.created(location).body(savedJob);
@@ -78,10 +78,14 @@ public class JobController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Job> updateJob(@PathVariable String id, @RequestBody Job job) {
-        if (!id.equals(job.getId())) {
-            return ResponseEntity.badRequest().build();
+        job.setId(id);
+        if (jobService.findJobById(id).isEmpty()) {
+            return createJob(job);
         }
-        return ResponseEntity.ok(jobService.updateJob(job));
+        else {
+            Job updatedJob = jobService.updateJob(job);
+            return ResponseEntity.ok(updatedJob);
+        }
     }
 
     @DeleteMapping("/{id}")

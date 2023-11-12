@@ -58,7 +58,13 @@ public class JobService {
     }
 
     public Job updateJob(Job job) {
-        return null;
+        if (jobRepository.existsById(job.getId())) {
+            return jobRepository.save(job);
+        }
+        else {
+            // This will never happen
+            throw new RuntimeException("Job not found with ID: " + job.getId());
+        }
     }
 
     /**

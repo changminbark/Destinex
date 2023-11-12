@@ -8,6 +8,8 @@ import org.hamcrest.core.StringContains;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -71,9 +73,13 @@ public class JobControllerTest {
 
         String requestBody = objectMapper.writeValueAsString(randomJob);
 
+        randomJob.setId("job1");
+
         String expectedResponseBody = objectMapper.writeValueAsString(randomJob);
 
         given(jobService.createJob(any(Job.class))).willReturn(randomJob);
+
+        given(jobService.findJobById("job1")).willReturn(Optional.of(randomJob));
 
         mockMvc.perform(post("/api/jobs")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -129,25 +135,22 @@ public class JobControllerTest {
 
     @Test
     public void updateJobById() throws Exception {
+
+        randomJob.setId("job1");
+        randomJob1.setId("job1");
+
         String updatedJobJson = objectMapper.writeValueAsString(randomJob1);
 
         given(jobService.findJobById("job1")).willReturn(Optional.of(randomJob));
         given(jobService.findJobById(argThat(arg -> !arg.equals("job1")))).willReturn(Optional.empty());
         given(jobService.updateJob(any(Job.class))).willReturn(randomJob1);
 
-        mockMvc.perform(put("/api/jobs/{id}", "123") // Replace with your actual endpoint
+        mockMvc.perform(put("/api/jobs/{id}", "job1") // Replace with your actual endpoint
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(updatedJobJson))
                 .andExpectAll(
                         status().isOk(),
                         content().json(updatedJobJson)
-                );
-
-        mockMvc.perform(put("/api/jobs/{id}", "job2")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(updatedJobJson))
-                .andExpectAll(
-                        status().isBadRequest()
                 );
     }
 
@@ -158,7 +161,5 @@ public class JobControllerTest {
         mockMvc.perform(delete("/api/jobs/{id}", "job1"))
                 .andExpect(status().isNoContent());
     }
-    // shouldPatchJobInfo
-    // shouldUpdateJobStatus
 
 }
