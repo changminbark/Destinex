@@ -51,7 +51,7 @@ public class JobController {
     public ResponseEntity<Job> getJobById(@PathVariable String id) {
         return jobService.findJobById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.badRequest().build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/user/{id}")
@@ -62,7 +62,7 @@ public class JobController {
     @PutMapping("/{id}")
     public ResponseEntity<Job> updateJob(@PathVariable String id, @RequestBody Job job) {
         if (!id.equals(job.getId())) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(jobService.updateJob(job));
     }
@@ -73,7 +73,7 @@ public class JobController {
             return ResponseEntity.noContent().build();
         }
         else {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
     }
 }
