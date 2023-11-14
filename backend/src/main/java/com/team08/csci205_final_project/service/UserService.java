@@ -22,6 +22,7 @@ import com.team08.csci205_final_project.model.User;
 import com.team08.csci205_final_project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.management.RuntimeErrorException;
@@ -34,7 +35,7 @@ public class UserService {
 
     /** A BcryptPassword Encoder object to encode the password */
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserRepository userRepository;
