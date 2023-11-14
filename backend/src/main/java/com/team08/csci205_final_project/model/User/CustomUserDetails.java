@@ -16,8 +16,9 @@
  *
  * ****************************************
  */
-package com.team08.csci205_final_project.model;
+package com.team08.csci205_final_project.model.User;
 
+import com.team08.csci205_final_project.model.Auth.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

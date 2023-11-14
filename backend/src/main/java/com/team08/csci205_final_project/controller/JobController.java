@@ -18,10 +18,9 @@
  */
 package com.team08.csci205_final_project.controller;
 
-import com.team08.csci205_final_project.model.Job;
+import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

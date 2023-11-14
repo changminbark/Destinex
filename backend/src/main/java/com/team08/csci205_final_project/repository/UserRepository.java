@@ -1,6 +1,6 @@
 package com.team08.csci205_final_project.repository;
 
-import com.team08.csci205_final_project.model.User;
+import com.team08.csci205_final_project.model.User.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 

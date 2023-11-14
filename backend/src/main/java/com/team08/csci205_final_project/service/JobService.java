@@ -18,10 +18,9 @@
  */
 package com.team08.csci205_final_project.service;
 
-import com.team08.csci205_final_project.model.Job;
+import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

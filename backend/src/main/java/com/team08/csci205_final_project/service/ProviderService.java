@@ -18,7 +18,7 @@
  */
 package com.team08.csci205_final_project.service;
 
-import com.team08.csci205_final_project.model.Provider;
+import com.team08.csci205_final_project.model.Provider.Provider;
 import com.team08.csci205_final_project.repository.ProviderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
@@ -30,8 +30,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 

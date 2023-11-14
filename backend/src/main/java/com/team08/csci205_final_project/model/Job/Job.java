@@ -16,12 +16,13 @@
  *
  * ****************************************
  */
-package com.team08.csci205_final_project.model;
+package com.team08.csci205_final_project.model.Job;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
@@ -78,6 +79,9 @@ public class Job {
 
     /** The address of the receiver of the job's output. */
     private String receiverAddress;
+
+    /** Convert the receiver address to longitude and latitude */
+    private GeoJsonPoint receiverAddressPoint;
 
     /** The phone number of the receiver of the job's output. */
     private String receiverPhone;

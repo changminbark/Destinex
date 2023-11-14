@@ -18,7 +18,7 @@
  */
 package com.team08.csci205_final_project.controller;
 
-import com.team08.csci205_final_project.model.Provider;
+import com.team08.csci205_final_project.model.Provider.Provider;
 import com.team08.csci205_final_project.service.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Point;

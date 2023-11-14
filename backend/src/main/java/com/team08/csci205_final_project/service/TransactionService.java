@@ -18,7 +18,7 @@
  */
 package com.team08.csci205_final_project.service;
 
-import com.team08.csci205_final_project.model.Transaction;
+import com.team08.csci205_final_project.model.Transaction.Transaction;
 import com.team08.csci205_final_project.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
