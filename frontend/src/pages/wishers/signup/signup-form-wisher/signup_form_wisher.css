@@ -36,10 +36,6 @@
     gap: 5rem;
 }
 
-.firstName input, .lastName input {
-    width: 100%;
-}
-
 .firstName, .lastName, .email, .password {
     display: flex;
     flex-direction: column;
@@ -52,7 +48,8 @@
     font-weight: 500;
 }
 
-input[type='text'],
+input[type='firstName'],
+input[type='lastName'],
 input[type='email'],
 input[type='password'] {
     padding: 0.8rem;
@@ -120,7 +117,6 @@ input[type='checkbox'] {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding-bottom: 2rem;
 }
 
 .alreadyHaveAccountText {

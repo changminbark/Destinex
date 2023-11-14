@@ -23,8 +23,11 @@ public class User {
     @Id
     private String id;
 
-    /** Full name of the user */
-    private String name;
+    /** First name of the user */
+    private String firstName;
+
+    /** Last name of the user */
+    private String lastName;
 
     /** Email address of the user */
     private String email;

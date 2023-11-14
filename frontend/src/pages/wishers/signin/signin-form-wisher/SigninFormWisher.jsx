@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Link, useNavigate} from "react-router-dom"
-import { useAuth } from "../../../../networks/hooks/useAuth";
+import { useAuth } from "../../../../networks/hooks/UseAuth";
 
 import './signin_form_wisher.css'
 
@@ -52,12 +52,13 @@ function SigninForm () {
                 </div>
 
                 <div className='signinButton'>
-                    <button type="submit" className='signinButtonText'>Sign In</button>
+                    {/*<Link to="/home" className='signinButtonText'>Sign In</Link>*/}
+                    <button type="submit" className={'signinButtonText'}>Sign In</button>
                 </div>
 
                 <div className='createAccount'>
                     Don’t have an account yet?
-                    <Link to="/" className='createAccountSignup'>Sign Up</Link>
+                    <Link to="/signup" className='createAccountSignup'>Sign Up</Link>
                 </div>
 
             </div>

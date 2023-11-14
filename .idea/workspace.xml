@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e46da303-e55c-4ef5-90fc-c02064311515" name="Changes" comment="" />
+    <list default="true" id="e46da303-e55c-4ef5-90fc-c02064311515" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/img/requirement.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/granters/setup/requirement/requirement.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/granters/setup/requirement/requirement.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/granters/setup/requirement/requirement.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/granters/setup/requirement/requirement.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/granters/setup/setup-fom/setup_form.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/granters/setup/setup-fom/setup_form.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,8 +21,46 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="client/development" />
+                    <option name="lastUsedInstant" value="1699736793" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="nolanlwin/setup" />
+                    <option name="lastUsedInstant" value="1699736767" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/frontend/package.json" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -27,6 +71,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -34,10 +79,34 @@
     "WebServerToolWindowFactoryState": "false",
     "android.gradle.sync.needed": "true",
     "last_opened_file_path": "C:/Users/chang/Desktop/Bucknell/2023 FW/CSCI 205/csci205_final_project/backend",
+    "node.js.selected.package.tslint": "(autodetect)",
     "settings.editor.selected.configurable": "preferences.general",
     "vue.rearranger.settings.migration": "true"
+=======
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;nolanlwin/setup&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/naingoolwin/Documents/csci205_final_project&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+>>>>>>> nolanlwin/setup
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/src/assets/img" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -48,10 +117,26 @@
       <updated>1698870807714</updated>
       <workItem from="1698870812850" duration="24000" />
       <workItem from="1698870867647" duration="104000" />
+      <workItem from="1699492161359" duration="430000" />
+      <workItem from="1699492598849" duration="18000" />
+      <workItem from="1699492621429" duration="5569000" />
+      <workItem from="1699507501523" duration="19277000" />
+      <workItem from="1699726204033" duration="5427000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
