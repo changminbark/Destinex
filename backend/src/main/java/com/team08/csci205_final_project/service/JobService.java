@@ -49,14 +49,29 @@ public class JobService {
         return jobRepository.save(job);
     }
 
+    /**
+     * Find the job by id of the job
+     * @param id id of the job
+     * @return the job
+     */
     public Optional<Job> findJobById(String id) {
         return jobRepository.findById(id);
     }
 
+    /**
+     * Find the job by user ID
+     * @param id ID of the job
+     * @return list of job from an user id
+     */
     public List<Job> findJobByUser(String id) {
         return jobRepository.findByUserId(id);
     }
 
+    /**
+     * Update the job by id
+     * @param job job after updated
+     * @return Job after updated
+     */
     public Job updateJob(Job job) {
         if (jobRepository.existsById(job.getId())) {
             return jobRepository.save(job);
@@ -68,7 +83,7 @@ public class JobService {
     }
 
     /**
-     * Soft delete the job from database
+     * Delete the job from database
      * @param id the Job id
      * @return true or false if the deletion is successful
      */

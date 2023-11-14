@@ -76,6 +76,12 @@ public class JobController {
         return ResponseEntity.ok(jobService.findJobByUser(id));
     }
 
+    /**
+     * API endpoint to update the job or creating new one using PUT method
+     * @param id id of the job to update or create
+     * @param job the job content
+     * @return response with code 201 or 200
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Job> updateJob(@PathVariable String id, @RequestBody Job job) {
         job.setId(id);
@@ -88,6 +94,11 @@ public class JobController {
         }
     }
 
+    /**
+     * Delete the job from database
+     * @param id id of the job
+     * @return response with no content
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable String id) {
         if (jobService.deleteJob(id)) {
