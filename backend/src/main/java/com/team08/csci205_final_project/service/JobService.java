@@ -54,7 +54,7 @@ public class JobService {
     }
 
     public List<Job> findJobByUser(String id) {
-        return jobRepository.findByUserId();
+        return jobRepository.findByUserId(id);
     }
 
     public Job updateJob(Job job) {

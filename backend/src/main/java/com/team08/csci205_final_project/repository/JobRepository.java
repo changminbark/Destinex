@@ -7,6 +7,6 @@ import org.springframework.data.mongodb.repository.Query;
 import java.util.List;
 
 public interface JobRepository extends MongoRepository<Job, String> {
-    @Query("{'userId: ?1'}")
-    public List<Job> findByUserId();
+    @Query("{'userId': ?0}")
+    public List<Job> findByUserId(String userId);
 }
