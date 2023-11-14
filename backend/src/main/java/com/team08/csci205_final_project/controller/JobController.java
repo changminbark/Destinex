@@ -63,7 +63,7 @@ public class JobController {
     public ResponseEntity<Job> getJobById(@PathVariable String id) {
         return jobService.findJobById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.badRequest().build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
     /**
@@ -105,7 +105,7 @@ public class JobController {
             return ResponseEntity.noContent().build();
         }
         else {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
     }
 }

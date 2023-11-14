@@ -89,7 +89,7 @@ public class Job {
     private int providerStatus;
 
     /** The overall status of the job. */
-    private int status;
+    private JobStatus status;
 
     /** Flag to indicate if the job has been deleted. */
     private boolean IS_DELETED;
