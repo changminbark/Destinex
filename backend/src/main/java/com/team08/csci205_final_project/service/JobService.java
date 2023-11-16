@@ -19,6 +19,7 @@
 package com.team08.csci205_final_project.service;
 
 import com.team08.csci205_final_project.model.Job;
+import com.team08.csci205_final_project.model.JobStatus;
 import com.team08.csci205_final_project.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
@@ -63,8 +64,8 @@ public class JobService {
      * @param id ID of the job
      * @return list of job from an user id
      */
-    public List<Job> findJobByUser(String id) {
-        return jobRepository.findByUserId(id);
+    public List<Job> findJobByUser(String id, JobStatus jobStatus) {
+        return jobRepository.findByUserId(id, jobStatus);
     }
 
     /**

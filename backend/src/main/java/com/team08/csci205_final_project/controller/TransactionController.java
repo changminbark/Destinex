@@ -63,7 +63,7 @@ public class TransactionController {
     }
 
     /** API endpoint to delete a transaction based on transaction_id */
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTransaction(@PathVariable String id) {
         transactionService.deleteTransactionById(id);
         return ResponseEntity.noContent().build();

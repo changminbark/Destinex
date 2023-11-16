@@ -19,6 +19,7 @@
 package com.team08.csci205_final_project.controller;
 
 import com.team08.csci205_final_project.model.Job;
+import com.team08.csci205_final_project.model.JobStatus;
 import com.team08.csci205_final_project.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.batch.BatchProperties;
@@ -69,11 +70,13 @@ public class JobController {
     /**
      * Get all the job from one user
      * @param id Id of the user
+     * @param status job status
      * @return All the job of that user
      */
     @GetMapping("/user/{id}")
-    public ResponseEntity<List<Job>> getJobByUser(@PathVariable String id) {
-        return ResponseEntity.ok(jobService.findJobByUser(id));
+    public ResponseEntity<List<Job>> getJobByUser(@PathVariable String id,
+                                                  @RequestParam(required = false) JobStatus status) {
+        return ResponseEntity.ok(jobService.findJobByUser(id, status));
     }
 
     /**

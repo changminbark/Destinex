@@ -2,12 +2,15 @@ package com.team08.csci205_final_project.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team08.csci205_final_project.model.Job;
+import com.team08.csci205_final_project.model.JobStatus;
 import com.team08.csci205_final_project.service.JobService;
 
 import org.hamcrest.core.StringContains;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,11 +39,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * The test ensures the controller calls
  * the correct services and responses the correct HTTP responses
  */
-@WebMvcTest(value = JobController.class, excludeAutoConfiguration = SecurityAutoConfiguration.class)
+@WebMvcTest(value = JobController.class)
 @ExtendWith(SpringExtension.class)
 public class JobControllerTest {
 
-    @Autowired
     private MockMvc mockMvc;
 
     @MockBean
@@ -49,7 +54,7 @@ public class JobControllerTest {
     private Job randomJob, randomJob1;
 
     @BeforeEach
-    public void setup() {
+    public void setup(WebApplicationContext wac) {
         randomJob = new Job();
         randomJob.setUserId("user1");
         randomJob.setCategory("Food");
@@ -66,19 +71,22 @@ public class JobControllerTest {
         randomJob1.setReceiverAddress("123 Main St");
         randomJob1.setReceiverPhone("555-1234");
 
+        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
+    /**
+     * Test POST endpoint and serialize and deserialize objects
+     * @throws Exception
+     */
     @Test
     public void createJob() throws Exception {
 
         String requestBody = objectMapper.writeValueAsString(randomJob);
 
         randomJob.setId("job1");
-
         String expectedResponseBody = objectMapper.writeValueAsString(randomJob);
 
         given(jobService.createJob(any(Job.class))).willReturn(randomJob);
-
         given(jobService.findJobById("job1")).willReturn(Optional.of(randomJob));
 
         mockMvc.perform(post("/api/jobs")
@@ -110,27 +118,36 @@ public class JobControllerTest {
         // Failed request
         mockMvc.perform(get("/api/jobs/{id}", "job2"))
                 .andExpectAll(
-                        status().isBadRequest()
+                        status().isNotFound()
                 );
     }
 
     @Test
     public void getJobByUser() throws Exception {
+        // Given User ID
         String userId = randomJob.getUserId();
-
-        List<Job> expectedJobs = Arrays.asList(
+        // Given list of jobs from that user
+        randomJob.setStatus(JobStatus.IN_PROGRESS);
+        randomJob1.setStatus(JobStatus.CANCELLED);
+        List<Job> allJobs = Arrays.asList(
                 randomJob, randomJob1
         );
+        List<Job> onGoingJobs = Arrays.asList(
+                randomJob
+        );
 
-        String expectedResponseBody = objectMapper.writeValueAsString(expectedJobs);
-
-        given(jobService.findJobByUser("user1")).willReturn(expectedJobs);
+        Mockito.when(jobService.findJobByUser("user1", null))
+                .thenReturn(allJobs);
+        Mockito.when(jobService.findJobByUser("user1", JobStatus.IN_PROGRESS))
+                .thenReturn(onGoingJobs);
 
         mockMvc.perform(get("/api/jobs/user/{id}", userId))
                 .andExpectAll(
                         status().isOk(),
-                        content().json(expectedResponseBody)
+                        content().json(objectMapper.writeValueAsString(allJobs))
                 );
+
+        mockMvc.perform(get("/api/jobs/user/{id}&status=IN_PROGRESS", userId));
     }
 
     @Test
