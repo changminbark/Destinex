@@ -101,4 +101,10 @@ public class MockEnvIntegrationTest {
 //                        content().json(objectMapper.writeValueAsString(job))
                 );
     }
+
+    @Test
+    public void testGetJob() throws Exception {
+        return;
+
+    }
 }
