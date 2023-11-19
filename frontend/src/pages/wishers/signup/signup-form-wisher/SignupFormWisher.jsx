@@ -42,7 +42,7 @@ function SignupForm () {
                     </span>
                 </div>
 
-                <Link to="/signin" className='signupButtonText'>
+                <Link to="/signin" className='signupButton'>
                     Sign Up
                 </Link>
 
