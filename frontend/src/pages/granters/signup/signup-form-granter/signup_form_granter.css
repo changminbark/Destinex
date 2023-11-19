@@ -32,6 +32,7 @@
 .postalCode, .contactNumber {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
 }
 
 .contactNumber {
@@ -40,9 +41,10 @@
 }
 
 .postalCodeText, .contactNumberText {
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
+    display: block;
     color: #545454;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 input[type='text'] { 
@@ -60,6 +62,7 @@ input[type='tel'] {
 
 .phoneInputContainer {
     display: flex;
+    width: 100%;
     border: 0.15rem solid #B5B5B5;
     border-radius: 0.5rem;
     overflow: hidden;
@@ -77,8 +80,8 @@ input[type='tel'] {
 
 .PhoneInputCountry {
     background-color: #E9E9E9;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 .PhoneInputCountrySelect {
@@ -89,7 +92,6 @@ input[type='tel'] {
     font-size: 1.5rem;
     color: #545454;
     margin-left: 1rem;
-    color: #545454;
 }
 
 .automatedSMSText, .stopSMSText {
