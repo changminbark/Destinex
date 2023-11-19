@@ -90,11 +90,6 @@ input[type='checkbox'] {
 }
 
 .signupButton {
-    display: flex;
-    justify-content: center;
-}
-
-.signupButtonText {
     width: 100%;
     background-color: #8B00FF;
     color: white;
@@ -107,7 +102,7 @@ input[type='checkbox'] {
     text-decoration: none;
 }
 
-.signupButtonText:hover {
+.signupButton:hover {
     background-color: #7000CD;
 }
 
