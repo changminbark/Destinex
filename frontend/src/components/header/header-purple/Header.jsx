@@ -28,8 +28,8 @@ function Header(props) {
                     <span className='logo-destinex'>Destinex</span>
                 </div>
                 <div className="role-option">
-                    <button className="btn-wish">Wish</button>
-                    <button className="btn-grant">Grant</button>
+                    <Link to={"/wishproduct"}><button className="btn-wish">Wish</button></Link>
+                    <Link to={"/granter/signup"}><button className="btn-grant">Grant</button></Link>
                 </div>
                 <div className="location">
                     <div className="divider"></div>

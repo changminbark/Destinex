@@ -1,4 +1,4 @@
-// import header from '../../../components/header/header';
+import Header from '../../../components/header/header-no-background/Header';
 import AddBankAcc from './add-bank-account/AddBankAcc';
 import Footer from '../../../components/footer/Footer';
 import './bank.css'
@@ -6,7 +6,7 @@ import './bank.css'
 function BankAcc() {
     return (
         <div className="bank">
-            {/* <header></header> */}
+            <Header></Header>
             <AddBankAcc></AddBankAcc>
             <Footer></Footer>
         </div>

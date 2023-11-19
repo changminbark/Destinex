@@ -1,4 +1,4 @@
-// import header from '../../../components/header/header';
+import Header from '../../../components/header/header-no-background/Header';
 import SignupForm from './signup-form-granter/SignupFormGranter';
 import Footer from '../../../components/footer/Footer';
 import './signup.css'
@@ -6,7 +6,7 @@ import './signup.css'
 function Signup() {
     return (
       <div className="signup">
-          {/* <header></header> */}
+          <Header></Header>
           <SignupForm></SignupForm>
           <Footer></Footer>
       </div>

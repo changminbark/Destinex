@@ -1,3 +1,6 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 import IconBellBlack from '../../../assets/svg/icon-bell-black.svg';
 import IconBrowseBlack from '../../../assets/svg/icon-browse-black.svg';
 import IconHeader from '../../../assets/svg/icon-header.svg';
@@ -23,8 +26,8 @@ function Header() {
                     <span className='logo-destinex'>Destinex</span>
                 </div>
                 <div className="role-option">
-                    <button className="btn-wish">Wish</button>
-                    <button className="btn-grant">Grant</button>
+                    <Link to={"/wishproduct"}><button className="btn-wish">Wish</button></Link>
+                    <Link to={"/granter/signup"}><button className="btn-grant">Grant</button></Link>
                 </div>
                 <div className="location">
                     <div class="divider"></div>
