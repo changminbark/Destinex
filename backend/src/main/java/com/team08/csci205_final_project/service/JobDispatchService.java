@@ -18,13 +18,17 @@
  */
 package com.team08.csci205_final_project.service;
 
+import com.team08.csci205_final_project.config.ApplicationLogicConfig;
+import com.team08.csci205_final_project.event.JobPostedEvent;
 import com.team08.csci205_final_project.model.DTO.JobOffer;
 import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.Job.JobStatus;
 import com.team08.csci205_final_project.model.Provider.Provider;
+import org.springframework.context.ApplicationListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -34,7 +38,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
-public class JobDispatchService {
+public class JobDispatchService implements ApplicationListener<JobPostedEvent> {
 
     @Autowired
     private JobService jobService;
@@ -50,10 +54,18 @@ public class JobDispatchService {
 
     private Map<String, String> jobProviderMap = new ConcurrentHashMap<>();
 
-    /** Wait time before sending job offer to the next provider, in second */
-    private double WAIT_TIME = 60;
+    /** Application configuration data */
+    private ApplicationLogicConfig configData;
 
-    /** Dispatch a job to the nearest provider */
+    @Override
+    public void onApplicationEvent(JobPostedEvent event) {
+        Job job = event.getJob();
+        System.out.println("Event triggered from the listener");
+        dispatchJob(job.getId(), 30);
+    }
+
+    /** Asynchronously dispatch a job to the nearest provider */
+//    @Async("jobDispatchExecutor")
     public void dispatchJob(String jobId, double radiusInKm) {
         Optional<Job> jobOpt = jobService.findJobById(jobId);
         if(jobOpt.isEmpty()) {
@@ -68,12 +80,15 @@ public class JobDispatchService {
         );
 
         for (Provider provider : nearbyProviders) {
+            System.out.println(nearbyProviders);
             if (provider.getActiveJob() == null) {
+                String message = "Job " + job.getTransactionId() + " assigned to provider with mail: " + provider.getEmail();
+                System.out.println(message);
                 sendJobOffer(provider, job);
                 // Schedule to check the response after a fixed delay
                 taskScheduler.schedule(
                         () -> checkJobAcceptance(jobId, provider.getUserId(), radiusInKm),
-                        new Date(System.currentTimeMillis() + (long)(WAIT_TIME * 1000))
+                        new Date(System.currentTimeMillis() + (long)(100 * 1000))
                 );
                 // Store the mapping of job to provider
                 jobProviderMap.put(jobId, provider.getUserId());
@@ -101,6 +116,7 @@ public class JobDispatchService {
 
     private void sendJobOffer(Provider provider, Job job) {
         JobOffer jobOffer = new JobOffer(job.getId(), job.getDescription(), job.getItemPrice());
+        System.out.println("Sending job offer: " + jobOffer);
         messagingTemplate.convertAndSendToUser(provider.getUserId(), "/queue/job-offers", jobOffer);
     }
 

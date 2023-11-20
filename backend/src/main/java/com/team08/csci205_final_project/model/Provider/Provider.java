@@ -37,6 +37,9 @@ public class Provider {
     /** Store userID information of the provider */
     private String userId;
 
+    /** Store email information of the provider */
+    private String email;
+
     /** Store the jobs that the provider have taken */
     private ArrayList<Job> jobHistory;
 
