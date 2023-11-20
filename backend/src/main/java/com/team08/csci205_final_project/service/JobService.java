@@ -18,10 +18,11 @@
  */
 package com.team08.csci205_final_project.service;
 
-import com.team08.csci205_final_project.model.Job;
+import com.team08.csci205_final_project.event.JobPostedEvent;
+import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -34,6 +35,10 @@ public class JobService {
     @Autowired
     private JobRepository jobRepository;
 
+    /** Auto trigger a job dispatch event after posting a new job */
+    @Autowired
+    ApplicationEventPublisher eventPublisher;
+
     /**
      * Create a job in the database and return
      * @param job the information of the job including
@@ -43,7 +48,12 @@ public class JobService {
      */
     public Job createJob(Job job) {
         job.setCreatedDate(LocalDate.now());
-        return jobRepository.save(job);
+        Job savedJob = jobRepository.save(job);
+
+        // Publish an event after the job is saved
+        eventPublisher.publishEvent(new JobPostedEvent(this, savedJob));
+
+        return job;
     }
 
     public Optional<Job> findJobById(String id) {

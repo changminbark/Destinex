@@ -13,7 +13,9 @@ export const AuthProvider = ({ children }) => {
         try {
             const response = await authService.login({ username, password });
             if (response.data && response.data.jwt) {
-                authUtils.setToken(response.data.jwt);
+                let dataObject = JSON.parse(response.config.data);
+                let username = dataObject.username;
+                authUtils.setToken(response.data.jwt, username);
                 setIsLoggedIn(true);
                 return true;
             } else {

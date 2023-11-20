@@ -18,25 +18,20 @@
  */
 package com.team08.csci205_final_project.controller;
 
-import com.team08.csci205_final_project.model.User;
-import com.team08.csci205_final_project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team08.csci205_final_project.model.LoginRequest;
-import com.team08.csci205_final_project.model.LoginResponse;
+import com.team08.csci205_final_project.model.Auth.LoginRequest;
+import com.team08.csci205_final_project.model.Auth.LoginResponse;
 import com.team08.csci205_final_project.security.JwtUtil;
 
 @RestController

@@ -25,6 +25,7 @@ import ErrorPage from "./pages/common/error/ErrorPage";
 import CongratsPage from "./pages/granters/congrats/CongratsPage";
 import Home from "./pages/wishers/home/Home";
 import {AuthProvider} from "./context/AuthContext";
+import JobList from "./pages/granters/jobs/JobList";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/granter/signup" element={<SignupGranter/>}/>
             <Route path="/granter/setup" element={<SetupPage/>}/>
             <Route path="/granter/bank" element={<BankAcc/>}/>
+            <Route path={"granter/jobs"} element={<JobList/>} />
             <Route path="/granter/congrats" element={<CongratsPage />}/>
             <Route path="/error" element={<ErrorPage/>}/>
           </Routes>
