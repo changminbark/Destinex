@@ -84,31 +84,31 @@ function SignupForm () {
                     </div>
                 </div>
 
-                <div className='email'>
-                    <label className='emailText'>Email</label>
-                    <input type='email' placeholder='Enter your email address'/>
-                </div>
+                {/*<div className='email'>*/}
+                {/*    <label className='emailText'>Email</label>*/}
+                {/*    <input type='email' placeholder='Enter your email address'/>*/}
+                {/*</div>*/}
 
-                <div className='password'>
-                    <label className='passwordText'>Password</label>
-                    <input type='password' placeholder='Enter your password'/>
-                </div>
+                {/*<div className='password'>*/}
+                {/*    <label className='passwordText'>Password</label>*/}
+                {/*    <input type='password' placeholder='Enter your password'/>*/}
+                {/*</div>*/}
 
-                <div className='agreement'>
-                    <input type='checkbox'/>
-                    <span className='agreementText'>
-                        I agree with Destinex’s <a href="link-to-terms" className="linkStyle">Terms of Services</a>, <a href="link-to-privacy" className="linkStyle">Privacy Policy</a>, and default <a href="link-to-notifications" className="linkStyle">Notification Settings</a>.
-                    </span>
-                </div>
+                {/*<div className='agreement'>*/}
+                {/*    <input type='checkbox'/>*/}
+                {/*    <span className='agreementText'>*/}
+                {/*        I agree with Destinex’s <a href="link-to-terms" className="linkStyle">Terms of Services</a>, <a href="link-to-privacy" className="linkStyle">Privacy Policy</a>, and default <a href="link-to-notifications" className="linkStyle">Notification Settings</a>.*/}
+                {/*    </span>*/}
+                {/*</div>*/}
 
-                <Link to="/signin" className='signupButton'>
-                    Sign Up
-                </Link>
+                {/*<Link to="/signin" className='signupButton'>*/}
+                {/*    Sign Up*/}
+                {/*</Link>*/}
 
-                <div className='alreadyHaveAccount'>
-                    <span className='alreadyHaveAccountText'>Already have an account?</span>
-                    <Link to="/signin" className='alreadyHaveAccountLogin'>Sign In</Link>
-                </div>
+                {/*<div className='alreadyHaveAccount'>*/}
+                {/*    <span className='alreadyHaveAccountText'>Already have an account?</span>*/}
+                {/*    <Link to="/signin" className='alreadyHaveAccountLogin'>Sign In</Link>*/}
+                {/*</div>*/}
             </div>
         </form>
     )
