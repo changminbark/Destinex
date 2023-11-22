@@ -103,7 +103,7 @@ function WishFormRecipient() {
                 </div>
 
                 <div className='backAndNextButtons'>
-                    <Link to='/' className='backButton'>
+                    <Link to='/wishproduct' className='backButton'>
                         Back
                     </Link>
                     <Link to='/' className='nextButton'>

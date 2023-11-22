@@ -45,6 +45,7 @@ function WishFormProduct() {
     const rangeSelector = (event, newValue) => {
         setValue(newValue);
         console.log(newValue)
+        sessionStorage.setItem("product_price", newValue)
     };
 
         return (
@@ -123,7 +124,7 @@ function WishFormProduct() {
                 </div>
             </div>
 
-            <Link to='/' className='nextButton'>
+            <Link to='/wishrecipient' className='nextButton'>
                 Next
             </Link>
         </div>
