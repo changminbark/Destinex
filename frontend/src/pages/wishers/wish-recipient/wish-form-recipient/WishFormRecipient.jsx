@@ -4,11 +4,19 @@ import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import './wish_form_recipient.css';
+import {TextField} from "@material-ui/core";
 
 function WishFormRecipient() {
+    const [receiverFirstName, setReceiverFirstName] = useState('');
+    const [receiverLastName, setReceiverLastName] = useState('');
     const [phone, setPhone] = useState('');
     const [country, setCountry] = useState('');
     const [region, setRegion] = useState('');
+
+    const handleFirstNameChange = (event) => {
+        setReceiverLastName(event.target.value)
+        sessionStorage.setItem("receiverFirstName", receiverFirstName)
+    }
 
     return (
         <div className="wishFormForRecipient">
@@ -29,7 +37,9 @@ function WishFormRecipient() {
                 <div className='recipientNameContainer'>
                     <div className='firstName'>
                         <label className='firstNameText'>Recipient's First Name</label>
-                        <input className='firstNameInput' type='text' />
+                        <TextField className='firstNameInput' type='text'
+                           onChange={handleFirstNameChange}
+                        />
                     </div>
 
                     <div className='lastName'>

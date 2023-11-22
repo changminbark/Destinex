@@ -45,6 +45,7 @@ function WishFormProduct() {
     const rangeSelector = (event, newValue) => {
         setValue(newValue);
         console.log(newValue)
+        // Saving product price to session storage
         sessionStorage.setItem("product_price", newValue)
     };
 
