@@ -14,6 +14,7 @@ import SignupWisher from './pages/wishers/signup/Signup';
 import SigninWisher from './pages/wishers/signin/Signin';
 import WishProduct from './pages/wishers/wish-product/WishProduct';
 import WishRecipient from "./pages/wishers/wish-recipient/WishRecipient";
+import WishAdditional from "./pages/wishers/wish-additional/WishAdditional";
 
 // Import files for granters
 import SignupGranter from './pages/granters/signup/Signup';
@@ -36,6 +37,7 @@ function App() {
             <Route path="/signin" element={<SigninWisher/>}/>
             <Route path="/wishproduct" element={<WishProduct/>}/>
             <Route path="/wishrecipient" element={<WishRecipient/>}/>
+            <Route path="/wishadditional" element={<WishAdditional/>}/>
             <Route path="/granter/signup" element={<SignupGranter/>}/>
             <Route path="/granter/setup" element={<SetupPage/>}/>
             <Route path="/granter/bank" element={<BankAcc/>}/>
