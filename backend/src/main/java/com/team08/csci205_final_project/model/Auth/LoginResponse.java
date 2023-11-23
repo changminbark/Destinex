@@ -16,7 +16,7 @@
  *
  * ****************************************
  */
-package com.team08.csci205_final_project.model;
+package com.team08.csci205_final_project.model.Auth;
 
 public class LoginResponse {
     private String jwt;

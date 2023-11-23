@@ -1,11 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import IconBellWhite from '../../../assets/svg/icon-bell-white.svg';
-import IconBrowseBlack from '../../../assets/svg/icon-browse-black.svg';
-import IconHeader from '../../../assets/svg/icon-header.svg';
-import IconMenuBlack from '../../../assets/svg/icon-menu-black.svg'
-import LogoPurple from '../../../assets/svg/logo-purple.svg';
-
 import DemoUser from '../../../assets/img/demo-user.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,9 +9,20 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 import '../header.css';
 import {Link} from "react-router-dom";
+import {useAuth} from "../../../networks/hooks/UseAuth";
 
 function Header(props) {
     const { isLogin } = props;
+    const { logout } = useAuth();
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown);
+    }
+
+    const handleLogout = () => {
+        logout();
+    }
 
     return (
         <div className="header">
@@ -48,10 +54,15 @@ function Header(props) {
                             <img src={DemoUser} alt="User Avatar" /> {/* Added alt attribute */}
                         </div>
                         <div className="username">
-                            <h5>Hello Hung</h5>
+                            <h5>Hello {localStorage.getItem('username')}</h5>
                         </div>
-                        <div className="user-browse">
+                        <div className="user-browse" onClick={toggleDropdown}>
                             <FontAwesomeIcon icon={faAngleDown} />
+                            {showDropdown && (
+                                <div className="dropdown-menu">
+                                    <button onClick={handleLogout}>Log out</button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

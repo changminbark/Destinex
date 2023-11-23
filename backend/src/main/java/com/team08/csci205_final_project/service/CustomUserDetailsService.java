@@ -18,8 +18,8 @@
  */
 package com.team08.csci205_final_project.service;
 
-import com.team08.csci205_final_project.model.CustomUserDetails;
-import com.team08.csci205_final_project.model.User;
+import com.team08.csci205_final_project.model.User.CustomUserDetails;
+import com.team08.csci205_final_project.model.User.User;
 import com.team08.csci205_final_project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

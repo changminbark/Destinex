@@ -1,4 +1,4 @@
-package com.team08.csci205_final_project.model;
+package com.team08.csci205_final_project.model.Transaction;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
