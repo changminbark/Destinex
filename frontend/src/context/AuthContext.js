@@ -1,12 +1,14 @@
 import React, { createContext, useState } from 'react';
 import * as authService from '../networks/api/AuthService';
 import * as authUtils from '../networks/utils/AuthUtils';
+import {useNavigate} from "react-router-dom";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [error, setError] = useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(authUtils.checkInitialLoginState());
+    const navigate = useNavigate();
 
     const login = async (username, password) => {
         setError(null);
@@ -28,8 +30,14 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const logout = () => {
+        authUtils.clearToken();
+        setIsLoggedIn(false);
+        navigate('/');
+    }
+
     return (
-        <AuthContext.Provider value={{ isLoggedIn, login, error }}>
+        <AuthContext.Provider value={{ isLoggedIn, login, logout, error }}>
             {children}
         </AuthContext.Provider>
     );

@@ -10,3 +10,12 @@ export const getToken = () => {
 export const getUsername = () => {
     return localStorage.getItem('username');
 }
+
+export const clearToken = () => {
+    return localStorage.clear();
+}
+
+export const checkInitialLoginState = () => {
+    const token = getToken();
+    return token !== null;
+}
