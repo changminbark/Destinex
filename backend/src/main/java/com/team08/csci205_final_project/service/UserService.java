@@ -83,4 +83,16 @@ public class UserService {
             throw new RuntimeException("User not found with ID: " + userId);
         }
     }
+
+    /** Find a user's full name based on their username */
+    public String getFullNameByUsername(String username) {
+        Optional<User> userOpt = userRepository.findByEmail(username);
+
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            return user.getFirstName() + " " + user.getLastName();
+        } else {
+            throw new RuntimeException("User not found with username: " + username);
+        }
+    }
 }

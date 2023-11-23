@@ -1,12 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 
 import IconBellBlack from '../../../assets/svg/icon-bell-black.svg';
-import IconBrowseBlack from '../../../assets/svg/icon-browse-black.svg';
-import IconHeader from '../../../assets/svg/icon-header.svg';
-import IconMenuBlack from '../../../assets/svg/icon-menu-black.svg'
-import LogoPurple from '../../../assets/svg/logo-purple.svg';
-
 import DemoUser from '../../../assets/img/demo-user.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,8 +9,22 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 import '../header.css';
+import {useAuth} from "../../../networks/hooks/UseAuth";
 
 function Header() {
+    const { userFullName } = useAuth();
+    const { logout } = useAuth();
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown);
+    }
+
+    const handleLogout = () => {
+        logout();
+    }
+
+
     return (
         <div className="header">
             <div className="left-sided">
@@ -44,10 +53,15 @@ function Header() {
                         <img src={DemoUser} />
                     </div>
                     <div className="username">
-                        <h5>Hello Hung</h5>
+                        <h5>Hello {userFullName}</h5>
                     </div>
-                    <div className="user-browse">
+                    <div className="user-browse" onClick={toggleDropdown}>
                         <FontAwesomeIcon icon={faAngleDown} />
+                        {showDropdown && (
+                            <div className="dropdown-menu">
+                                <button onClick={handleLogout}>Log out</button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

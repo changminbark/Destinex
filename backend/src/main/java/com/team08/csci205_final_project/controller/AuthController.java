@@ -18,6 +18,7 @@
  */
 package com.team08.csci205_final_project.controller;
 
+import com.team08.csci205_final_project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,6 +48,9 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginRequest loginRequest) {
         try {
@@ -58,8 +62,10 @@ public class AuthController {
             );
 
             final String jwt = jwtUtil.generateToken(authenticate);
+            final String fullName = userService.getFullNameByUsername(loginRequest.getUsername());
+            final String email = loginRequest.getUsername();
 
-            return ResponseEntity.ok(new LoginResponse(jwt));
+            return ResponseEntity.ok(new LoginResponse(jwt, fullName, email));
         } catch (AuthenticationException e) {
             return ResponseEntity.status(401).build();
         }

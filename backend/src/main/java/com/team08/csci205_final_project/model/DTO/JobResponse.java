@@ -21,9 +21,7 @@ package com.team08.csci205_final_project.model.DTO;
 import com.team08.csci205_final_project.model.Job.JobStatus;
 
 public class JobResponse {
-
     private String jobId;
-
     private String providerId;
     private JobStatus status;
 

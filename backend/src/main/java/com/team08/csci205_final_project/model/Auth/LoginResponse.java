@@ -20,12 +20,24 @@ package com.team08.csci205_final_project.model.Auth;
 
 public class LoginResponse {
     private String jwt;
+    private String fullName;
+    private String email;
 
-    public LoginResponse(String jwt) {
+    public LoginResponse(String jwt, String fullName, String email) {
         this.jwt = jwt;
+        this.fullName = fullName;
+        this.email = email;
     }
 
     public String getJwt() {
         return jwt;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

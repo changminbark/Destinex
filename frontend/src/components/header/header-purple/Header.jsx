@@ -14,6 +14,7 @@ import {useAuth} from "../../../networks/hooks/UseAuth";
 function Header(props) {
     const { isLogin } = props;
     const { logout } = useAuth();
+    const { userFullName } = useAuth();
     const [showDropdown, setShowDropdown] = useState(false);
 
     const toggleDropdown = () => {
@@ -54,7 +55,7 @@ function Header(props) {
                             <img src={DemoUser} alt="User Avatar" /> {/* Added alt attribute */}
                         </div>
                         <div className="username">
-                            <h5>Hello {localStorage.getItem('username')}</h5>
+                            <h5>Hello {userFullName}</h5>
                         </div>
                         <div className="user-browse" onClick={toggleDropdown}>
                             <FontAwesomeIcon icon={faAngleDown} />
