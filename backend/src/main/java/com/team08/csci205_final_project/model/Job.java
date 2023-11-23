@@ -93,4 +93,6 @@ public class Job {
 
     /** Flag to indicate if the job has been deleted. */
     private boolean IS_DELETED;
+
+    // MIGHT NEED TO ADD MORE FIELDS ACCORDING TO MAKE-A-WISH PAGE
 }
