@@ -1,6 +1,6 @@
 package com.team08.csci205_final_project.controller;
 
-import com.team08.csci205_final_project.model.Job;
+import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.service.JobService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

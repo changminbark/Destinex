@@ -1,4 +1,4 @@
-package com.team08.csci205_final_project.model;
+package com.team08.csci205_final_project.model.Auth;
 
 public enum Role {
     ROLE_USER(1), // User role represented by 1

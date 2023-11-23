@@ -18,7 +18,7 @@
  */
 package com.team08.csci205_final_project.controller;
 
-import com.team08.csci205_final_project.model.User;
+import com.team08.csci205_final_project.model.User.User;
 import com.team08.csci205_final_project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
