@@ -3,6 +3,14 @@ import { Link } from "react-router-dom";
 import './wish_form_additional.css';
 
 function WishFormAdditional() {
+
+    const [description, setDescription] = useState('');
+
+    const handleDescriptionChange = (event) => {
+        setDescription(event.target.value)
+        sessionStorage("description", description)
+    }
+
     return (
         <div className="wishFormForAdditional">
 
@@ -22,7 +30,9 @@ function WishFormAdditional() {
 
                 <div className='deliveryInstruction'>
                     <label className='deliveryInstructionText'>Delivery Instructions/Notes</label>
-                    <input className='deliveryInstructionInput' type='text' />
+                    <input className='deliveryInstructionInput' type='text'
+                        onChange={handleDescriptionChange}
+                    />
                 </div>
 
                 <div className='attachFile'>

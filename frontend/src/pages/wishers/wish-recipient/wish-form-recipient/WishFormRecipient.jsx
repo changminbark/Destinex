@@ -4,11 +4,59 @@ import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import './wish_form_recipient.css';
+import {TextField} from "@material-ui/core";
 
 function WishFormRecipient() {
+    // Might not need these until last page?
+    const [receiverFirstName, setReceiverFirstName] = useState('');
+    const [receiverLastName, setReceiverLastName] = useState('');
     const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const [firstAddress, setFirstAddress] = useState('');
+    const [secondAddress, setSecondAddress] = useState('');
     const [country, setCountry] = useState('');
     const [region, setRegion] = useState('');
+    const [city, setCity] = useState('');
+    const [zip, setZip] = useState('');
+    const [address, setAddress] = useState('');
+
+    const handleFirstNameChange = (event) => {
+        // Might not need this until last page if using sessionStorage
+        setReceiverFirstName(event.target.value)
+        sessionStorage.setItem("receiverFirstName", receiverFirstName)
+    }
+
+    const handleLastNameChange = (event) => {
+        // Might not need this until last page if using sessionStorage
+        setReceiverLastName(event.target.value)
+        sessionStorage.setItem("receiverLastName", receiverLastName)
+    }
+
+    const handleContactChange = (event) => {
+        // Might not need this until last page if using sessionStorage
+        setPhone(event.target.value)
+        sessionStorage.setItem("receiverContact", phone)
+    }
+
+    const handleEmailChange = (event) => {
+        // Might not need this until last page if using sessionStorage
+        setEmail(event.target.value)
+        sessionStorage.setItem("receiverEmail", email)
+    }
+
+    const handleAddressChange = () => {
+        // Might not need this until last page if using sessionStorage
+        const adrs = {FirstAddress: firstAddress, SecondAddress: secondAddress,
+            City: city, Region: region, Country: country, Zip: zip}
+        const adrsJSON = JSON.stringify(adrs)
+
+        // setAddress(firstAddress + secondAddress + ", " + city +
+        //     ", " + region + ", " + country + ", " + zip)
+
+        setAddress(adrsJSON)
+
+        sessionStorage.setItem("receiverAddress", adrsJSON)
+    }
 
     return (
         <div className="wishFormForRecipient">
@@ -29,12 +77,16 @@ function WishFormRecipient() {
                 <div className='recipientNameContainer'>
                     <div className='firstName'>
                         <label className='firstNameText'>Recipient's First Name</label>
-                        <input className='firstNameInput' type='text' />
+                        <input className='firstNameInput' type='text'
+                           onChange={handleFirstNameChange}
+                        />
                     </div>
 
                     <div className='lastName'>
                         <label className='lastNameText'>Recipient's Last Name</label>
-                        <input className='lastNameInput' type='text' />
+                        <input className='lastNameInput' type='text'
+                            onChange={handleLastNameChange}
+                        />
                     </div>
                 </div>
 
@@ -44,7 +96,7 @@ function WishFormRecipient() {
                         <div className="contactNumberInputContainer">
                             <PhoneInput
                                 value={phone}
-                                onChange={setPhone}
+                                onChange={handleContactChange}
                                 international
                                 defaultCountry="US"
                             />
@@ -53,18 +105,24 @@ function WishFormRecipient() {
 
                     <div className='emailAddress'>
                         <label className='emailAddressText'>Recipient's Email Address</label>
-                        <input className='emailAddressInput' type='email' />
+                        <input className='emailAddressInput' type='email'
+                            onChange={handleEmailChange}
+                        />
                     </div>
                 </div>
 
                 <div className='firstAddress'>
                     <label className='firstAddressText'>Recipient's Address</label>
-                    <input className='firstAddressInput' type='text' />
+                    <input className='firstAddressInput' type='text'
+                        onChange={(val) => setFirstAddress(val)}
+                    />
                 </div>
 
                 <div className='secondAddress'>
                     <label className='secondAddressText'>Apartment, suite, etc.</label>
-                    <input className='secondAddressInput' type='text' />
+                    <input className='secondAddressInput' type='text'
+                       onChange={(val) => setSecondAddress(val)}
+                    />
                 </div>
 
 
@@ -93,12 +151,16 @@ function WishFormRecipient() {
                 <div className='cityAndZipCode'>
                     <div className='recipientCity'>
                         <label className='recipientCityText'>City</label>
-                        <input className='recipientCityInput' type='text' />
+                        <input className='recipientCityInput' type='text'
+                           onChange={(val) => setCity(val)}
+                        />
                     </div>
 
                     <div className='recipientZipCode'>
                         <label className='recipientZipCodeText'>ZIP/Postal Code</label>
-                        <input className='recipientZipCodeInput' type='text' />
+                        <input className='recipientZipCodeInput' type='text'
+                               onChange={(val) => setZip(val)}
+                        />
                     </div>
                 </div>
 
@@ -106,7 +168,7 @@ function WishFormRecipient() {
                     <Link to='/wishproduct' className='backButton'>
                         Back
                     </Link>
-                    <Link to='/' className='nextButton'>
+                    <Link to='/wishadditional' className='nextButton' onClick={handleAddressChange}>
                         Next
                     </Link>
                 </div>
