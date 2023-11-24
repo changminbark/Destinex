@@ -35,7 +35,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 public class Provider {
     /** Store userID information of the provider */
-    private String userId;
+    private String providerId;
 
     /** Store email information of the provider */
     private String email;

@@ -82,21 +82,25 @@ public class JobDispatchService implements ApplicationListener<JobPostedEvent> {
         for (Provider provider : nearbyProviders) {
             System.out.println(nearbyProviders);
             if (provider.getActiveJob() == null) {
-                String message = "Job " + job.getTransactionId() + " assigned to provider with mail: " + provider.getEmail();
+                String message = "Job " + job.getId() + " assigned to provider with mail: " + provider.getEmail();
                 System.out.println(message);
                 sendJobOffer(provider, job);
                 // Schedule to check the response after a fixed delay
                 taskScheduler.schedule(
-                        () -> checkJobAcceptance(jobId, provider.getUserId(), radiusInKm),
+                        () -> checkJobAcceptance(jobId, provider.getProviderId(), radiusInKm),
                         new Date(System.currentTimeMillis() + (long)(100 * 1000))
                 );
                 // Store the mapping of job to provider
-                jobProviderMap.put(jobId, provider.getUserId());
+                if (provider.getProviderId() != null) {
+                    jobProviderMap.put(jobId, provider.getProviderId());
+                }
+                else {
+                    System.out.println("Provider ID is null for provider: " + provider);
+                }
                 // Break after sending the job offer
                 break;
             }
         }
-
     }
 
     private void checkJobAcceptance(String jobId, String providerId, double radiusInKm) {
@@ -116,12 +120,12 @@ public class JobDispatchService implements ApplicationListener<JobPostedEvent> {
 
     private void sendJobOffer(Provider provider, Job job) {
         JobOffer jobOffer = new JobOffer(job.getId(), job.getDescription(), job.getItemPrice());
-        System.out.println("Sending job offer: " + jobOffer);
-        messagingTemplate.convertAndSendToUser(provider.getUserId(), "/queue/job-offers", jobOffer);
+        System.out.println("Sending job offer: " + jobOffer.getDescription());
+        messagingTemplate.convertAndSendToUser(provider.getEmail(), "/queue/job-offers", jobOffer);
     }
 
-    private void notifyUser(String userId, String message) {
-        messagingTemplate.convertAndSendToUser(userId, "/user/job-status", message);
+    private void notifyUser(String providerEmail, String message) {
+        messagingTemplate.convertAndSendToUser(providerEmail, "/user/job-status", message);
     }
 
     // Handle provider responses to job offers
@@ -135,6 +139,7 @@ public class JobDispatchService implements ApplicationListener<JobPostedEvent> {
         Job job = jobOpt.get();
 
         if (status == JobStatus.ACCEPTED) {
+            System.out.println("Job " + jobId + " is accepted by provider " + providerId);
             job.setProviderId(providerId);
             job.setStatus(JobStatus.ACCEPTED);
             jobService.updateJob(job);

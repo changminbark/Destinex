@@ -8,28 +8,26 @@ function App() {
     const [connected, setConnected] = useState(false);
 
     useEffect(() => {
+        const token = localStorage.getItem('jwtToken');
+        const providerEmail = localStorage.getItem('username');
+
+        if (!token || !providerEmail) {
+            console.log("Token or provider email not found!");
+            return;
+        }
+
         const socket = new SockJS('http://localhost:8080/ws');
         const client = Stomp.over(socket);
-        const token = localStorage.getItem('jwtToken');
-        const username = localStorage.getItem('username');
 
         client.connect({'Authorization': `Bearer ${token}`}, function(frame) {
             console.log('Connected: ' + frame);
-            console.log('Current username: ' + username)
             setStompClient(client);
             setConnected(true);
 
-            client.subscribe('/queue/job-offers', function(message) {
-                console.log('Raw message received:', message);
-                console.log('Raw message body:', message.body);
-
-                setJobOffers(prev => {
-                    const newOffer = JSON.parse(message.body);
-                    console.log('Parsed job offer:', newOffer);
-                    const newOffers = [...prev, newOffer];
-                    console.log('Updated job offers:', newOffers);
-                    return newOffers;
-                });
+            const subscriptionUrl = `/user/${providerEmail}/queue/job-offers`;
+            client.subscribe(subscriptionUrl, function(message) {
+                console.log('Job offer received:', message.body);
+                setJobOffers(prev => [...prev, JSON.parse(message.body)]);
             });
         }, function(error) {
             console.log('Connection error: ' + error);
@@ -38,9 +36,7 @@ function App() {
 
         return () => {
             if (client && client.connected) {
-                client.disconnect(() => {
-                    console.log('Disconnected');
-                });
+                client.disconnect(() => console.log('Disconnected'));
             }
         };
     }, []);

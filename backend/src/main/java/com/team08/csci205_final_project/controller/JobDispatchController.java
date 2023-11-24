@@ -53,7 +53,7 @@ public class JobDispatchController {
     }
 
     /** Method to send a job offer to a specific provider */
-    public void sendJobOfferToProvider(String userId, JobOffer jobOffer) {
-        messagingTemplate.convertAndSendToUser(userId, "/queue/job-offers", jobOffer);
+    public void sendJobOfferToProvider(String providerEmail, JobOffer jobOffer) {
+        messagingTemplate.convertAndSendToUser(providerEmail, "/queue/job-offers", jobOffer);
     }
 }
