@@ -20,11 +20,15 @@ package com.team08.csci205_final_project.service;
 
 import com.team08.csci205_final_project.event.JobPostedEvent;
 import com.team08.csci205_final_project.model.Job.Job;
+import com.team08.csci205_final_project.model.Job.JobStatus;
 import com.team08.csci205_final_project.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -56,20 +60,41 @@ public class JobService {
         return job;
     }
 
+    /**
+     * Find the job by id of the job
+     * @param id id of the job
+     * @return the job
+     */
     public Optional<Job> findJobById(String id) {
         return jobRepository.findById(id);
     }
 
-    public List<Job> findJobByUser(String id) {
-        return jobRepository.findByUserId();
-    }
-
-    public Job updateJob(Job job) {
-        return null;
+    /**
+     * Find the job by user ID
+     * @param id ID of the job
+     * @return list of job from an user id
+     */
+    public List<Job> findJobByUser(String id, JobStatus jobStatus) {
+        return jobRepository.findByUserId(id, jobStatus);
     }
 
     /**
-     * Soft delete the job from database
+     * Update the job by id
+     * @param job job after updated
+     * @return Job after updated
+     */
+    public Job updateJob(Job job) {
+        if (jobRepository.existsById(job.getId())) {
+            return jobRepository.save(job);
+        }
+        else {
+            // This will never happen
+            throw new RuntimeException("Job not found with ID: " + job.getId());
+        }
+    }
+
+    /**
+     * Delete the job from database
      * @param id the Job id
      * @return true or false if the deletion is successful
      */

@@ -19,11 +19,15 @@
 package com.team08.csci205_final_project.controller;
 
 import com.team08.csci205_final_project.model.Job.Job;
+import com.team08.csci205_final_project.model.Job.Job;
+import com.team08.csci205_final_project.model.Job.JobStatus;
 import com.team08.csci205_final_project.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 
@@ -43,9 +47,19 @@ public class JobController {
      */
     @PostMapping
     public ResponseEntity<Job> createJob(@RequestBody Job job) {
-        return ResponseEntity.ok(jobService.createJob(job));
+        Job savedJob = jobService.createJob(job);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedJob.getId())
+                .toUri();
+        return ResponseEntity.created(location).body(savedJob);
     }
 
+    /**
+     * Get the job with its ID
+     * @param id ID of the job
+     * @return the job
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Job> getJobById(@PathVariable String id) {
         return jobService.findJobById(id)
@@ -53,19 +67,41 @@ public class JobController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     * Get all the job from one user
+     * @param id Id of the user
+     * @param status job status
+     * @return All the job of that user
+     */
     @GetMapping("/user/{id}")
-    public ResponseEntity<List<Job>> getJobByUser(@PathVariable String id) {
-        return ResponseEntity.ok(jobService.findJobByUser(id));
+    public ResponseEntity<List<Job>> getJobByUser(@PathVariable String id,
+                                                  @RequestParam(required = false) JobStatus status) {
+        return ResponseEntity.ok(jobService.findJobByUser(id, status));
     }
 
+    /**
+     * API endpoint to update the job or creating new one using PUT method
+     * @param id id of the job to update or create
+     * @param job the job content
+     * @return response with code 201 or 200
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Job> updateJob(@PathVariable String id, @RequestBody Job job) {
-        if (!id.equals(job.getId())) {
-            return ResponseEntity.notFound().build();
+        job.setId(id);
+        if (jobService.findJobById(id).isEmpty()) {
+            return createJob(job);
         }
-        return ResponseEntity.ok(jobService.updateJob(job));
+        else {
+            Job updatedJob = jobService.updateJob(job);
+            return ResponseEntity.ok(updatedJob);
+        }
     }
 
+    /**
+     * Delete the job from database
+     * @param id id of the job
+     * @return response with no content
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable String id) {
         if (jobService.deleteJob(id)) {

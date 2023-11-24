@@ -97,4 +97,13 @@ public class Job {
 
     /** Flag to indicate if the job has been deleted. */
     private boolean IS_DELETED;
+
+    public Job(String userId, String category, String description, String receiverName, String receiverAddress, String receiverPhone) {
+        this.userId = userId;
+        this.category = category;
+        this.description = description;
+        this.receiverName = receiverName;
+        this.receiverAddress = receiverAddress;
+        this.receiverPhone = receiverPhone;
+    }
 }
