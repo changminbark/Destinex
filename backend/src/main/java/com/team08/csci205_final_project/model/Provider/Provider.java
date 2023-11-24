@@ -22,6 +22,7 @@ import com.team08.csci205_final_project.model.Job.Job;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Provider {
-
+    @Id
     /** Store userID information of the provider */
     private String userId;
 
