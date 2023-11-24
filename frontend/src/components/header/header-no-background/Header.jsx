@@ -10,9 +10,10 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 import '../header.css';
 import {useAuth} from "../../../networks/hooks/UseAuth";
+import { getFullName } from "../../../networks/utils/AuthUtils";
 
 function Header() {
-    const { userFullName } = useAuth();
+    const [userFullName, setUserFullName] = useState(getFullName);
     const { logout } = useAuth();
     const [showDropdown, setShowDropdown] = useState(false);
 
@@ -23,7 +24,6 @@ function Header() {
     const handleLogout = () => {
         logout();
     }
-
 
     return (
         <div className="header">

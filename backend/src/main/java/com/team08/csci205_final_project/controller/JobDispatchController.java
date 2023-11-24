@@ -38,7 +38,6 @@ public class JobDispatchController {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
-
     /** Endpoint to dispatch jobs to the providers */
     @MessageMapping("/dispatchJobs")
     public void dispatchJob(JobRequest jobRequest) {

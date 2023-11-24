@@ -1,7 +1,14 @@
-export const setToken = (token, username) => {
+export const setToken = (token) => {
     localStorage.setItem('jwtToken', token);
-    localStorage.setItem('username', username);
 };
+
+export const setUsername = (username) => {
+    localStorage.setItem('username', username);
+}
+
+export const setFullName = (fullName) => {
+    localStorage.setItem('userFullName', fullName);
+}
 
 export const getToken = () => {
     return localStorage.getItem('jwtToken');
@@ -9,6 +16,10 @@ export const getToken = () => {
 
 export const getUsername = () => {
     return localStorage.getItem('username');
+}
+
+export const getFullName = () => {
+    return localStorage.getItem('userFullName');
 }
 
 export const clearToken = () => {

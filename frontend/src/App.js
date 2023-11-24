@@ -27,7 +27,6 @@ import CongratsPage from "./pages/granters/congrats/CongratsPage";
 import Home from "./pages/wishers/home/Home";
 import {AuthProvider} from "./context/AuthContext";
 import JobList from "./pages/granters/jobs/JobList";
-import {useState} from "react";
 
 function App() {
 

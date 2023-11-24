@@ -10,12 +10,13 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import '../header.css';
 import {Link} from "react-router-dom";
 import {useAuth} from "../../../networks/hooks/UseAuth";
+import * as authUtils from "../../../networks/utils/AuthUtils";
 
 function Header(props) {
     const { isLogin } = props;
     const { logout } = useAuth();
-    const { userFullName } = useAuth();
     const [showDropdown, setShowDropdown] = useState(false);
+    const userFullName = authUtils.getFullName();
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
