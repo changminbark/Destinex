@@ -92,6 +92,9 @@ public class Job {
     /** The phone number of the receiver of the job's output. */
     private String receiverPhone;
 
+    /** The email of the receiver of the job's output. */
+    private String receiverEmail;
+
     /** The status of the job from the user's perspective. */
     private int userStatus;
 
