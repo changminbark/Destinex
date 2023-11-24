@@ -15,6 +15,7 @@ export const register = async(firstName, lastName, email, password, role = 1) =>
         }
     } catch(err) {
         // setError(err.message);
+        console.log(err.message)
         return false;
     }
 }

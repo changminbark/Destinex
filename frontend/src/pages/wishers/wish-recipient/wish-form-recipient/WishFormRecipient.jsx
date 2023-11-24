@@ -48,11 +48,11 @@ function WishFormRecipient() {
         // Might not need this until last page if using sessionStorage
         const adrs = {FirstAddress: firstAddress, SecondAddress: secondAddress,
             City: city, Region: region, Country: country, Zip: zip}
-
         const adrsJSON = JSON.stringify(adrs)
 
         // setAddress(firstAddress + secondAddress + ", " + city +
         //     ", " + region + ", " + country + ", " + zip)
+
         setAddress(adrsJSON)
 
         sessionStorage.setItem("receiverAddress", adrsJSON)
@@ -168,7 +168,7 @@ function WishFormRecipient() {
                     <Link to='/wishproduct' className='backButton'>
                         Back
                     </Link>
-                    <Link to='/' className='nextButton' onClick={handleAddressChange}>
+                    <Link to='/wishadditional' className='nextButton' onClick={handleAddressChange}>
                         Next
                     </Link>
                 </div>
