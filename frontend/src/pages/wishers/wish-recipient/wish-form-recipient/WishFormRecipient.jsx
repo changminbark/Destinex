@@ -165,10 +165,10 @@ function WishFormRecipient() {
                 </div>
 
                 <div className='backAndNextButtons'>
-                    <Link to='/wishproduct' className='backButton'>
+                    <Link to='/wish-product' className='backButton'>
                         Back
                     </Link>
-                    <Link to='/wishadditional' className='nextButton' onClick={handleAddressChange}>
+                    <Link to='/wish-additional' className='nextButton' onClick={handleAddressChange}>
                         Next
                     </Link>
                 </div>

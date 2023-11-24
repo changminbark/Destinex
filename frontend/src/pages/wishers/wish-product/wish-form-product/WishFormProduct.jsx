@@ -126,7 +126,7 @@ function WishFormProduct() {
                 </div>
             </div>
 
-            <Link to='/wishrecipient' className='nextButton'>
+            <Link to='/wish-recipient' className='nextButton'>
                 Next
             </Link>
         </div>

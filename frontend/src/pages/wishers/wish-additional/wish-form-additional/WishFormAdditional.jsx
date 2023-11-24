@@ -41,10 +41,10 @@ function WishFormAdditional() {
                 </div>
 
                 <div className='backAndNextButtons'>
-                    <Link to='/' className='backButton'>
+                    <Link to='/wish-recipient' className='backButton'>
                         Back
                     </Link>
-                    <Link to='/' className='nextButton'>
+                    <Link to='/wish-summary' className='nextButton'>
                         Next
                     </Link>
                 </div>

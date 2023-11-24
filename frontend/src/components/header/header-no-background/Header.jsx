@@ -35,7 +35,7 @@ function Header() {
                     <span className='logo-destinex'>Destinex</span>
                 </div>
                 <div className="role-option">
-                    <Link to={"/wishproduct"}><button className="btn-wish">Wish</button></Link>
+                    <Link to={"/wish-product"}><button className="btn-wish">Wish</button></Link>
                     <Link to={"/granter/signup"}><button className="btn-grant">Grant</button></Link>
                 </div>
                 <div className="location">
