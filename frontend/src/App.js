@@ -30,6 +30,7 @@ import CongratsPage from "./pages/granters/congrats/CongratsPage";
 
 // Import error page
 import ErrorPage from "./pages/common/error/ErrorPage";
+import WaitingPayment from "./pages/granters/waiting-payment/WaitingPayment";
 
 
 
@@ -55,6 +56,7 @@ function App() {
             <Route path="/granter/jobs" element={<JobList/>} />
             <Route path="/granter/congrats" element={<CongratsPage/>}/>
             <Route path="/granter/wish-granted" element={<WishGranted/>}/>
+            <Route path="/granter/waiting-payment" element={<WaitingPayment/>}/>
             <Route path="/error" element={<ErrorPage/>}/>
           </Routes>
         </AuthProvider>
