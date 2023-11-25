@@ -27,10 +27,12 @@ import BankAcc from './pages/granters/bank/Bank';
 import JobList from "./pages/granters/jobs/JobList";
 import WishGranted from "./pages/granters/wish-granted/WishGranted";
 import CongratsPage from "./pages/granters/congrats/CongratsPage";
+import Details from "./pages/granters/details/Details";
 
 // Import error page
 import ErrorPage from "./pages/common/error/ErrorPage";
 import WaitingPayment from "./pages/granters/waiting-payment/WaitingPayment";
+
 
 
 
@@ -55,6 +57,7 @@ function App() {
             <Route path="/granter/bank" element={<BankAcc/>}/>
             <Route path="/granter/jobs" element={<JobList/>} />
             <Route path="/granter/congrats" element={<CongratsPage/>}/>
+            <Route path="/granter/details" element={<Details/>}/>
             <Route path="/granter/wish-granted" element={<WishGranted/>}/>
             <Route path="/granter/waiting-payment" element={<WaitingPayment/>}/>
             <Route path="/error" element={<ErrorPage/>}/>
