@@ -49,6 +49,7 @@ public class JobDispatchController {
     /** Endpoint for provider to response to job offer */
     @MessageMapping("/respondToJob")
     public void respondToJob(JobResponse jobResponse) {
+        System.out.println("Received job response: " + jobResponse);
         jobDispatchService.handleProviderResponse(jobResponse.getJobId(), jobResponse.getProviderId(), jobResponse.getStatus());
     }
 
