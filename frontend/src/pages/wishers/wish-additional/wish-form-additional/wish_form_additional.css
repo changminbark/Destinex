@@ -71,7 +71,6 @@
 .attachFile {
     display: flex;
     width: 100%;
-    max-width: 32rem;
     flex-direction: column;
     gap: 0.5rem;
     padding-bottom: 2.5rem;
