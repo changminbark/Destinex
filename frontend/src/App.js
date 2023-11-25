@@ -14,11 +14,12 @@ import {AuthProvider} from "./context/AuthContext";
 // Import files for wishers
 import SignupWisher from './pages/wishers/signup/Signup';
 import SigninWisher from './pages/wishers/signin/Signin';
+import Home from "./pages/wishers/home/Home";
 import WishProduct from './pages/wishers/wish-product/WishProduct';
 import WishRecipient from "./pages/wishers/wish-recipient/WishRecipient";
 import WishAdditional from "./pages/wishers/wish-additional/WishAdditional";
 import WishSummary from "./pages/wishers/wish-summary/WishSummary";
-import Home from "./pages/wishers/home/Home";
+import WishSuccess from "./pages/wishers/wish-success/WishSuccess";
 
 // Import files for granters
 import SignupGranter from './pages/granters/signup/Signup';
@@ -30,11 +31,6 @@ import CongratsPage from "./pages/granters/congrats/CongratsPage";
 
 // Import error page
 import ErrorPage from "./pages/common/error/ErrorPage";
-
-
-
-
-
 
 function App() {
 
@@ -49,6 +45,7 @@ function App() {
             <Route path="/wish-recipient" element={<WishRecipient/>}/>
             <Route path="/wish-additional" element={<WishAdditional/>}/>
             <Route path="/wish-summary" element={<WishSummary/>}/>
+            <Route path="/wish-success" element={<WishSuccess/>}/>
             <Route path="/granter/signup" element={<SignupGranter/>}/>
             <Route path="/granter/setup" element={<SetupPage/>}/>
             <Route path="/granter/bank" element={<BankAcc/>}/>
