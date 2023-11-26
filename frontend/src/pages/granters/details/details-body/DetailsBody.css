@@ -2,12 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 4rem;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
 }
 
 .detailsTitle {
-    padding-top: 3rem;
-    padding-bottom: 5rem;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
 }
 
 .detailsTitleTextOne {
@@ -78,6 +79,8 @@
     cursor: pointer;
     text-align: center;
     text-decoration: none;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
 }
 
 .completeToGranted:hover {
