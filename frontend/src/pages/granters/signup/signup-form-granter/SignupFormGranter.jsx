@@ -11,7 +11,7 @@ function SignupForm () {
         <div className='signupForm'>
 
             <div className='signupFormTitle'>
-                <span className='signupFormTitullleText'>Sign Up to Become a </span>
+                <span className='signupFormTitleText'>Sign Up to Become a </span>
                 <span className='signupFormTitleDestinex'>Granter</span>
             </div>
 
