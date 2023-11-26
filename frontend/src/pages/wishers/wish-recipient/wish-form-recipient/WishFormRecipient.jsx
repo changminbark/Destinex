@@ -4,7 +4,7 @@ import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import './wish_form_recipient.css';
-import {TextField} from "@material-ui/core";
+import axios from "axios";
 
 function WishFormRecipient() {
     // Might not need these until last page?
@@ -19,6 +19,7 @@ function WishFormRecipient() {
     const [city, setCity] = useState('');
     const [zip, setZip] = useState('');
     const [address, setAddress] = useState('');
+    const [addressPoint, setAddressPoint] = useState('');
 
     const handleFirstNameChange = (event) => {
         // Might not need this until last page if using sessionStorage
@@ -44,18 +45,62 @@ function WishFormRecipient() {
         sessionStorage.setItem("receiverEmail", email)
     }
 
-    const handleAddressChange = () => {
+    const getCoordinates = async (address) => {
+        const url = "https://nominatim.openstreetmap.org/search.php?q=Bucknell+University&format=jsonv2";
+
+        try {
+            const response = await axios.get(url);
+            if (response.data[0]) {
+                const { lat, lon } = response.data[0];
+                return { lat, lon };
+            } else {
+                return null;
+            }
+        } catch (error) {
+            console.error('Geocoding error:', error);
+            return null;
+        }
+    };
+
+    const handleAddressChange = async (event) => {
         // Might not need this until last page if using sessionStorage
-        const adrs = {FirstAddress: firstAddress, SecondAddress: secondAddress,
-            City: city, Region: region, Country: country, Zip: zip}
-        const adrsJSON = JSON.stringify(adrs)
 
-        // setAddress(firstAddress + secondAddress + ", " + city +
-        //     ", " + region + ", " + country + ", " + zip)
+        event.preventDefault();
 
-        setAddress(adrsJSON)
+        const formattedAddress = `${firstAddress} ${secondAddress}, ${city}, ${region}, ${country}, ${zip}`;
 
-        sessionStorage.setItem("receiverAddress", adrsJSON)
+        setAddress(formattedAddress);
+
+        const coords = await getCoordinates(formattedAddress);
+
+        if (coords) {
+            const geoJsonPoint = {
+                type: "Point",
+                coordinates: [coords.lon, coords.lat], // Note: Longitude and Latitude order
+            };
+
+            setAddressPoint(geoJsonPoint);
+
+            // Store the components separately in sessionStorage
+            sessionStorage.setItem("receiverAddressType", geoJsonPoint.type);
+            sessionStorage.setItem("receiverAddressCoordinates", JSON.stringify(geoJsonPoint.coordinates));
+        }
+
+        const adrs = {
+            FirstAddress: firstAddress,
+            SecondAddress: secondAddress,
+            City: city,
+            Region: region,
+            Country: country,
+            Zip: zip,
+        };
+
+        const adrsJSON = JSON.stringify(adrs);
+
+        setAddress(adrsJSON);
+
+        sessionStorage.setItem("receiverAddress", adrsJSON);
+
     }
 
     return (
