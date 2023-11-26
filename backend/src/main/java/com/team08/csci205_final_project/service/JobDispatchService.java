@@ -119,21 +119,22 @@ public class JobDispatchService implements ApplicationListener<JobPostedEvent> {
         LOGGER.info("Providers who have rejected job {}: {}", job.getId(), rejectedProviders);
 
         // Dispatching jobs to the nearby providers
+        Collections.shuffle(nearbyProviders);
         for (Provider provider : nearbyProviders) {
             if (provider.getActiveJob() == null && !rejectedProviders.contains(provider.getEmail())) {
-                String message = "Job " + job.getId() + " assigned to provider with mail: " + provider.getEmail();
+                String message = "Job " + job.getId() + " " + job.getDescription() + " assigned to provider with mail: " + provider.getEmail();
                 LOGGER.info(message);
                 sendJobOffer(provider, job);
 
                 // Schedule to check the response after a fixed delay
                 taskScheduler.schedule(
-                        () -> checkJobAcceptance(job.getId(), provider.getProviderId(), radiusInKm),
+                        () -> checkJobAcceptance(job.getId(), provider.getEmail(), radiusInKm),
                         new Date(System.currentTimeMillis() + (long)(100 * 1000))
                 );
 
                 // Store the mapping of job to provider
                 if (provider.getProviderId() != null) {
-                    jobProviderMap.put(job.getId(), provider.getProviderId());
+                    jobProviderMap.put(job.getId(), provider.getEmail());
                 }
                 else {
                     System.out.println("Provider ID is null for provider: " + provider);
@@ -155,11 +156,11 @@ public class JobDispatchService implements ApplicationListener<JobPostedEvent> {
      * If the job is not accepted within this period, it is re-dispatched to another provider.
      *
      * @param jobId The ID of the job to check.
-     * @param providerId The ID of the provider to whom the job was dispatched.
+     * @param providerEmail The email of the provider to whom the job was dispatched.
      * @param radiusInKm The radius within which to re-dispatch the job, if necessary.
      */
-    private void checkJobAcceptance(String jobId, String providerId, double radiusInKm) {
-        System.out.println("Checking job acceptance for jobId: " + jobId + ", providerId: " + providerId);
+    private void checkJobAcceptance(String jobId, String providerEmail, double radiusInKm) {
+        System.out.println("Checking job acceptance for jobId: " + jobId + ", providerId: " + providerEmail);
         Optional<Job> jobOpt = jobService.findJobById(jobId);
         if (!jobOpt.isPresent()) {
             jobProviderMap.remove(jobId);
@@ -167,10 +168,9 @@ public class JobDispatchService implements ApplicationListener<JobPostedEvent> {
         }
 
         Job job = jobOpt.get();
-        if (job.getStatus() != JobStatus.ACCEPTED || !job.getProviderId().equals(providerId)) {
+        if (job.getStatus() != JobStatus.ACCEPTED || !job.getProviderEmail().equals(providerEmail)) {
             // Remove if job not accepted
             jobProviderMap.remove(jobId);
-            jobRejectionsMap.computeIfAbsent(jobId, k -> new ArrayList<>()).add(providerId);
             dispatchJob(jobId, radiusInKm);
         }
     }
@@ -202,11 +202,11 @@ public class JobDispatchService implements ApplicationListener<JobPostedEvent> {
      * This method updates the job status based on the provider's response and may re-dispatch the job.
      *
      * @param jobId The ID of the job in question.
-     * @param providerId The ID of the provider responding to the job offer.
+     * @param providerEmail The email of the provider responding to the job offer.
      * @param status The status of the job (e.g., accepted, rejected).
      */
-    public void handleProviderResponse(String jobId, String providerId, JobStatus status) {
-        LOGGER.info("Handling provider response for job: {}, provider: {}, status: {}", jobId, providerId, status);
+    public void handleProviderResponse(String jobId, String providerEmail, JobStatus status) {
+        LOGGER.info("Handling provider response for job: {}, provider: {}, status: {}", jobId, providerEmail, status);
         Optional<Job> jobOpt = jobService.findJobById(jobId);
         if (!jobOpt.isPresent()) {
             // Handle the case where the job doesn't exist
@@ -216,14 +216,14 @@ public class JobDispatchService implements ApplicationListener<JobPostedEvent> {
         Job job = jobOpt.get();
 
         if (status == JobStatus.ACCEPTED) {
-            LOGGER.info("================== Job " + jobId + " is accepted by provider " + providerId);
-            job.setProviderId(providerId);
+            LOGGER.info("================== Job " + jobId + " is accepted by provider " + providerEmail);
+            job.setProviderId(providerEmail);
             job.setStatus(JobStatus.ACCEPTED);
             jobService.updateJob(job);
             notifyUser(job.getUserId(), "Your job has been accepted by a provider.");
         } else if (status == JobStatus.REJECTED) {
-            LOGGER.info("Job {} is rejected by provider {}. Adding to rejection list.", jobId, providerId);
-            jobRejectionsMap.computeIfAbsent(jobId, k -> new ArrayList<>()).add(providerId);
+            LOGGER.info("Job {} is rejected by provider {}. Adding to rejection list.", jobId, providerEmail);
+            jobRejectionsMap.computeIfAbsent(jobId, k -> new ArrayList<>()).add(providerEmail);
             LOGGER.info("Updated rejection list for job {}: {}", jobId, jobRejectionsMap.get(jobId));
             jobProviderMap.remove(jobId);
             dispatchJob(jobId, DEFAULT_RADIUS_KM);
