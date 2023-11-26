@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class Provider {
     @Id
     /** Store userID information of the provider */
-    private String userId;
+    private String providerId;
 
     /** Store email information of the provider */
     private String email;
