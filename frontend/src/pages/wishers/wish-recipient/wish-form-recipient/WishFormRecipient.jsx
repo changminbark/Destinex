@@ -97,13 +97,13 @@ function WishFormRecipient() {
             Zip: zip,
         };
 
-        const adrsJSON = JSON.stringify(adrs);
+        // const adrsJSON = JSON.stringify(adrs);
+        //
+        // setAddress(adrsJSON);
+        //
+        // sessionStorage.setItem("receiverAddress", adrsJSON);
 
-        setAddress(adrsJSON);
 
-        sessionStorage.setItem("receiverAddress", adrsJSON);
-
-        navigate("/wish-additional")
 
     }
 
