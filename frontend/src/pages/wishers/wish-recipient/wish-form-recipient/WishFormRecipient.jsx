@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
@@ -20,6 +20,8 @@ function WishFormRecipient() {
     const [zip, setZip] = useState('');
     const [address, setAddress] = useState('');
     const [addressPoint, setAddressPoint] = useState('');
+
+    const navigate = useNavigate();
 
     const handleFirstNameChange = (event) => {
         // Might not need this until last page if using sessionStorage
@@ -46,12 +48,14 @@ function WishFormRecipient() {
     }
 
     const getCoordinates = async (address) => {
-        const url = "https://nominatim.openstreetmap.org/search.php?q=Bucknell+University&format=jsonv2";
+        const url = "https://nominatim.openstreetmap.org/search.php?q={Bucknell+University}&format=jsonv2";
 
         try {
             const response = await axios.get(url);
+            console.log(response)
             if (response.data[0]) {
-                const { lat, lon } = response.data[0];
+                const lat = response.data[0].lat;
+                const lon = response.data[0].lon;
                 return { lat, lon };
             } else {
                 return null;
@@ -81,8 +85,6 @@ function WishFormRecipient() {
 
             setAddressPoint(geoJsonPoint);
 
-            // Store the components separately in sessionStorage
-            sessionStorage.setItem("receiverAddressType", geoJsonPoint.type);
             sessionStorage.setItem("receiverAddressCoordinates", JSON.stringify(geoJsonPoint.coordinates));
         }
 
@@ -100,6 +102,8 @@ function WishFormRecipient() {
         setAddress(adrsJSON);
 
         sessionStorage.setItem("receiverAddress", adrsJSON);
+
+        navigate("/wish-additional")
 
     }
 
@@ -213,7 +217,7 @@ function WishFormRecipient() {
                     <Link to='/wish-product' className='backButton'>
                         Back
                     </Link>
-                    <Link to='/wish-additional' className='nextButton' onClick={handleAddressChange}>
+                    <Link className='nextButton' onClick={handleAddressChange}>
                         Next
                     </Link>
                 </div>
