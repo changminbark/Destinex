@@ -98,6 +98,9 @@
     font-weight: 600;
     text-decoration: none;
     margin: auto;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .acceptButton {
