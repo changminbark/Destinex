@@ -1,6 +1,6 @@
 import * as addWishService from "../api/AddWishService"
 
-export const addJob = async(category, receiverName, receiverPhone, receiverEmail, receiverAddress, description) => {
+export const addJob = async(category, receiverName, receiverPhone, receiverEmail, receiverAddress, description, receiverAddressPoint) => {
 
 
 
@@ -12,11 +12,10 @@ export const addJob = async(category, receiverName, receiverPhone, receiverEmail
             "receiverEmail": receiverEmail,
             "receiverAddress": receiverAddress,
             "description": description,
-            "receiverAddressPoint": {
-                "type" : "Point",
-                "coordinates" : [-75.34, 39.984]
-            }
+            "receiverAddressPoint": receiverAddressPoint
         };
+
+        console.log(jobData)
         const response = await addWishService.addJob(jobData);
         // Never reaches this line
         console.log(response.data);

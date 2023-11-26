@@ -48,11 +48,11 @@ function WishFormRecipient() {
     }
 
     const getCoordinates = async (address) => {
-        const url = "https://nominatim.openstreetmap.org/search.php?q={Bucknell+University}&format=jsonv2";
+        const url = `https://nominatim.openstreetmap.org/search.php?q=${address}&format=jsonv2`;
 
         try {
             const response = await axios.get(url);
-            console.log(response)
+            console.log('response',response.data)
             if (response.data[0]) {
                 const lat = response.data[0].lat;
                 const lon = response.data[0].lon;
@@ -71,11 +71,8 @@ function WishFormRecipient() {
 
         event.preventDefault();
 
-        const formattedAddress = `${firstAddress} ${secondAddress}, ${city}, ${region}, ${country}, ${zip}`;
-
-        setAddress(formattedAddress);
-
-        const coords = await getCoordinates(formattedAddress);
+        // Gets coordinates based on first address
+        const coords = await getCoordinates(firstAddress);
 
         if (coords) {
             const geoJsonPoint = {
@@ -85,7 +82,8 @@ function WishFormRecipient() {
 
             setAddressPoint(geoJsonPoint);
 
-            sessionStorage.setItem("receiverAddressCoordinates", JSON.stringify(geoJsonPoint.coordinates));
+            sessionStorage.setItem("receiverAddressPoint", JSON.stringify(geoJsonPoint.coordinates));
+            console.log('sessionstorage', sessionStorage.getItem("receiverAddressPoint"))
         }
 
         const adrs = {
@@ -101,7 +99,6 @@ function WishFormRecipient() {
         console.log("adrs object: ", adrs);
 
         const adrsJSON = JSON.stringify(adrs);
-
 
         sessionStorage.setItem("receiverAddress", adrsJSON);
 
