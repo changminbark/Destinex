@@ -97,14 +97,15 @@ function WishFormRecipient() {
             Zip: zip,
         };
 
-        // const adrsJSON = JSON.stringify(adrs);
-        //
-        // setAddress(adrsJSON);
-        //
-        // sessionStorage.setItem("receiverAddress", adrsJSON);
+
+        console.log("adrs object: ", adrs);
+
+        const adrsJSON = JSON.stringify(adrs);
 
 
+        sessionStorage.setItem("receiverAddress", adrsJSON);
 
+        navigate("/wish-additional")
     }
 
     return (
@@ -163,14 +164,14 @@ function WishFormRecipient() {
                 <div className='firstAddress'>
                     <label className='firstAddressText'>Recipient's Address</label>
                     <input className='firstAddressInput' type='text'
-                        onChange={(val) => setFirstAddress(val)}
+                        onChange={(val) => setFirstAddress(val.target.value)}
                     />
                 </div>
 
                 <div className='secondAddress'>
                     <label className='secondAddressText'>Apartment, suite, etc.</label>
                     <input className='secondAddressInput' type='text'
-                       onChange={(val) => setSecondAddress(val)}
+                       onChange={(val) => setSecondAddress(val.target.value)}
                     />
                 </div>
 
@@ -201,14 +202,14 @@ function WishFormRecipient() {
                     <div className='recipientCity'>
                         <label className='recipientCityText'>City</label>
                         <input className='recipientCityInput' type='text'
-                           onChange={(val) => setCity(val)}
+                           onChange={(val) => setCity(val.target.value)}
                         />
                     </div>
 
                     <div className='recipientZipCode'>
                         <label className='recipientZipCodeText'>ZIP/Postal Code</label>
                         <input className='recipientZipCodeInput' type='text'
-                               onChange={(val) => setZip(val)}
+                               onChange={(val) => setZip(val.target.value)}
                         />
                     </div>
                 </div>
