@@ -47,11 +47,17 @@ public class Job {
     /** Identifier of the service provider. */
     private String providerId;
 
+    /** Email of the service provider. */
+    private String providerEmail;
+
     /** Identifier of the transaction associated with this job. */
     private String transactionId;
 
     /** Identifier of the user who posted the job. */
     private String userId;
+
+    /** Email of the service provider. */
+    private String userEmail;
 
     /** Identifier of the chat associated with this job. */
     private String chatId;
@@ -86,6 +92,9 @@ public class Job {
     /** The phone number of the receiver of the job's output. */
     private String receiverPhone;
 
+    /** The email of the receiver of the job's output. */
+    private String receiverEmail;
+
     /** The status of the job from the user's perspective. */
     private int userStatus;
 
@@ -97,4 +106,6 @@ public class Job {
 
     /** Flag to indicate if the job has been deleted. */
     private boolean IS_DELETED;
+
+    // MIGHT NEED TO ADD MORE FIELDS ACCORDING TO MAKE-A-WISH PAGE
 }

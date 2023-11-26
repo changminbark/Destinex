@@ -34,6 +34,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Provider {
+    @Id
     /** Store userID information of the provider */
     private String providerId;
 
