@@ -105,4 +105,21 @@ public class JobService {
         }
         return false;
     }
+
+    /**
+     * Accept the job from provider
+     * @param id id of the job
+     * @param providerId id from provider
+     * @return
+     */
+    public Job acceptJob(String id, String providerId) {
+        Optional <Job> job = jobRepository.findById(id);
+        if (job.isPresent()) {
+            Job updatedJob = job.get();
+            updatedJob.setStatus(JobStatus.ACCEPTED);
+            updatedJob.setProviderId(providerId);
+            jobRepository.save(updatedJob);
+        }
+        return null;
+    }
 }

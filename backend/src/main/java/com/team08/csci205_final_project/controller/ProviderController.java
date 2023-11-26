@@ -25,7 +25,9 @@ import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +41,15 @@ public class ProviderController {
     /** Create a new provider */
     @PostMapping("/")
     public ResponseEntity<Provider> addProvider(@RequestBody Provider provider) {
-        return ResponseEntity.ok(providerService.providerRegister(provider));
+        Optional <Provider> postProvider = providerService.providerRegister(provider);
+        if (postProvider.isPresent()) {
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(postProvider.get().getProviderId())
+                    .toUri();
+            return ResponseEntity.created(location).body(postProvider.get());
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     /** Get provider information based on userId */
@@ -58,7 +68,8 @@ public class ProviderController {
                     existingProvider.setJobHistory(provider.getJobHistory());
                     existingProvider.setCurrentLocation(provider.getCurrentLocation());
 
-                    Provider updatedProvider = providerService.providerRegister(existingProvider);
+                    //TODO
+                    Provider updatedProvider = providerService.providerRegister(existingProvider).get();
                     return new ResponseEntity<>(updatedProvider, HttpStatus.OK);
                 })
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -85,5 +96,14 @@ public class ProviderController {
                                                               @RequestParam double distance) {
         List<Provider> providers = providerService.findNearbyProviders(latitude, longitude, distance);
         return new ResponseEntity<>(providers, HttpStatus.OK);
+    }
+
+    /** Accept a job for the provider */
+    @PostMapping("/{id}/accept")
+    public ResponseEntity<HttpStatus> acceptJob(@PathVariable String id) {
+        if (providerService.acceptJob(id))
+            return ResponseEntity.ok().build();
+        else
+            return ResponseEntity.badRequest().build();
     }
 }

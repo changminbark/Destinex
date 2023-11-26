@@ -34,6 +34,10 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Provider {
+    /** Store Provider ID **/
+    @Id
+    private String providerId;
+
     /** Store userID information of the provider */
     private String userId;
 
@@ -48,4 +52,7 @@ public class Provider {
 
     /** Store the wait-for-response job */
     private Job activeJob;
+
+    /** Store status of the provider */
+    private boolean providerAvail;
 }

@@ -18,8 +18,10 @@
  */
 package com.team08.csci205_final_project.service;
 
+import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.Provider.Provider;
 import com.team08.csci205_final_project.repository.ProviderRepository;
+import com.team08.csci205_final_project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
@@ -42,9 +44,20 @@ public class ProviderService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    @Autowired
+    public JobService jobService;
+
+    @Autowired
+    public UserRepository userRepository;
+
     /** Add a new provider */
-    public Provider providerRegister (Provider provider) {
-        return providerRepository.save(provider);
+    public Optional<Provider> providerRegister (Provider provider) {
+        if (userRepository.existsById(provider.getUserId())) {
+            provider.setProviderAvail(true);
+            provider.setActiveJob(null);
+            return Optional.of(providerRepository.save(provider));
+        }
+        return Optional.empty();
     }
 
     /** Find a provider based on their userId */
@@ -81,5 +94,26 @@ public class ProviderService {
         else {
             throw new RuntimeException("User not found with ID: " + userId);
         }
+    }
+
+    /** Update the status after accepting job
+     * @param id id of the provider
+     * @return true/false if accepting the job is successful or not
+     */
+    public boolean acceptJob(String id) {
+        Optional <Provider> provider = providerRepository.findById(id);
+        if (provider.isPresent()) {
+            Provider updatedProvider = provider.get();
+            Job updateJob = updatedProvider.getActiveJob();
+            if (updateJob != null) {
+                jobService.acceptJob(updateJob.getId(), provider.get().getUserId());
+                updatedProvider.setActiveJob(null);
+                updatedProvider.setProviderAvail(false);
+                providerRepository.save(updatedProvider);
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 }

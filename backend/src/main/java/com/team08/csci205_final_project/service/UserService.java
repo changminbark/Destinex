@@ -57,6 +57,7 @@ public class UserService {
 
     /** Find a user based on their email */
     public Optional<User> findUserByEmail(String email) {
+        System.out.println(email);
         return userRepository.findByEmail(email);
     }
 

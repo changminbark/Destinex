@@ -1,7 +1,7 @@
 package com.team08.csci205_final_project.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.team08.csci205_final_project.model.LoginRequest;
+import com.team08.csci205_final_project.model.Auth.LoginRequest;
 import com.team08.csci205_final_project.security.JwtUtil;
 import com.team08.csci205_final_project.service.UserService;
 import org.junit.jupiter.api.Test;

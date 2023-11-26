@@ -1,7 +1,7 @@
 package com.team08.csci205_final_project.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.team08.csci205_final_project.model.User;
+import com.team08.csci205_final_project.model.User.User;
 import com.team08.csci205_final_project.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
