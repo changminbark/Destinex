@@ -28,9 +28,13 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class JobDispatchController {
+
+    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(JobDispatchService.class);
 
     @Autowired
     private JobDispatchService jobDispatchService;
@@ -49,7 +53,7 @@ public class JobDispatchController {
     /** Endpoint for provider to response to job offer */
     @MessageMapping("/respondToJob")
     public void respondToJob(JobResponse jobResponse) {
-        System.out.println("Received job response: " + jobResponse);
+        LOGGER.info("Received job response: " + jobResponse);
         jobDispatchService.handleProviderResponse(jobResponse.getJobId(), jobResponse.getProviderId(), jobResponse.getStatus());
     }
 

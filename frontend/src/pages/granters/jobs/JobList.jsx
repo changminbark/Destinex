@@ -61,7 +61,7 @@ function App() {
                 <h3>Job Offers:</h3>
                 {jobOffers.map((offer, index) => (
                     <div key={index}>
-                        <div>{offer.description} - ${offer.price}</div>
+                        <div>{offer.description} - ${offer.itemPrice}</div>
                         <button onClick={() => respondToJobOffer(offer.jobId, providerEmail, 'ACCEPTED')}>Accept</button>
                         <button onClick={() => respondToJobOffer(offer.jobId, providerEmail, 'REJECTED')}>Reject</button>
                     </div>
