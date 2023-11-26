@@ -32,6 +32,7 @@ import Details from "./pages/granters/details/Details";
 // Import error page
 import ErrorPage from "./pages/common/error/ErrorPage";
 import WaitingPayment from "./pages/granters/waiting-payment/WaitingPayment";
+import WishConfirmation from "./pages/wishers/wish-confirmation/WishConfirmation";
 
 
 
@@ -52,6 +53,7 @@ function App() {
             <Route path="/wish-recipient" element={<WishRecipient/>}/>
             <Route path="/wish-additional" element={<WishAdditional/>}/>
             <Route path="/wish-summary" element={<WishSummary/>}/>
+            <Route path="/wish-confirmation" element={<WishConfirmation/>}/>
             <Route path="/granter/signup" element={<SignupGranter/>}/>
             <Route path="/granter/setup" element={<SetupPage/>}/>
             <Route path="/granter/bank" element={<BankAcc/>}/>
