@@ -23,6 +23,7 @@ import Home from "./pages/wishers/home/Home";
 // Import files for granters
 import SignupGranter from './pages/granters/signup/Signup';
 import SetupPage from './pages/granters/setup/Setup';
+import GranterHome from './pages/granters/granter-home/GranterHome';
 import BankAcc from './pages/granters/bank/Bank';
 import JobList from "./pages/granters/jobs/JobList";
 import WishGranted from "./pages/granters/wish-granted/WishGranted";
@@ -56,6 +57,7 @@ function App() {
             <Route path="/wish-confirmation" element={<WishConfirmation/>}/>
             <Route path="/granter/signup" element={<SignupGranter/>}/>
             <Route path="/granter/setup" element={<SetupPage/>}/>
+            <Route path="/granter/home" element={<GranterHome/>}/>
             <Route path="/granter/bank" element={<BankAcc/>}/>
             <Route path="/granter/jobs" element={<JobList/>} />
             <Route path="/granter/congrats" element={<CongratsPage/>}/>

@@ -6,9 +6,9 @@ import Slider from '@material-ui/core/Slider';
 function WishFormProduct() {
     // Category Box
     const categories = {
-        "Electronics": ["Mobile Phones & Accessories", "Computers & Accessories", "Cameras & Photography", "Home Audio & Theater", "Video Games & Consoles", "Wearable Technology"],
+        "Electronics": ["Mobile Phones & Accessories", "Computers & Accessories", "Cameras & Photography", "GranterHome Audio & Theater", "Video Games & Consoles", "Wearable Technology"],
         "Clothing": ["Men's Clothing", "Women's Clothing", "Kids' & Baby Clothing", "Shoes", "Jewelry", "Watches", "Handbags & Wallets"],
-        "Home and Kitchen": ["Furniture", "Kitchen & Dining", "Bedding & Bath", "Home Décor", "Garden & Outdoor", "Home Appliances", "Storage & Organization", "Vacuums & Floor Care", "Heating, Cooling & Air Quality", "Irons & Steamers"],
+        "Home and Kitchen": ["Furniture", "Kitchen & Dining", "Bedding & Bath", "GranterHome Décor", "Garden & Outdoor", "GranterHome Appliances", "Storage & Organization", "Vacuums & Floor Care", "Heating, Cooling & Air Quality", "Irons & Steamers"],
         "Beauty & Personal Care" : ["Makeup", "Skincare", "Hair Care", "Fragrances", "Grooming & Shaving", "Health & Wellness"],
         "Books" : ["Literature & Fiction", "Non-Fiction", "Educational & Textbooks", "Children's Books", "Comics & Graphic Novels", "Audiobooks", "Magazines"],
         "Sports & Outdoors" : ["Exercise & Fitness", "Hunting & Fishing", "Cycling", "Team Sports", "Golf", "Leisure Sports & Game Room", "Tennis & Racquet Sports", "Outdoor Recreation", "Accessories"],
