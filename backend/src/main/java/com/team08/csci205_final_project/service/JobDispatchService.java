@@ -168,7 +168,11 @@ public class JobDispatchService implements ApplicationListener<JobPostedEvent> {
         }
 
         Job job = jobOpt.get();
-        if (job.getStatus() != JobStatus.ACCEPTED || !job.getProviderEmail().equals(providerEmail)) {
+        boolean isAcceptedAndEmailMatches = job.getStatus() == JobStatus.ACCEPTED
+                && providerEmail != null
+                && providerEmail.equals(job.getProviderEmail());
+
+        if (!isAcceptedAndEmailMatches) {
             // Remove if job not accepted
             jobProviderMap.remove(jobId);
             dispatchJob(jobId, radiusInKm);
