@@ -16,8 +16,12 @@ function Payment() {
         const receiverEmail = sessionStorage.getItem("receiverEmail")
         const receiverAddress = sessionStorage.getItem("receiverAddress")
         const description = sessionStorage.getItem("description")
+        const receiverAddressPoint = {
+            "type": "Point",
+            "coordinates": JSON.parse(sessionStorage.getItem("receiverAddressPoint"))
+        }
 
-        const success = await addJob(category, receiverName, receiverPhone, receiverEmail, receiverAddress, description)
+        const success = await addJob(category, receiverName, receiverPhone, receiverEmail, receiverAddress, description, receiverAddressPoint)
         if (success) {
             navigate('/')
         }
