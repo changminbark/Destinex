@@ -22,6 +22,7 @@ package com.team08.csci205_final_project.service;
 import com.team08.csci205_final_project.config.ApplicationLogicConfig;
 import com.team08.csci205_final_project.event.JobPostedEvent;
 import com.team08.csci205_final_project.model.DTO.JobOffer;
+import com.team08.csci205_final_project.model.DTO.JobTrackingStatus;
 import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.Job.JobStatus;
 import com.team08.csci205_final_project.model.Provider.Provider;
@@ -82,7 +83,7 @@ public class JobDispatchService implements ApplicationListener<JobPostedEvent> {
     public void onApplicationEvent(JobPostedEvent event) {
         Job job = event.getJob();
         LOGGER.info("Received JobPostedEvent for job: " + job.getId());
-            dispatchJob(job.getId(), DEFAULT_RADIUS_KM);
+        dispatchJob(job.getId(), DEFAULT_RADIUS_KM);
     }
 
     /**
@@ -197,8 +198,9 @@ public class JobDispatchService implements ApplicationListener<JobPostedEvent> {
      * @param providerEmail The email address of the provider to notify.
      * @param message The message to be sent to the provider.
      */
-    private void notifyUser(String providerEmail, String message) {
-        messagingTemplate.convertAndSendToUser(providerEmail, "/user/job-status", message);
+    private void notifyUser(String jobId, String providerEmail, String message, JobStatus status) {
+        JobTrackingStatus jobTrackingStatus = new JobTrackingStatus(providerEmail, message, status);
+        messagingTemplate.convertAndSendToUser(jobId, "/user/job-status", jobTrackingStatus);
     }
 
     /**
@@ -224,13 +226,14 @@ public class JobDispatchService implements ApplicationListener<JobPostedEvent> {
             job.setProviderId(providerEmail);
             job.setStatus(JobStatus.ACCEPTED);
             jobService.updateJob(job);
-            notifyUser(job.getUserId(), "Your job has been accepted by a provider.");
+            notifyUser(jobId, job.getUserId(), providerEmail, status);
         } else if (status == JobStatus.REJECTED) {
             LOGGER.info("Job {} is rejected by provider {}. Adding to rejection list.", jobId, providerEmail);
             jobRejectionsMap.computeIfAbsent(jobId, k -> new ArrayList<>()).add(providerEmail);
             LOGGER.info("Updated rejection list for job {}: {}", jobId, jobRejectionsMap.get(jobId));
             jobProviderMap.remove(jobId);
             dispatchJob(jobId, DEFAULT_RADIUS_KM);
+            notifyUser(jobId, job.getUserId(), "", status);
         } else {
             LOGGER.info("Providers didn't respond in the allowance time for job: " + jobId + ". Dispatching to new provider.");
             jobProviderMap.remove(jobId);
