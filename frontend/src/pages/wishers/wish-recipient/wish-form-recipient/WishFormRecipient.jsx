@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import './wish_form_recipient.css';
-import {TextField} from "@material-ui/core";
+import axios from "axios";
 
 function WishFormRecipient() {
     // Might not need these until last page?
@@ -19,6 +19,9 @@ function WishFormRecipient() {
     const [city, setCity] = useState('');
     const [zip, setZip] = useState('');
     const [address, setAddress] = useState('');
+    const [addressPoint, setAddressPoint] = useState('');
+
+    const navigate = useNavigate();
 
     const handleFirstNameChange = (event) => {
         // Might not need this until last page if using sessionStorage
@@ -44,18 +47,62 @@ function WishFormRecipient() {
         sessionStorage.setItem("receiverEmail", email)
     }
 
-    const handleAddressChange = () => {
+    const getCoordinates = async (address) => {
+        const url = `https://nominatim.openstreetmap.org/search.php?q=${address}&format=jsonv2`;
+
+        try {
+            const response = await axios.get(url);
+            console.log('response',response.data)
+            if (response.data[0]) {
+                const lat = response.data[0].lat;
+                const lon = response.data[0].lon;
+                return { lat, lon };
+            } else {
+                return null;
+            }
+        } catch (error) {
+            console.error('Geocoding error:', error);
+            return null;
+        }
+    };
+
+    const handleAddressChange = async (event) => {
         // Might not need this until last page if using sessionStorage
-        const adrs = {FirstAddress: firstAddress, SecondAddress: secondAddress,
-            City: city, Region: region, Country: country, Zip: zip}
-        const adrsJSON = JSON.stringify(adrs)
 
-        // setAddress(firstAddress + secondAddress + ", " + city +
-        //     ", " + region + ", " + country + ", " + zip)
+        event.preventDefault();
 
-        setAddress(adrsJSON)
+        // Gets coordinates based on first address
+        const coords = await getCoordinates(firstAddress);
 
-        sessionStorage.setItem("receiverAddress", adrsJSON)
+        if (coords) {
+            const geoJsonPoint = {
+                type: "Point",
+                coordinates: [coords.lon, coords.lat], // Note: Longitude and Latitude order
+            };
+
+            setAddressPoint(geoJsonPoint);
+
+            sessionStorage.setItem("receiverAddressPoint", JSON.stringify(geoJsonPoint.coordinates));
+            console.log('sessionstorage', sessionStorage.getItem("receiverAddressPoint"))
+        }
+
+        const adrs = {
+            FirstAddress: firstAddress,
+            SecondAddress: secondAddress,
+            City: city,
+            Region: region,
+            Country: country,
+            Zip: zip,
+        };
+
+
+        console.log("adrs object: ", adrs);
+
+        const adrsJSON = JSON.stringify(adrs);
+
+        sessionStorage.setItem("receiverAddress", adrsJSON);
+
+        navigate("/wish-additional")
     }
 
     return (
@@ -114,14 +161,14 @@ function WishFormRecipient() {
                 <div className='firstAddress'>
                     <label className='firstAddressText'>Recipient's Address</label>
                     <input className='firstAddressInput' type='text'
-                        onChange={(val) => setFirstAddress(val)}
+                        onChange={(val) => setFirstAddress(val.target.value)}
                     />
                 </div>
 
                 <div className='secondAddress'>
                     <label className='secondAddressText'>Apartment, suite, etc.</label>
                     <input className='secondAddressInput' type='text'
-                       onChange={(val) => setSecondAddress(val)}
+                       onChange={(val) => setSecondAddress(val.target.value)}
                     />
                 </div>
 
@@ -152,14 +199,14 @@ function WishFormRecipient() {
                     <div className='recipientCity'>
                         <label className='recipientCityText'>City</label>
                         <input className='recipientCityInput' type='text'
-                           onChange={(val) => setCity(val)}
+                           onChange={(val) => setCity(val.target.value)}
                         />
                     </div>
 
                     <div className='recipientZipCode'>
                         <label className='recipientZipCodeText'>ZIP/Postal Code</label>
                         <input className='recipientZipCodeInput' type='text'
-                               onChange={(val) => setZip(val)}
+                               onChange={(val) => setZip(val.target.value)}
                         />
                     </div>
                 </div>
@@ -168,7 +215,7 @@ function WishFormRecipient() {
                     <Link to='/wish-product' className='backButton'>
                         Back
                     </Link>
-                    <Link to='/wish-additional' className='nextButton' onClick={handleAddressChange}>
+                    <Link className='nextButton' onClick={handleAddressChange}>
                         Next
                     </Link>
                 </div>
