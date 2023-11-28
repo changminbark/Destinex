@@ -8,7 +8,7 @@
     flex-direction: column;
     align-items: center;
     padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-bottom: 2.5rem;
 }
 
 .wishConfirmTitle {
@@ -32,14 +32,14 @@
     line-height: normal;
 }
 
-.wishConfirmBox {
+.wishConfirmBoxContainer {
     display: flex;
     flex-direction: column;
     padding-left: 16rem;
     padding-bottom: 2rem;
 }
 
-.wishConfirmBoxBox {
+.wishConfirmBox {
     padding-bottom: 1.5rem;
 }
 
@@ -53,7 +53,7 @@
 
 .wishConfirmBoxDesc {
     color: #545454;
-    font-size: 1rem;
+    font-size: 1.25rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -61,8 +61,8 @@
 
 .rating {
     unicode-bidi: bidi-override;
-    direction: rtl; /* Change direction to left-to-right */
-    text-align: left; /* Align text to the left */
+    direction: rtl;
+    text-align: left;
 }
 
 .rating input {
@@ -70,8 +70,8 @@
 }
 
 .rating label {
-    font-size: 2rem;
-    padding: 0.5rem;
+    font-size: 3rem;
+    padding: 1.5rem;
     cursor: pointer;
     display: inline-block;
     width: 2rem;
@@ -79,18 +79,18 @@
 }
 
 .rating label:before {
-    content: '\2605'; /* Unicode character for a star */
+    content: '\2605';
     display: block;
-    color: #ccc;
+    color: #B5B5B5;
 }
 
 .rating input:checked ~ label:before {
-    color: #8B00FF; /* Color for filled star */
+    color: #8B00FF;
 }
 
 .rating label:hover:before,
 .rating label:hover ~ label:before {
-    color: #8B00FF; /* Color for filled star */
+    color: #8B00FF;
 }
 
 .feedbackInput {
@@ -106,10 +106,16 @@
 }
 
 .submitButton {
+    color: #8B00FF;
     display: flex;
     flex-direction: row;
     gap: 5rem;
     padding-top: 2rem;
     width: 25%;
     padding-bottom: 3rem;
+}
+
+.submitBtn:hover {
+    cursor: pointer;
+    background-color: #7000CD;
 }

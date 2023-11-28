@@ -72,7 +72,7 @@ function WishFormRecipient() {
         event.preventDefault();
 
         // Gets coordinates based on first address
-        const coords = await getCoordinates(firstAddress);
+        const coords = await getCoordinates(firstAddress + ", " + city);
 
         if (coords) {
             const geoJsonPoint = {

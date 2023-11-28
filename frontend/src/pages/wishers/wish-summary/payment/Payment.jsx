@@ -23,7 +23,7 @@ function Payment() {
 
         const success = await addJob(category, receiverName, receiverPhone, receiverEmail, receiverAddress, description, receiverAddressPoint)
         if (success) {
-            navigate('/')
+            navigate('/wish-success')
         }
     }
 

@@ -7,8 +7,6 @@ function WishConfirmationBody () {
 
     const handleSubmitConfirmation = async (event) => {
         event.preventDefault();
-
-
     }
 
     return (
@@ -21,27 +19,27 @@ function WishConfirmationBody () {
                         <span className={'wishConfirmTitleOne'}>has been Granted!</span>
                     </div>
                 </div>
-                <div className={'wishConfirmBox'}>
-                    <div className={'wishConfirmBoxBox'}>
+                <div className={'wishConfirmBoxContainer'}>
+                    <div className={'wishConfirmBox'}>
                         <span className={'wishConfirmBoxTitle'}>Actual Delivery</span>
                     </div>
-                    <div className={'wishConfirmBoxBox'}>
+                    <div className={'wishConfirmBox'}>
                         <span className={'wishConfirmBoxDesc'}>Wed, Nov 8, 2023, at 4:30 PM</span>
                     </div>
                 </div>
-                <div className={'wishConfirmBox'}>
-                    <div className={'wishConfirmBoxBox'}>
+                <div className={'wishConfirmBoxContainer'}>
+                    <div className={'wishConfirmBox'}>
                         <span className={'wishConfirmBoxTitle'}>Proof of Delivery</span>
                     </div>
-                    <div className={'wishConfirmBoxBox'}>
+                    <div className={'wishConfirmBox'}>
                         <img className={'Delivery_pic'} src={Delivery_pic} alt={'Delivery_pic'}/>
                     </div>
                 </div>
-                <div className={'wishConfirmBox'}>
-                    <div className={'wishConfirmBoxBox'}>
+                <div className={'wishConfirmBoxContainer'}>
+                    <div className={'wishConfirmBox'}>
                         <span className={'wishConfirmBoxTitle'}>How was the service provided by our Granter?</span>
                     </div>
-                    <div className={'wishConfirmBoxBox'}>
+                    <div className={'wishConfirmBox'}>
                         <div className="rating">
                             <input type="radio" id="star5" name="rating" value="5" /><label htmlFor="star5"></label>
                             <input type="radio" id="star4" name="rating" value="4" /><label htmlFor="star4"></label>
@@ -51,11 +49,11 @@ function WishConfirmationBody () {
                         </div>
                     </div>
                 </div>
-                <div className={'wishConfirmBox'}>
-                    <div className={'wishConfirmBoxBox'}>
-                        <span className={'wishConfirmBoxTitle'}>How was the service provided by our Granter?</span>
+                <div className={'wishConfirmBoxContainer'}>
+                    <div className={'wishConfirmBox'}>
+                        <span className={'wishConfirmBoxDesc'}>Any feedback? (Optional)</span>
                     </div>
-                    <div className={'wishConfirmBoxBox'}>
+                    <div className={'wishConfirmBox'}>
                         <input className={'feedbackInput'}/>
                     </div>
                 </div>

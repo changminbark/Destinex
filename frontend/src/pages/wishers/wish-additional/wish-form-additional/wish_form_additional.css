@@ -122,5 +122,6 @@
 }
 
 .nextButton:hover {
+    cursor: pointer;
     background-color: #7000CD;
 }

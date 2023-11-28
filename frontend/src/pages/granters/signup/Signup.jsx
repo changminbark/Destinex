@@ -6,7 +6,7 @@ import './signup.css'
 function Signup() {
     return (
       <div className="signup">
-          <Header></Header>
+          <Header isGrant={true}></Header>
           <SignupForm></SignupForm>
           <Footer></Footer>
       </div>

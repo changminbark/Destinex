@@ -9,7 +9,7 @@
 }
 
 .submitBtn {
-    width: 100%;
+    width: 30%;
     background-color: #8B00FF;
     color: white;
     border: none;
@@ -19,6 +19,10 @@
     cursor: pointer;
     text-align: center;
     text-decoration: none;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 .submit:hover {
