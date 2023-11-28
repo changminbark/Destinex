@@ -2,58 +2,47 @@ import React, { useState, useEffect } from 'react';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
+import './wish-tracking.css';
+import {useSearchParams} from "react-router-dom";
+import axios from "axios";
+
 function WishTracking() {
-    const [stompClient, setStompClient] = useState(null);
-    const [wishStatus, setWishStatus] = useState([]);
-    const [connected, setConnected] = useState(false);
-    const token = localStorage.getItem('jwtToken');
-    const providerEmail = localStorage.getItem('username');
+    const [searchParams] = useSearchParams();
+    const jobId = searchParams.get('jobId');
+    const [wishInfo, setWishInfo] = useState(null);
 
     useEffect(() => {
-        if (!token || !providerEmail) {
-            console.log("Token or provider email not found!");
-            return;
-        }
+        const fetchData = async () => {
+            const token = localStorage.getItem('jwtToken');
 
-        const socket = new SockJS('http://localhost:8080/ws');
-        const client = Stomp.over(socket);
-
-        client.connect({'Authorization': `Bearer ${token}`}, function(frame) {
-            console.log('Connected: ' + frame);
-            setStompClient(client);
-            setConnected(true);
-
-            const subscriptionUrl = `/user/${providerEmail}/user/job-status`;
-            client.subscribe(subscriptionUrl, function(message) {
-                console.log('Job status received:', message.body); // Log when a message is received
-                setWishStatus([JSON.parse(message.body)]);
-            });
-
-            console.log('Subscribed to:', subscriptionUrl); // Log the subscription
-        }, function(error) {
-            console.log('Connection error: ' + error);
-            setConnected(false);
-        });
-
-        return () => {
-            console.log('Component will unmount'); // Log when component unmounts
-            if (client && client.connected) {
-                client.disconnect(() => console.log('Disconnected'));
+            try {
+                const response = await axios.get(`http://localhost:8080/api/jobs/${jobId}`, { // Make sure the URL is correct
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                setWishInfo(response.data);
+                console.log(response.data)
+            } catch (error) {
+                console.error('Error fetching wish data:', error);
             }
         };
-    }, []);
+
+        if (jobId) {
+            fetchData();
+        }
+    }, [jobId]);
 
     return (
-        <div className="App">
+        <div className="wish-tracking">
             <h2>Wish Tracking</h2>
             <div>
-                {wishStatus.map((wish, index) => (
-                    <div key={index}>
-                        <h3>Tracking for wish: {}</h3>
-                        <div>Your granter: {}</div>
-                        <div>Your wish status: {}</div>
-                    </div>
-                ))}
+                <div>
+                    <div>Tracking for wish ID: {jobId}</div>
+                    <div>Wish description: {wishInfo?.description || 'Loading...'}</div>
+                    <div>Your granter: {wishInfo?.providerId || 'Loading...'}</div>
+                    <div>Your wish status: {wishInfo?.status || 'Loading...'}</div>
+                </div>
             </div>
         </div>
     );

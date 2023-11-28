@@ -8,7 +8,7 @@ function GranterHome() {
         <div className="granterHome">
             <Header></Header>
             <GranterUpdates></GranterUpdates>
-            <Footer></Footer>
+            {/*<Footer></Footer>*/}
         </div>
     );
 }

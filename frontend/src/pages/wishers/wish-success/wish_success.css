@@ -61,3 +61,17 @@
     background-color: #8B00FF;
     border: 0.15rem solid #FFFFFF;
 }
+
+.wishTrackingButton {
+    width: 100%;
+    max-width: 32rem;
+    color: #FFFFFF;
+    padding: 1rem 0;
+    border-radius: 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    border: 0.15rem solid #FFFFFF;
+    margin-bottom: 1.5rem;
+}

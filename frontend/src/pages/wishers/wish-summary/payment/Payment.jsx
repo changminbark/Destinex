@@ -21,9 +21,12 @@ function Payment() {
             "coordinates": JSON.parse(sessionStorage.getItem("receiverAddressPoint"))
         }
 
-        const success = await addJob(category, receiverName, receiverPhone, receiverEmail, receiverAddress, description, receiverAddressPoint)
-        if (success) {
-            navigate('/wish-success')
+        const successJobId = await addJob(category, receiverName, receiverPhone, receiverEmail, receiverAddress, description, receiverAddressPoint)
+        if (successJobId) {
+            navigate(`/wish-success?jobId=${encodeURIComponent(successJobId)}`);
+        }
+        else {
+            console.log("Job creation failed, no ID returned");
         }
     }
 

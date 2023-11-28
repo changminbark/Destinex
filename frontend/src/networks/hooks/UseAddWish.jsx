@@ -1,9 +1,6 @@
 import * as addWishService from "../api/AddWishService"
 
 export const addJob = async(category, receiverName, receiverPhone, receiverEmail, receiverAddress, description, receiverAddressPoint) => {
-
-
-
     try {
         const jobData = {
             "category": category,
@@ -17,10 +14,14 @@ export const addJob = async(category, receiverName, receiverPhone, receiverEmail
 
         console.log(jobData)
         const response = await addWishService.addJob(jobData);
-        // Never reaches this line
-        console.log(response.data);
-        return true;
+        console.log("Upload a job successfully: ", response.data);
+        if (response.data && response.data.id) {
+            return response.data.id;
+        } else {
+            throw new Error("Job ID not received in the response");
+        }
     } catch (error) {
         console.error(error);
+        throw error;
     }
 }
