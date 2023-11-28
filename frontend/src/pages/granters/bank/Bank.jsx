@@ -6,7 +6,7 @@ import './bank.css'
 function BankAcc() {
     return (
         <div className="bank">
-            <Header></Header>
+            <Header isGrant={true}></Header>
             <AddBankAcc></AddBankAcc>
             <Footer></Footer>
         </div>

@@ -7,7 +7,7 @@ import './setup.css'
 function Setup() {
     return (
         <div className="setup">
-            <Header></Header>
+            <Header isGrant={true}></Header>
             <Requirement></Requirement>
             <SetupPage></SetupPage>
             <Footer></Footer>

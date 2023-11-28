@@ -2,14 +2,14 @@ import Header from '../../../components/header/header-purple/Header';
 import Footer from '../../../components/footer/Footer';
 import { useAuth } from '../../../networks/hooks/UseAuth';
 
-function Signup() {
+function Home() {
     const { isLoggedIn } = useAuth();
 
     return (
         <div className="signup">
             {
                 isLoggedIn ? (
-                    <Header isLogin={true}></Header>
+                    <Header isLogin={true} isGrant={false}></Header>
                 ) : (
                     <Header isLogin={false}></Header>
                 )
@@ -21,4 +21,4 @@ function Signup() {
     );
 }
 
-export default Signup;
+export default Home;

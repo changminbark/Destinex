@@ -1,10 +1,7 @@
 import {
-  BrowserRouter as Router,
-  Switch,
   Route,
-  Link,
   BrowserRouter,
-  Routes
+  Routes, Outlet
 } from "react-router-dom";
 
 import './App.css';
@@ -36,9 +33,12 @@ import ErrorPage from "./pages/common/error/ErrorPage";
 import WaitingPayment from "./pages/granters/waiting-payment/WaitingPayment";
 import WishConfirmation from "./pages/wishers/wish-confirmation/WishConfirmation";
 
+// Route authentication
+import ProtectedRoute from "./context/ProtectedRoute";
+import {useEffect} from "react";
+import {useAuth} from "./networks/hooks/UseAuth";
 
 function App() {
-
   return (
       <BrowserRouter>
         <AuthProvider>
@@ -46,22 +46,24 @@ function App() {
             <Route path="/" element={<Home/>}/>
             <Route path="/signup" element={<SignupWisher/>}/>
             <Route path="/signin" element={<SigninWisher/>}/>
-            <Route path="/wish-product" element={<WishProduct/>}/>
-            <Route path="/wish-recipient" element={<WishRecipient/>}/>
-            <Route path="/wish-additional" element={<WishAdditional/>}/>
-            <Route path="/wish-summary" element={<WishSummary/>}/>
-            <Route path="/wish-confirmation" element={<WishConfirmation/>}/>
-            <Route path="/wish-success" element={<WishSuccess/>}/>
             <Route path="/granter/signup" element={<SignupGranter/>}/>
             <Route path="/granter/setup" element={<SetupPage/>}/>
-            <Route path="/granter/home" element={<GranterHome/>}/>
             <Route path="/granter/bank" element={<BankAcc/>}/>
-            <Route path="/granter/jobs" element={<JobList/>} />
             <Route path="/granter/congrats" element={<CongratsPage/>}/>
-            <Route path="/granter/details" element={<Details/>}/>
-            <Route path="/granter/wish-granted" element={<WishGranted/>}/>
-            <Route path="/granter/waiting-payment" element={<WaitingPayment/>}/>
             <Route path="/error" element={<ErrorPage/>}/>
+            <Route element={<ProtectedRouteWrapper />}>
+              <Route path="/wish-product" element={<WishProduct/>}/>
+              <Route path="/wish-recipient" element={<WishRecipient/>}/>
+              <Route path="/wish-additional" element={<WishAdditional/>}/>
+              <Route path="/wish-summary" element={<WishSummary/>}/>
+              <Route path="/wish-confirmation" element={<WishConfirmation/>}/>
+              <Route path="/wish-success" element={<WishSuccess/>}/>
+              <Route path="/granter/home" element={<GranterHome/>}/>
+              <Route path="/granter/jobs" element={<JobList/>} />
+              <Route path="/granter/details" element={<Details/>}/>
+              <Route path="/granter/wish-granted" element={<WishGranted/>}/>
+              <Route path="/granter/waiting-payment" element={<WaitingPayment/>}/>
+            </Route>
           </Routes>
         </AuthProvider>
       </BrowserRouter>
@@ -69,3 +71,13 @@ function App() {
 }
 
 export default App;
+
+function ProtectedRouteWrapper() {
+  const { isLoggedIn } = useAuth();
+
+  return (
+      <ProtectedRoute isAuthenticated={isLoggedIn}>
+        <Outlet />
+      </ProtectedRoute>
+  );
+}

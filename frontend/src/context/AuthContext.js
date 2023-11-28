@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
         // Initialize user data from localStorage
         setUserEmail(authUtils.getUsername());
         setUserFullName(authUtils.getFullName());
+        checkAuth();
     }, []);
 
     const login = async (username, password) => {
@@ -26,9 +27,6 @@ export const AuthProvider = ({ children }) => {
                 setIsLoggedIn(true);
                 setUserEmail(username);
                 setUserFullName(response.data.fullName);
-
-                console.log("hehehehehe", response.data.fullName);
-                console.log("hehehehehe", username);
 
                 authUtils.setToken(response.data.jwt);
                 authUtils.setUsername(username);
@@ -51,6 +49,11 @@ export const AuthProvider = ({ children }) => {
         setUserFullName(null);
         navigate('/');
     }
+
+    const checkAuth = () => {
+        const token = authUtils.getToken();
+        setIsLoggedIn(!!token);
+    };
 
     return (
         <AuthContext.Provider value={{ isLoggedIn, userEmail, userFullName, login, logout, error }}>

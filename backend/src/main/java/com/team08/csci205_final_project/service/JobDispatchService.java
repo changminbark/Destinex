@@ -92,7 +92,7 @@ public class JobDispatchService implements ApplicationListener<JobPostedEvent> {
      * @param jobId The ID of the job to be dispatched.
      * @param radiusInKm The radius within which to search for providers, in kilometers.
      */
-//    @Async("jobDispatchExecutor")
+    @Async("jobDispatchExecutor")
     public void dispatchJob(String jobId, double radiusInKm) {
         LOGGER.info("Starting dispatchJob for jobId: " + jobId);
         jobService.findJobById(jobId).ifPresent(job -> processJobDispatch(job, radiusInKm));
