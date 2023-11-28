@@ -12,10 +12,11 @@ import '../header.css';
 import {useAuth} from "../../../networks/hooks/UseAuth";
 import { getFullName } from "../../../networks/utils/AuthUtils";
 
-function Header() {
+function Header(props) {
     const [userFullName, setUserFullName] = useState(getFullName);
     const { logout } = useAuth();
     const [showDropdown, setShowDropdown] = useState(false);
+    const { isGrant } = props;
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
@@ -26,21 +27,29 @@ function Header() {
     }
 
     return (
-        <div className="header">
+        <div className="header-no-bg">
             <div className="left-sided">
-                <div className="icon-menu">
+                <div className="icon-menu-no-bg">
                     <FontAwesomeIcon icon={faBars} />
                 </div>
-                <div className="logo">
-                    <span className='logo-destinex'>Destinex</span>
+                <div className="logo-no-bg">
+                    <Link to="/" className={"link-to"}><span className='logo-destinex-no-bg'>Destinex</span></Link>
                 </div>
-                <div className="role-option">
-                    <Link to={"/wishproduct"}><button className="btn-wish">Wish</button></Link>
-                    <Link to={"/granter/signup"}><button className="btn-grant">Grant</button></Link>
-                </div>
+                {!isGrant &&
+                    <div className="role-option-wish-no-bg">
+                        <Link to={"/wish-product"}><button className="btn-wish">Wish</button></Link>
+                        <Link to={"/granter/signup"}><button className="btn-grant">Grant</button></Link>
+                    </div>
+                }
+                {isGrant &&
+                    <div className="role-option-grant-no-bg">
+                        <Link to={"/wish-product"}><button className="btn-wish">Wish</button></Link>
+                        <Link to={"/granter/signup"}><button className="btn-grant">Grant</button></Link>
+                    </div>
+                }
                 <div className="location">
-                    <div class="divider"></div>
-                    <div class="location">South Campus Apartment (Building 4)</div>
+                    <div class="divider-no-bg"></div>
+                    <div class="location-no-bg">South Campus Apartment (Building 4)</div>
                     <FontAwesomeIcon icon={faAngleDown} />
                 </div>
             </div>
@@ -52,10 +61,10 @@ function Header() {
                     <div className="user-avatar">
                         <img src={DemoUser} />
                     </div>
-                    <div className="username">
+                    <div className="username-no-bg">
                         <h5>Hello {userFullName}</h5>
                     </div>
-                    <div className="user-browse" onClick={toggleDropdown}>
+                    <div className="user-browse-no-bg" onClick={toggleDropdown}>
                         <FontAwesomeIcon icon={faAngleDown} />
                         {showDropdown && (
                             <div className="dropdown-menu">

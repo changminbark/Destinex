@@ -13,7 +13,7 @@ import {useAuth} from "../../../networks/hooks/UseAuth";
 import * as authUtils from "../../../networks/utils/AuthUtils";
 
 function Header(props) {
-    const { isLogin } = props;
+    const { isLogin, isGrant } = props;
     const { logout } = useAuth();
     const [showDropdown, setShowDropdown] = useState(false);
     const userFullName = authUtils.getFullName();
@@ -33,12 +33,20 @@ function Header(props) {
                     <FontAwesomeIcon icon={faBars} />
                 </div>
                 <div className="logo">
-                    <span className='logo-destinex'>Destinex</span>
+                    <Link className={"link-to"} to={"/"}><span className='logo-destinex'>Destinex</span></Link>
                 </div>
-                <div className="role-option">
-                    <Link to={"/wishproduct"}><button className="btn-wish">Wish</button></Link>
-                    <Link to={"/granter/signup"}><button className="btn-grant">Grant</button></Link>
-                </div>
+                {!isGrant &&
+                    <div className="role-option-wish">
+                        <Link to={"/wish-product"}><button className="btn-wish">Wish</button></Link>
+                        <Link to={"/granter/signup"}><button className="btn-grant">Grant</button></Link>
+                    </div>
+                }
+                {isGrant &&
+                    <div className="role-option-grant">
+                        <Link to={"/wish-product"}><button className="btn-wish">Wish</button></Link>
+                        <Link to={"/granter/signup"}><button className="btn-grant">Grant</button></Link>
+                    </div>
+                }
                 <div className="location">
                     <div className="divider"></div>
                     <div className="location-text">South Campus Apartment (Building 4)</div> {/* Changed class to className */}

@@ -10,6 +10,17 @@
     background-color: #8B00FF;
 }
 
+.header-no-bg {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    color: #fff;
+}
+
 .left-sided {
     display: flex;
     align-items: center;
@@ -21,21 +32,37 @@
     font-size: large;
 }
 
+.icon-menu-no-bg {
+    font-size: large;
+    color: black;
+}
+
 .icon-menu,
 .logo,
 .location,
+.location-no-bg,
 .icon-bell,
 .user-profile {
     display: flex;
     align-items: center;
 }
 
-.role-option {
+.logo-no-bg {
+    display: flex;
+    align-items: center;
+}
+
+.role-option-wish {
     display: flex;
     gap: 0.5rem;
 }
 
-.role-option button {
+.role-option-grant {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.role-option-wish button{
     border: none;
     font-weight: 600;
     border-radius: 40px;
@@ -44,25 +71,100 @@
     cursor: pointer;
 }
 
+.role-option-wish-no-bg button{
+    border: none;
+    font-weight: 600;
+    border-radius: 40px;
+    padding: 0.5rem 1rem;
+    flex: none;
+    cursor: pointer;
+}
+
+.role-option-grant button{
+    border: none;
+    font-weight: 600;
+    border-radius: 40px;
+    padding: 0.5rem 1rem;
+    flex: none;
+    cursor: pointer;
+}
+
+.role-option-grant-no-bg button{
+    border: none;
+    font-weight: 600;
+    border-radius: 40px;
+    padding: 0.5rem 1rem;
+    flex: none;
+    cursor: pointer;
+}
+
+.link-to {
+    text-decoration: none;
+}
+
 .logo-destinex {
     font-size: 2rem;
     font-weight: bold;
     color: #ffffff;
+    text-decoration: none;
 }
 
-.btn-wish {
+.logo-destinex-no-bg {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #8B00FF;
+    text-decoration: none;
+}
+
+.role-option-wish .btn-wish {
     background-color: #ffffff;
     color: #8B00FF;
 }
 
-.btn-grant {
+.role-option-wish .btn-grant {
     background-color: #8B00FF;
     color: white;
+}
+
+.role-option-grant .btn-wish {
+    background-color: #8B00FF;
+    color: white;
+}
+
+.role-option-grant .btn-grant {
+    background-color: #ffffff;
+    color: #8B00FF;
+}
+
+.role-option-wish-no-bg .btn-wish {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.role-option-wish-no-bg .btn-grant {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.role-option-grant-no-bg .btn-wish {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.role-option-grant-no-bg .btn-grant {
+    background-color: #000000;
+    color: #FFFFFF;
 }
 
 .location {
     gap: 1rem;
     font-weight: 600;
+}
+
+.location-no-bg {
+    gap: 1rem;
+    font-weight: 600;
+    color: #000000;
 }
 
 .user-profile {
@@ -83,11 +185,24 @@
     font-size: large;
 }
 
+.username-no-bg {
+    font-size: large;
+    color: #000000;
+}
+
 .divider {
     height: 30px;
     width: 4px;
     background: #ffffff;
     margin: 0 1rem;
+}
+
+.divider-no-bg {
+    height: 30px;
+    width: 4px;
+    background: #000000;
+    margin: 0 1rem;
+
 }
 
 .right-sided {
@@ -133,6 +248,12 @@
 .user-browse {
     cursor: pointer;
 }
+
+.user-browse-no-bg {
+    cursor: pointer;
+    color: #000000;
+}
+
 
 .user-browse:hover .dropdown-menu {
     display: block;
