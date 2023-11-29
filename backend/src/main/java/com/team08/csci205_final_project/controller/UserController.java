@@ -18,6 +18,7 @@
  */
 package com.team08.csci205_final_project.controller;
 
+import com.team08.csci205_final_project.exception.DuplicateAccountException;
 import com.team08.csci205_final_project.model.User.User;
 import com.team08.csci205_final_project.model.DTO.UserRegister;
 import com.team08.csci205_final_project.service.UserService;
@@ -27,9 +28,11 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.AccessDeniedException;
 
@@ -47,16 +50,16 @@ public class UserController {
     @Operation(summary = "Register an user account")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Register Successfully",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = User.class)) }),
-            @ApiResponse(responseCode = "409", description = "Email is already registered, please login",
-                    content = @Content) })
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = User.class))})
+    })
     @PostMapping("/register")
-    public ResponseEntity<?> createUser(@RequestBody UserRegister userRegister) {
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserRegister userRegister) {
         if (userService.findUserByEmail(userRegister.getEmail()).isEmpty())
             return ResponseEntity.ok(userService.userRegister(userRegister));
-        else
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email is already registered, please login");
+        else {
+            throw new DuplicateAccountException("You already signed up. Please log in");
+        }
     }
 
     /** API endpoint to get all users' information */

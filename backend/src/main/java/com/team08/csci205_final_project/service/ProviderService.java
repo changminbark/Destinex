@@ -18,12 +18,15 @@
  */
 package com.team08.csci205_final_project.service;
 
+import com.team08.csci205_final_project.exception.DuplicateAccountException;
 import com.team08.csci205_final_project.model.Auth.Role;
+import com.team08.csci205_final_project.model.DTO.ProviderRegister;
 import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.Provider.Provider;
 import com.team08.csci205_final_project.model.User.User;
 import com.team08.csci205_final_project.repository.ProviderRepository;
 import com.team08.csci205_final_project.repository.UserRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
@@ -57,22 +60,32 @@ public class ProviderService {
     public UserService userService;
 
     /** Add a new provider */
-    public Optional<Provider> providerRegister () throws AccessDeniedException {
+    public Optional<Provider> providerRegister(ProviderRegister providerRegister) throws AccessDeniedException {
         String id = userService.getCurrentUserId();
+
+        // If there is user from authentication then return empty
         if (!userRepository.existsById(id)) {
             return Optional.empty();
         }
+
+        // Account has to be user account
         User user = userRepository.findById(id).get();
         if (user.getRole() != Role.ROLE_USER.getValue()) {
-            return Optional.empty();
+            throw new DuplicateAccountException("You already signed up for provider");
         }
+
+        // Create a provider from user account
         Provider provider = new Provider();
+        BeanUtils.copyProperties(providerRegister, provider);
+
+        // Set initial state
         provider.setProviderAvail(true);
         provider.setActiveJob(null);
         provider.setUserId(user.getId());
         provider.setEmail(user.getEmail());
-        provider.setCurrentLocation(user.getLocation());
         user.setRole(Role.ROLE_PROVIDER.getValue());
+        userRepository.save(user);
+
         return Optional.of(providerRepository.save(provider));
     }
 

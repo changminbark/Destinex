@@ -18,6 +18,7 @@
  */
 package com.team08.csci205_final_project.controller;
 
+import com.team08.csci205_final_project.model.DTO.ProviderRegister;
 import com.team08.csci205_final_project.model.Provider.Provider;
 import com.team08.csci205_final_project.service.ProviderService;
 import com.team08.csci205_final_project.service.UserService;
@@ -42,8 +43,8 @@ public class ProviderController {
 
     /** Create a new provider */
     @PostMapping("/register")
-    public ResponseEntity<?> addProvider() throws AccessDeniedException {
-        Optional <Provider> postProvider = providerService.providerRegister();
+    public ResponseEntity<?> addProvider(@RequestBody ProviderRegister providerRegister) {
+        Optional <Provider> postProvider = providerService.providerRegister(providerRegister);
         if (postProvider.isPresent()) {
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{id}")
@@ -51,31 +52,32 @@ public class ProviderController {
                     .toUri();
             return ResponseEntity.created(location).body(postProvider.get());
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The account doesn't exist or already provider account");
+        //TODO
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Lol");
     }
 
     /** Get provider information based on userId */
-    @GetMapping("/{id}")
+    @GetMapping
     public ResponseEntity<Provider> getProviderById(@PathVariable String id) {
         Optional<Provider> provider = providerService.findProviderById(id);
         return provider.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /** Update provider's information */
-    @PutMapping("/{id}")
-    public ResponseEntity<Provider> updateProvider(@PathVariable String id, @RequestBody Provider provider) throws AccessDeniedException {
-        return providerService.findProviderById(id)
-                .map(existingProvider -> {
-                    existingProvider.setJobHistory(provider.getJobHistory());
-                    existingProvider.setCurrentLocation(provider.getCurrentLocation());
-
-                    //TODO
-                    Provider updatedProvider = providerService.providerRegister().get();
-                    return new ResponseEntity<>(updatedProvider, HttpStatus.OK);
-                })
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
+//    /** Update provider's information */
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Provider> updateProvider(@PathVariable String id, @RequestBody Provider provider) throws AccessDeniedException {
+//        return providerService.findProviderById(id)
+//                .map(existingProvider -> {
+//                    existingProvider.setJobHistory(provider.getJobHistory());
+//                    existingProvider.setCurrentLocation(provider.getCurrentLocation());
+//
+//                    //TODO
+//                    Provider updatedProvider = providerService.providerRegister().get();
+//                    return new ResponseEntity<>(updatedProvider, HttpStatus.OK);
+//                })
+//                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//    }
 
     /** Delete a provider */
     @DeleteMapping("/{id}")
