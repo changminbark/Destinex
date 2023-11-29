@@ -34,9 +34,12 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Provider {
+    /** Store Provider ID **/
     @Id
-    /** Store userID information of the provider */
     private String providerId;
+
+    /** Store userID information of the provider */
+    private String userId;
 
     /** Store email information of the provider */
     private String email;
@@ -64,4 +67,6 @@ public class Provider {
 
     /** Rating or score associated with the user based on reviews or feedback. */
     private Double rating;
+    /** Store status of the provider */
+    private boolean providerAvail;
 }

@@ -69,4 +69,7 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+    public String getUserId() {
+        return user.getId();
+    }
 }

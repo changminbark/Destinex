@@ -19,16 +19,17 @@
 package com.team08.csci205_final_project.service;
 
 import com.team08.csci205_final_project.event.JobPostedEvent;
+import com.team08.csci205_final_project.model.DTO.NewJobRequest;
 import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.Job.JobStatus;
 import com.team08.csci205_final_project.repository.JobRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -39,19 +40,27 @@ public class JobService {
     @Autowired
     private JobRepository jobRepository;
 
+    @Autowired
+    private UserService userService;
+
     /** Auto trigger a job dispatch event after posting a new job */
     @Autowired
     ApplicationEventPublisher eventPublisher;
 
     /**
      * Create a job in the database and return
-     * @param job the information of the job including
+     * @param newJobRequest the information of the job including
      *            "userId", "category", "description", "receiverName".
      *            "receiverAddress", "receiverPhone"
      * @return the job after created with added information
      */
-    public Job createJob(Job job) {
+    public Job createJob(NewJobRequest newJobRequest) {
+        Job job = new Job();
+        BeanUtils.copyProperties(newJobRequest, job);
+
+//        job.setUserId(job.get);
         job.setCreatedDate(LocalDate.now());
+        //TODO set up the job and userID
         Job savedJob = jobRepository.save(job);
 
         // Publish an event after the job is saved
@@ -71,10 +80,10 @@ public class JobService {
 
     /**
      * Find the job by user ID
-     * @param id ID of the job
      * @return list of job from an user id
      */
-    public List<Job> findJobByUser(String id, JobStatus jobStatus) {
+    public List<Job> findJobByUser(JobStatus jobStatus) {
+        String id = userService.getCurrentUserId();
         return jobRepository.findByUserId(id, jobStatus);
     }
 
@@ -104,5 +113,22 @@ public class JobService {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Accept the job from provider
+     * @param id id of the job
+     * @param providerId id from provider
+     * @return
+     */
+    public Job acceptJob(String id, String providerId) {
+        Optional <Job> job = jobRepository.findById(id);
+        if (job.isPresent()) {
+            Job updatedJob = job.get();
+            updatedJob.setStatus(JobStatus.ACCEPTED);
+            updatedJob.setProviderId(providerId);
+            jobRepository.save(updatedJob);
+        }
+        return null;
     }
 }

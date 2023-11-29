@@ -18,10 +18,18 @@
  */
 package com.team08.csci205_final_project.controller;
 
-import com.team08.csci205_final_project.model.Job.Job;
+import com.team08.csci205_final_project.model.DTO.NewJobRequest;
 import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.Job.JobStatus;
+import com.team08.csci205_final_project.model.User.User;
 import com.team08.csci205_final_project.service.JobService;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,14 +49,22 @@ public class JobController {
 
     /**
      * The interface for requesting a job
-     * @param job the information of the job including
+     * @param newJobRequest the information of the job including
      *            "userId", "category", "description", "receiverName"
      *            "receiverAddress", "receiverPhone"
      * @return The response from the request
      */
+    @Operation(summary = "Create a job and publish an event for job dispatcher")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Create a job successfully",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Job.class))})
+        }
+    )
     @PostMapping
-    public ResponseEntity<Job> createJob(@RequestBody Job job) {
-        Job savedJob = jobService.createJob(job);
+    public ResponseEntity<Job> createJob(
+            @Parameter(description = "Information needed for a job") @RequestBody NewJobRequest newJobRequest) {
+        Job savedJob = jobService.createJob(newJobRequest);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(savedJob.getId())
@@ -70,41 +86,47 @@ public class JobController {
 
     /**
      * Get all the job from one user
-     * @param id Id of the user
      * @param status job status
      * @return All the job of that user
      */
-    @GetMapping("/user/{id}")
-    public ResponseEntity<List<Job>> getJobByUser(@PathVariable String id,
-                                                  @RequestParam(required = false) JobStatus status) {
-        return ResponseEntity.ok(jobService.findJobByUser(id, status));
+    @Operation(summary = "Get a list of jobs information")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Find ",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Job.class))})
+        }
+    )
+    @GetMapping
+    public ResponseEntity<List<Job>> getJobByUser(@RequestParam(required = false) JobStatus status) {
+        return ResponseEntity.ok(jobService.findJobByUser(status));
     }
 
-    /**
-     * API endpoint to update the job or creating new one using PUT method
-     * @param id id of the job to update or create
-     * @param job the job content
-     * @return response with code 201 or 200
-     */
-    @PutMapping("/{id}")
-    public ResponseEntity<Job> updateJob(@PathVariable String id, @RequestBody Job job) {
-        job.setId(id);
-        if (jobService.findJobById(id).isEmpty()) {
-            return createJob(job);
-        }
-        else {
-            Job updatedJob = jobService.updateJob(job);
-            return ResponseEntity.ok(updatedJob);
-        }
-    }
+//    /**
+//     * API endpoint to update the job or creating new one using PUT method
+//     * @param id id of the job to update or create
+//     * @param job the job content
+//     * @return response with code 201 or 200
+//     */
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Job> updateJob(@PathVariable String id, @RequestBody NewJobDTO job) {
+//        job.setId(id);
+//        if (jobService.findJobById(id).isEmpty()) {
+//            return createJob(job);
+//        }
+//        else {
+//            Job updatedJob = jobService.updateJob(job);
+//            return ResponseEntity.ok(updatedJob);
+//        }
+//    }
 
     /**
      * Delete the job from database
      * @param id id of the job
      * @return response with no content
      */
+    @Hidden
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
+    public ResponseEntity<Void> deleteJob(@PathVariable String id) {
         if (jobService.deleteJob(id)) {
             return ResponseEntity.noContent().build();
         }

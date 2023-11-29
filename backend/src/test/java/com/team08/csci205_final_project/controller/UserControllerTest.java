@@ -2,6 +2,7 @@ package com.team08.csci205_final_project.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team08.csci205_final_project.model.User.User;
+import com.team08.csci205_final_project.model.DTO.UserRegister;
 import com.team08.csci205_final_project.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,14 +41,14 @@ class UserControllerTest {
 
     @Test
     void createUser() throws Exception {
-        User user = new User(); // Assuming User class has relevant fields
-        given(userService.userRegister(user)).willReturn(user);
+        UserRegister userRegister = new UserRegister(); // Assuming User class has relevant fields
+        given(userService.userRegister(userRegister)).willReturn(new User());
 
         mockMvc.perform(post("/api/users/register")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(user)))
+                        .content(objectMapper.writeValueAsString(userRegister)))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(user)));
+                .andExpect(content().json(objectMapper.writeValueAsString(userRegister)));
     }
 
     @Test

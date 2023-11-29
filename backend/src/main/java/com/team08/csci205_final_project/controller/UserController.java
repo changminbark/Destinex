@@ -19,10 +19,19 @@
 package com.team08.csci205_final_project.controller;
 
 import com.team08.csci205_final_project.model.User.User;
+import com.team08.csci205_final_project.model.DTO.UserRegister;
 import com.team08.csci205_final_project.service.UserService;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.AccessDeniedException;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,25 +44,44 @@ public class UserController {
     private UserService userService;
 
     /** API endpoint to create a new user */
+    @Operation(summary = "Register an user account")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Register Successfully",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = User.class)) }),
+            @ApiResponse(responseCode = "409", description = "Email is already registered, please login",
+                    content = @Content) })
     @PostMapping("/register")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        return ResponseEntity.ok(userService.userRegister(user));
+    public ResponseEntity<?> createUser(@RequestBody UserRegister userRegister) {
+        if (userService.findUserByEmail(userRegister.getEmail()).isEmpty())
+            return ResponseEntity.ok(userService.userRegister(userRegister));
+        else
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email is already registered, please login");
     }
 
     /** API endpoint to get all users' information */
-    @GetMapping
+    @Hidden
+    @GetMapping("/admin/all")
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(userService.findAllUsers());
     }
 
     /** API endpoint to get user's information based on userId */
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable String id) {
-        Optional<User> user = userService.findUserById(id);
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    @Hidden
+    @GetMapping
+    public ResponseEntity<?> getCurrentUserInfo() {
+        try {
+            String id = userService.getCurrentUserId();
+            Optional<User> user = userService.findUserById(id);
+            return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        }
+        catch (AccessDeniedException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credential. Please log in again");
+        }
     }
 
     /** API endpoint to get user's information based on email */
+    @Hidden
     @GetMapping("/email/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
         Optional<User> user = userService.findUserByEmail(email);
@@ -61,6 +89,7 @@ public class UserController {
     }
 
     /** API endpoint to edit user's information */
+    @Hidden
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
         if (!id.equals(user.getId())) {
@@ -70,6 +99,7 @@ public class UserController {
     }
 
     /** API endpoint to delete a user based on userId */
+    @Hidden
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
