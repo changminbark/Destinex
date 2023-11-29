@@ -5,7 +5,7 @@ const token = localStorage.getItem('jwtToken');
 
 export const granterRegister = async (granterData) => {
     try {
-        return await axios.post(`${API_URL}`, granterData, {
+        return await axios.post(`${API_URL}register`, granterData, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
