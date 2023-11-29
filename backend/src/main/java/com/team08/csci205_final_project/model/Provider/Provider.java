@@ -55,4 +55,19 @@ public class Provider {
 
     /** Store status of the provider */
     private boolean providerAvail;
+
+    /** Vehicle details **/
+    private String vehicleDetails;
+
+    /** National identification number of the user. */
+    private String nationalIdNumber;
+
+    /** Picture or image of the user's national ID. */
+    private String nationalIdPicture;
+
+    /** Driver's license number of the user. */
+    private String driverLicense;
+
+    /** Rating or score associated with the user based on reviews or feedback. */
+    private Double rating;
 }
