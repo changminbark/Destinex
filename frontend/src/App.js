@@ -47,12 +47,12 @@ function App() {
             <Route path="/" element={<Home/>}/>
             <Route path="/signup" element={<SignupWisher/>}/>
             <Route path="/signin" element={<SigninWisher/>}/>
-            <Route path="/granter/signup" element={<SignupGranter/>}/>
             <Route path="/granter/setup" element={<SetupPage/>}/>
             <Route path="/granter/bank" element={<BankAcc/>}/>
             <Route path="/granter/congrats" element={<CongratsPage/>}/>
             <Route path="/error" element={<ErrorPage/>}/>
             <Route element={<ProtectedRouteWrapper />}>
+              <Route path="/granter/signup" element={<SignupGranter/>}/>
               <Route path="/wish-product" element={<WishProduct/>}/>
               <Route path="/wish-recipient" element={<WishRecipient/>}/>
               <Route path="/wish-additional" element={<WishAdditional/>}/>

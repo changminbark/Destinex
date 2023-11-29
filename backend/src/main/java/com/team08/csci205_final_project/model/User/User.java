@@ -46,19 +46,4 @@ public class User {
 
     /** Role of the user in the system */
     private int role;
-
-    /** National identification number of the user. */
-    private String nationalIdNumber;
-
-    /** Picture or image of the user's national ID. */
-    private String nationalIdPicture;
-
-    /** Driver's license number of the user. */
-    private String driverLicense;
-
-    /** Rating or score associated with the user based on reviews or feedback. */
-    private Double rating;
-
-    /** Current job ID if the user is associated with a job or task. */
-    private String currentJobId;
 }
