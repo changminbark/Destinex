@@ -18,8 +18,10 @@
  */
 package com.team08.csci205_final_project.service;
 
+import com.team08.csci205_final_project.model.Auth.Role;
 import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.Provider.Provider;
+import com.team08.csci205_final_project.model.User.User;
 import com.team08.csci205_final_project.repository.ProviderRepository;
 import com.team08.csci205_final_project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,7 @@ import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,14 +53,27 @@ public class ProviderService {
     @Autowired
     public UserRepository userRepository;
 
+    @Autowired
+    public UserService userService;
+
     /** Add a new provider */
-    public Optional<Provider> providerRegister (Provider provider) {
-        if (userRepository.existsById(provider.getUserId())) {
-            provider.setProviderAvail(true);
-            provider.setActiveJob(null);
-            return Optional.of(providerRepository.save(provider));
+    public Optional<Provider> providerRegister () throws AccessDeniedException {
+        String id = userService.getCurrentUserId();
+        if (!userRepository.existsById(id)) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        User user = userRepository.findById(id).get();
+        if (user.getRole() != Role.ROLE_USER.getValue()) {
+            return Optional.empty();
+        }
+        Provider provider = new Provider();
+        provider.setProviderAvail(true);
+        provider.setActiveJob(null);
+        provider.setUserId(user.getId());
+        provider.setEmail(user.getEmail());
+        provider.setCurrentLocation(user.getLocation());
+        user.setRole(Role.ROLE_PROVIDER.getValue());
+        return Optional.of(providerRepository.save(provider));
     }
 
     /** Find a provider based on their userId */

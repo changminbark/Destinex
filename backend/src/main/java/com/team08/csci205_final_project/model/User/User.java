@@ -1,5 +1,7 @@
 package com.team08.csci205_final_project.model.User;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,15 +26,18 @@ public class User {
     private String id;
 
     /** First name of the user */
+    @NotBlank
     private String firstName;
 
     /** Last name of the user */
     private String lastName;
 
     /** Email address of the user */
+    @NotBlank
     private String email;
 
     /** Password of the user */
+    @NotBlank
     private String password;
 
     /** Date of birth of the user */
@@ -42,9 +47,11 @@ public class User {
     private LocalDate registerDate;
 
     /** Geospatial location of the user */
+    @NotBlank
     private GeoJsonPoint location;
 
     /** Role of the user in the system */
+    @Size(min = 1, max = 3)
     private int role;
 
     /** National identification number of the user. */

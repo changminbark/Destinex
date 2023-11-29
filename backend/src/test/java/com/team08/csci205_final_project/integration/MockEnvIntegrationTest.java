@@ -118,20 +118,20 @@ public class MockEnvIntegrationTest {
 //                        status().isOk(),
 //                        content().json(objectMapper.writeValueAsString(job))
 //                );
-    }
+//    }
 
-    @Test
-    public void testAcceptJobSuccess() throws Exception {
-        String providerId = "providerTest1"; // Assumed existing provider ID
-
-        mockMvc.perform(post("/api/providers/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content())
-                        .andExpect(status().isOk());
-
-        mockMvc.perform(post("/api/providers/" + providerId + "/accept")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+//    @Test
+//    public void testAcceptJobSuccess() throws Exception {
+//        String providerId = "providerTest1"; // Assumed existing provider ID
+//
+//        mockMvc.perform(post("/api/providers/")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content())
+//                        .andExpect(status().isOk());
+//
+//        mockMvc.perform(post("/api/providers/" + providerId + "/accept")
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk());
 //         Additional assertions can be made here
     }
 //

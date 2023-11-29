@@ -18,12 +18,19 @@
  */
 package com.team08.csci205_final_project.service;
 
+import com.team08.csci205_final_project.model.Auth.Role;
+import com.team08.csci205_final_project.model.User.CustomUserDetails;
 import com.team08.csci205_final_project.model.User.User;
+import com.team08.csci205_final_project.model.DTO.UserRegister;
 import com.team08.csci205_final_project.repository.UserRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.access.AccessDeniedException;
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -40,9 +47,13 @@ public class UserService {
     public UserRepository userRepository;
 
     /** Add a new user to the database */
-    public User userRegister(User user) {
-        // Automatically set the register date
+    public User userRegister(UserRegister userRegister) {
+        User user = new User();
+        BeanUtils.copyProperties(userRegister, user);
+
         user.setRegisterDate(LocalDate.now());
+
+        user.setRole(Role.ROLE_USER.getValue());
 
         // Encode the user password to store in the database
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -96,5 +107,32 @@ public class UserService {
         } else {
             throw new RuntimeException("User not found with username: " + username);
         }
+    }
+
+    /**
+     * Get user name from request
+     * @return userId
+     * @throws AccessDeniedException if there is no authentication from user
+     */
+    public String getCurrentUserId() throws AccessDeniedException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new AccessDeniedException("User is not authenticated");
+        }
+        CustomUserDetails currentUsername = (CustomUserDetails) authentication.getPrincipal();
+        return currentUsername.getUserId();
+    }
+
+    /**
+     * Get username from current authentication
+     * @return username
+     * @throws AccessDeniedException if there is no authentication
+     */
+    public String getCurrentUserName() throws AccessDeniedException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new org.springframework.security.access.AccessDeniedException("User is not authenticated");
+        }
+        return authentication.getName();
     }
 }
