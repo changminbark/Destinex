@@ -12,10 +12,9 @@ import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 @NoArgsConstructor
 @Schema(description = "Details required for registering a service provider")
 public class ProviderRegister {
-
     /** Store the provider's current location */
     @NotBlank
-    @Schema(description = "Current geographical location of the provider", example = "{\"type\": \"Point\", \"coordinates\": [-73.856077, 40.848447]}")
+    @Schema(description = "Current geographical location of the provider")
     private GeoJsonPoint currentLocation;
 
     /** Vehicle details **/

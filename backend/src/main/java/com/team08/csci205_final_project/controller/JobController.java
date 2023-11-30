@@ -31,6 +31,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -55,12 +56,7 @@ public class JobController {
      * @return The response from the request
      */
     @Operation(summary = "Create a job and publish an event for job dispatcher")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Create a job successfully",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Job.class))})
-        }
-    )
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Job created successfully")
     @PostMapping
     public ResponseEntity<Job> createJob(@RequestBody NewJobRequest newJobRequest) {
         Job savedJob = jobService.createJob(newJobRequest);
