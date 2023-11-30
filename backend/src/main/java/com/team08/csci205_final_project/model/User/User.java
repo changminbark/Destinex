@@ -1,6 +1,7 @@
 package com.team08.csci205_final_project.model.User;
 
 import com.team08.csci205_final_project.model.Auth.Role;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -22,35 +23,35 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    /** Unique identifier for the user */
     @Id
+    @Schema(description = "Unique identifier for the user", example = "12345abcde")
     private String id;
 
-    /** First name of the user */
+    @Schema(description = "First name of the user", example = "John")
     @NotBlank
     private String firstName;
 
-    /** Last name of the user */
+    @Schema(description = "Last name of the user", example = "Doe")
     private String lastName;
 
-    /** Email address of the user */
+    @Schema(description = "Email address of the user", example = "john.doe@example.com")
     @NotBlank
     private String email;
 
-    /** Password of the user */
+    @Schema(description = "Password of the user", example = "SecureP@ssw0rd!")
     @NotBlank
     private String password;
 
-    /** Date of birth of the user */
+    @Schema(description = "Date of birth of the user", example = "1990-01-01")
     private LocalDate dateOfBirth;
 
-    /** Register date of the user */
+    @Schema(description = "Register date of the user", example = "2023-01-01")
     private LocalDate registerDate;
 
-    /** Geospatial location of the user */
+    @Schema(description = "Geospatial location of the user", example = "{\"type\": \"Point\", \"coordinates\": [-74.005974, 40.712776]}")
     @NotBlank
     private GeoJsonPoint location;
 
-    /** Role of the user in the system */
+    @Schema(description = "Role of the user in the system", example = "ROLE_USER")
     private Role role;
 }
