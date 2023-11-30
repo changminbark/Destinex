@@ -15,9 +15,9 @@ public class ExceptionResponse {
     @Schema(description = "Time on server")
     private Date timestamp;
 
-    @Schema(description = "Error messages", example = "User has already logged in")
+    @Schema(description = "Error messages", example = "Error description")
     private String message;
 
-    @Schema(description = "Additional details or instructions to resolve problem", example = "Please log in again")
+    @Schema(description = "Additional details or instructions to resolve problem", example = "Additional details and instructions")
     private String details;
 }

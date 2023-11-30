@@ -62,14 +62,12 @@ public class UserService {
     }
 
     /** Find a user based on userId */
-    public User findUserById(String userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User " + userId + " not found"));
+    public Optional<User> findUserById(String userId) {
+        return userRepository.findById(userId);
     }
 
     /** Find a user based on their email */
     public Optional<User> findUserByEmail(String email) {
-        System.out.println(email);
         return userRepository.findByEmail(email);
     }
 
@@ -120,8 +118,14 @@ public class UserService {
         if (authentication == null || !authentication.isAuthenticated()) {
             throw new AccessDeniedException("User is not authenticated");
         }
-        CustomUserDetails currentUsername = (CustomUserDetails) authentication.getPrincipal();
-        return currentUsername.getUserId();
+        Object principal = authentication.getPrincipal();
+
+        if (principal instanceof CustomUserDetails) {
+            CustomUserDetails customUserDetails = (CustomUserDetails) principal;
+            return customUserDetails.getUserId();
+        } else {
+            throw new AccessDeniedException(principal.toString());
+        }
     }
 
     /**

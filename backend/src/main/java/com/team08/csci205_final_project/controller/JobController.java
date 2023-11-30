@@ -18,6 +18,7 @@
  */
 package com.team08.csci205_final_project.controller;
 
+import com.team08.csci205_final_project.model.DTO.JobInfo;
 import com.team08.csci205_final_project.model.DTO.NewJobRequest;
 import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.Job.JobStatus;
@@ -30,6 +31,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,9 +58,8 @@ public class JobController {
      * @return The response from the request
      */
     @Operation(summary = "Create a job and publish an event for job dispatcher")
-    @ResponseStatus(value = HttpStatus.CREATED, reason = "Job created successfully")
     @PostMapping
-    public ResponseEntity<Job> createJob(@RequestBody NewJobRequest newJobRequest) {
+    public ResponseEntity<Job> createJob(@Valid @RequestBody NewJobRequest newJobRequest) {
         Job savedJob = jobService.createJob(newJobRequest);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -72,6 +73,8 @@ public class JobController {
      * @param id ID of the job
      * @return the job
      */
+    @Operation(summary = "Get job information from Job ID")
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public ResponseEntity<Job> getJobById(@PathVariable String id) {
         return jobService.findJobById(id)
@@ -84,16 +87,11 @@ public class JobController {
      * @param status job status
      * @return All the job of that user
      */
-    @Operation(summary = "Get a list of jobs information")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Find ",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Job.class))})
-        }
-    )
+    @Operation(summary = "Get jobs information from this account")
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    public ResponseEntity<List<Job>> getJobByUser(@RequestParam(required = false) JobStatus status) {
-        return ResponseEntity.ok(jobService.findJobByUser(status));
+    public ResponseEntity<List<JobInfo>> getJobByUser(@RequestParam(required = false) JobStatus status) {
+        return ResponseEntity.ok(JobInfo.convertToUserDtoList(jobService.findJobByUser(status)));
     }
 
 //    /**

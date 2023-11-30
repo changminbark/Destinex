@@ -19,6 +19,8 @@
 package com.team08.csci205_final_project.service;
 
 import com.team08.csci205_final_project.event.JobPostedEvent;
+import com.team08.csci205_final_project.exception.DuplicateAccountException;
+import com.team08.csci205_final_project.exception.ResourceNotFoundException;
 import com.team08.csci205_final_project.model.DTO.NewJobRequest;
 import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.Job.JobStatus;
@@ -60,19 +62,21 @@ public class JobService {
         BeanUtils.copyProperties(newJobRequest, job);
 
         // Set up Job initial status
-        User user = userService.findUserById(userService.getCurrentUserId());
+        User user = userService.findUserById(userService.getCurrentUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         job.setCreatedDate(LocalDate.now());
         job.setUserId(user.getId());
         job.setUserEmail(user.getEmail());
         job.setStatus(JobStatus.POSTED);
+        job.setIS_DELETED(false);
 
         Job savedJob = jobRepository.save(job);
 
         // Publish an event after the job is saved
         eventPublisher.publishEvent(new JobPostedEvent(this, savedJob));
 
-        return job;
+        return savedJob;
     }
 
     /**
