@@ -66,7 +66,7 @@ public class Job {
     private LocalDate createdDate;
 
     /** The date when the job is set to end. */
-    private LocalDate endDate;
+    private String endDate;
 
     /** The name of the product/service. */
     private String productName;

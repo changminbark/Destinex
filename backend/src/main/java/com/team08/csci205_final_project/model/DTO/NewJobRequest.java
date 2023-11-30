@@ -38,5 +38,20 @@ public class NewJobRequest {
     @Schema(description = "The email of the receiver of the job's output", example = "receiver@example.com", required = true)
     @NotBlank
     private String receiverEmail;
+
+    // New variable for product name
+    @Schema(description = "The name of the product", example = "Legal Document Package")
+    @NotBlank
+    private String productName;
+
+    // Changed itemPrice to String
+    @Schema(description = "The price range of the item", example = "$20 - $50")
+    @NotBlank
+    private String itemPrice;
+
+    // New variable for end date
+    @Schema(description = "The expected arrival date of the job", example = "2023-12-25")
+    @NotNull
+    private String endDate;
 }
 

@@ -26,7 +26,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 
 import com.team08.csci205_final_project.security.JwtAuthenticationFilter;
@@ -52,15 +51,12 @@ public class SecurityConfig {
                         .requestMatchers("/api/transactions/add").hasAnyAuthority("ROLE_PROVIDER", "ROLE_ADMIN")
                         .requestMatchers("/ws/**").permitAll()
                         .requestMatchers("/docs/**").permitAll()
-                        .requestMatchers("/swagger-ui/**").permitAll()
-                        .requestMatchers("/v3/**").permitAll()
                         .requestMatchers("/app/respondToJob").permitAll()
                         .anyRequest().authenticated()
 
                 )
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(corsFilter(), CorsFilter.class); // Add CORS filter before Spring Security filters
-        ;
+                .addFilterBefore(corsFilter(), CorsFilter.class);
         return http.build();
     }
 
