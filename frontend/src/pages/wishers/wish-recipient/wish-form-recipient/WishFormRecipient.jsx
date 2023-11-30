@@ -102,6 +102,8 @@ function WishFormRecipient() {
 
         sessionStorage.setItem("receiverAddress", adrsJSON);
 
+        sessionStorage.setItem("receiverAddressString", firstAddress + ", " + secondAddress + ", " + city + ", " + region + ", " + country)
+
         navigate("/wish-additional")
     }
 

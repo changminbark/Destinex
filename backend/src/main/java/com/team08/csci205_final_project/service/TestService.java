@@ -31,7 +31,7 @@ public class TestService {
 
     public void sendTestJobOffer(String email) {
         // Create a hard-coded job offer
-        JobOffer jobOffer = new JobOffer("testJobId", "Test Job Description", 100.0);
+        JobOffer jobOffer = new JobOffer("testJobId", "Test Job Description", "100.0");
 
         // Send this offer to the specific user
         messagingTemplate.convertAndSendToUser(email, "/queue/job-offers", jobOffer);
