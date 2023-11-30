@@ -22,6 +22,7 @@ import com.team08.csci205_final_project.event.JobPostedEvent;
 import com.team08.csci205_final_project.model.DTO.NewJobRequest;
 import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.Job.JobStatus;
+import com.team08.csci205_final_project.model.User.User;
 import com.team08.csci205_final_project.repository.JobRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,9 +59,14 @@ public class JobService {
         Job job = new Job();
         BeanUtils.copyProperties(newJobRequest, job);
 
-//        job.setUserId(job.get);
+        // Set up Job initial status
+        User user = userService.findUserById(userService.getCurrentUserId());
+
         job.setCreatedDate(LocalDate.now());
-        //TODO set up the job and userID
+        job.setUserId(user.getId());
+        job.setUserEmail(user.getEmail());
+        job.setStatus(JobStatus.POSTED);
+
         Job savedJob = jobRepository.save(job);
 
         // Publish an event after the job is saved

@@ -72,15 +72,10 @@ public class UserController {
     /** API endpoint to get user's information based on userId */
     @Hidden
     @GetMapping
-    public ResponseEntity<?> getCurrentUserInfo() {
-        try {
+    public ResponseEntity<User> getCurrentUserInfo() {
             String id = userService.getCurrentUserId();
-            Optional<User> user = userService.findUserById(id);
-            return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-        }
-        catch (AccessDeniedException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credential. Please log in again");
-        }
+            User user = userService.findUserById(id);
+            return ResponseEntity.ok(user);
     }
 
     /** API endpoint to get user's information based on email */

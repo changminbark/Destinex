@@ -1,33 +1,36 @@
 package com.team08.csci205_final_project.model.DTO;
 
-import com.team08.csci205_final_project.model.Job.Job;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
-import java.util.ArrayList;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "Details required for registering a service provider")
 public class ProviderRegister {
 
     /** Store the provider's current location */
     @NotBlank
+    @Schema(description = "Current geographical location of the provider", example = "{\"type\": \"Point\", \"coordinates\": [-73.856077, 40.848447]}")
     private GeoJsonPoint currentLocation;
 
     /** Vehicle details **/
     @NotBlank
+    @Schema(description = "Details of the provider's vehicle", example = "Toyota Corolla 2019, White")
     private String vehicleDetails;
 
     /** National identification number of the user. */
     @NotBlank
+    @Schema(description = "National identification number of the provider", example = "1234567890")
     private String nationalIdNumber;
 
     /** Driver's license number of the user. */
     @NotBlank
+    @Schema(description = "Driver's license number of the provider", example = "DL1234567")
     private String driverLicense;
 
 }

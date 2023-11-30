@@ -18,6 +18,7 @@
  */
 package com.team08.csci205_final_project.service;
 
+import com.team08.csci205_final_project.exception.ResourceNotFoundException;
 import com.team08.csci205_final_project.model.Auth.Role;
 import com.team08.csci205_final_project.model.User.CustomUserDetails;
 import com.team08.csci205_final_project.model.User.User;
@@ -51,10 +52,9 @@ public class UserService {
         User user = new User();
         BeanUtils.copyProperties(userRegister, user);
 
+        // Set up initial state
         user.setRegisterDate(LocalDate.now());
-
-        user.setRole(Role.ROLE_USER.getValue());
-
+        user.setRole(Role.ROLE_USER);
         // Encode the user password to store in the database
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -62,8 +62,9 @@ public class UserService {
     }
 
     /** Find a user based on userId */
-    public Optional<User> findUserById(String userId) {
-        return userRepository.findById(userId);
+    public User findUserById(String userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User " + userId + " not found"));
     }
 
     /** Find a user based on their email */

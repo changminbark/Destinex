@@ -1,5 +1,6 @@
 package com.team08.csci205_final_project.model.User;
 
+import com.team08.csci205_final_project.model.Auth.Role;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -51,6 +52,5 @@ public class User {
     private GeoJsonPoint location;
 
     /** Role of the user in the system */
-    @Size(min = 1, max = 3)
-    private int role;
+    private Role role;
 }

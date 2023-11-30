@@ -62,8 +62,7 @@ public class JobController {
         }
     )
     @PostMapping
-    public ResponseEntity<Job> createJob(
-            @Parameter(description = "Information needed for a job") @RequestBody NewJobRequest newJobRequest) {
+    public ResponseEntity<Job> createJob(@RequestBody NewJobRequest newJobRequest) {
         Job savedJob = jobService.createJob(newJobRequest);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

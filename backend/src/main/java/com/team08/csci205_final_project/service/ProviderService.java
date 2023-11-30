@@ -70,7 +70,7 @@ public class ProviderService {
 
         // Account has to be user account
         User user = userRepository.findById(id).get();
-        if (user.getRole() != Role.ROLE_USER.getValue()) {
+        if (user.getRole() != Role.ROLE_USER) {
             throw new DuplicateAccountException("You already signed up for provider");
         }
 
@@ -83,7 +83,7 @@ public class ProviderService {
         provider.setActiveJob(null);
         provider.setUserId(user.getId());
         provider.setEmail(user.getEmail());
-        user.setRole(Role.ROLE_PROVIDER.getValue());
+        user.setRole(Role.ROLE_PROVIDER);
         userRepository.save(user);
 
         return Optional.of(providerRepository.save(provider));

@@ -2,6 +2,7 @@ package com.team08.csci205_final_project.advice;
 
 import com.team08.csci205_final_project.exception.DuplicateAccountException;
 import com.team08.csci205_final_project.exception.ExceptionResponse;
+import com.team08.csci205_final_project.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -64,6 +65,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ExceptionResponse> handleBadRequestException(Exception ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(
                 new Date(), ex.getMessage(), "Account sign up error"
+        ));
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<ExceptionResponse> handleResourceNotFoundException(
+            Exception ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionResponse(
+                new Date(), ex.getMessage(), "Resource not found in database"
         ));
     }
 }
