@@ -29,8 +29,9 @@ function WishFormProduct() {
 
 
     const handleProductNameChange = (event) => {
-        setProductName(event.target.value);
-        sessionStorage.setItem("productName", productName)
+        const newName = event.target.value
+        setProductName(newName);
+        sessionStorage.setItem("productName", newName)
     };
 
     const handleDateChange = (event) => {
@@ -43,8 +44,9 @@ function WishFormProduct() {
     }
 
     const handleCategoryChange = (event) => {
-        setSelectedCategory(event.target.value);
-        sessionStorage.setItem("category", selectedCategory)
+        const newCategory = event.target.value
+        setSelectedCategory(newCategory);
+        sessionStorage.setItem("category", newCategory)
         setSelectedSubcategory(''); // Reset subcategory when category changes
     };
 

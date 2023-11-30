@@ -9,7 +9,7 @@ function Review() {
     const itemPriceLow = sessionStorage.getItem("itemPrice").split(",")[0]
     const itemPriceHigh = sessionStorage.getItem("itemPrice").split(",")[1]
     const date = sessionStorage.getItem("date")
-    const name = sessionStorage.getItem("receiverFirstName") + sessionStorage.getItem("receiverLastName")
+    const name = sessionStorage.getItem("receiverFirstName") + " " + sessionStorage.getItem("receiverLastName")
     const phone = sessionStorage.getItem("receiverPhone")
     const email = sessionStorage.getItem("receiverEmail")
     const address = sessionStorage.getItem("receiverAddressString")
