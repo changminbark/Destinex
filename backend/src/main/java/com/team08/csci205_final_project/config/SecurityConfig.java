@@ -51,6 +51,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/transactions/delete/").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/api/transactions/add").hasAnyAuthority("ROLE_PROVIDER", "ROLE_ADMIN")
                         .requestMatchers("/ws/**").permitAll()
+                        .requestMatchers("/docs/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/v3/**").permitAll()
                         .requestMatchers("/app/respondToJob").permitAll()
