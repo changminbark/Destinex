@@ -66,7 +66,7 @@ class UserControllerTest {
     void getUserById() throws Exception {
         String userId = "123";
         User user = new User();
-        given(userService.findUserById(userId)).willReturn(Optional.of(user));
+        given(userService.findUserById(userId)).willReturn(user);
 
         mockMvc.perform(get("/api/users/" + userId))
                 .andExpect(status().isOk())

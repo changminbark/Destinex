@@ -19,6 +19,7 @@
 package com.team08.csci205_final_project.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.team08.csci205_final_project.model.DTO.NewJobRequest;
 import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.User.User;
 import org.hamcrest.core.StringContains;
@@ -51,7 +52,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @AutoConfigureDataMongo
-@ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
+@ExtendWith({SpringExtension.class})
 public class MockEnvIntegrationTest {
 
     @Autowired
@@ -61,19 +62,16 @@ public class MockEnvIntegrationTest {
     private Job job;
 
     private ObjectMapper objectMapper;
+    private NewJobRequest newJobRequest;
 
     @BeforeEach
-    public void setUp(WebApplicationContext wac,
-                      RestDocumentationContextProvider restDoc) {
+    public void setUp(WebApplicationContext wac) {
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(wac)
-                .apply(MockMvcRestDocumentation.documentationConfiguration(restDoc))
                 .build();
 
-        job = new Job("testUser1", "For fun", "Deliver this to my friend",
-                "John Doe", "123 Main Str", "123-456");
-        GeoJsonPoint geoJsonPoint = new GeoJsonPoint(1.1, 2.2);
-        job.setReceiverAddressPoint(geoJsonPoint);
+        newJobRequest = new NewJobRequest("testUser1", "For fun", "Deliver this to my friend",
+                new GeoJsonPoint(1, 2), "123 Main Str", "123-456");
 
         objectMapper = new ObjectMapper();
     }
@@ -104,11 +102,6 @@ public class MockEnvIntegrationTest {
                                 new StringContains("/api/jobs/"))
 //                        content().json(objectMapper.writeValueAsString(job), false)
                 )
-                .andDo(MockMvcRestDocumentation.document(
-                        "create-job",
-                        preprocessRequest(prettyPrint()),
-                        preprocessResponse(prettyPrint())
-                ))
                 .andReturn();
 
 //        String location = result.getResponse().getHeader("Location");
