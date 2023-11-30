@@ -34,8 +34,12 @@ function WishFormProduct() {
     };
 
     const handleDateChange = (event) => {
-        setDate(event.target.value);
-        sessionStorage.setItem("date", date)
+        // console.log("wht", event.target.value)
+        // console.log("hehe", typeof event.target.value)
+        const newDate = event.target.value
+        setDate(newDate);
+        sessionStorage.setItem("date", newDate)
+        // console.log(sessionStorage.getItem("date"))
     }
 
     const handleCategoryChange = (event) => {
