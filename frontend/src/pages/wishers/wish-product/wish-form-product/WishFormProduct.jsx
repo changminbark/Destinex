@@ -22,8 +22,25 @@ function WishFormProduct() {
         "Arts, Crafts & Sewing" : ["Crafting", "Art Supplies", "Sewing", "Scrapbook & Card Making Supplies", "Gift Wrapping Supplies"],
     };
 
+    const [productName, setProductName] = useState('');
+    const [date, setDate] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedSubcategory, setSelectedSubcategory] = useState('');
+
+
+    const handleProductNameChange = (event) => {
+        setProductName(event.target.value);
+        sessionStorage.setItem("productName", productName)
+    };
+
+    const handleDateChange = (event) => {
+        // console.log("wht", event.target.value)
+        // console.log("hehe", typeof event.target.value)
+        const newDate = event.target.value
+        setDate(newDate);
+        sessionStorage.setItem("date", newDate)
+        // console.log(sessionStorage.getItem("date"))
+    }
 
     const handleCategoryChange = (event) => {
         setSelectedCategory(event.target.value);
@@ -47,7 +64,7 @@ function WishFormProduct() {
         setValue(newValue);
         console.log(newValue)
         // Saving product price to session storage
-        sessionStorage.setItem("product_price", newValue)
+        sessionStorage.setItem("itemPrice", newValue)
     };
 
         return (
@@ -92,7 +109,9 @@ function WishFormProduct() {
                 <div className='productNameContainer'>
                     <div className='product'>
                         <label className='productText'>Product</label>
-                        <input className='productInput' type='text' placeholder='Enter the Product Name' />
+                        <input className='productInput' type='text' placeholder='Enter the Product Name'
+                            onChange={handleProductNameChange}
+                        />
                     </div>
                 </div>
 
@@ -117,7 +136,9 @@ function WishFormProduct() {
                 <div className='idealDateAndTimeContainer'>
                     <div className='idealDate'>
                         <label className='idealDateText'>Ideal Date</label>
-                        <input className='idealDateInput' type='date' placeholder='Enter the Ideal Date' />
+                        <input className='idealDateInput' type='date' placeholder='Enter the Ideal Date'
+                            onChange={handleDateChange}
+                        />
                     </div>
                     <div className='idealTime'>
                         <label className='idealTimeText'>Ideal Time</label>
