@@ -19,11 +19,13 @@
 package com.team08.csci205_final_project.controller;
 
 import com.team08.csci205_final_project.exception.DuplicateAccountException;
+import com.team08.csci205_final_project.exception.ResourceNotFoundException;
 import com.team08.csci205_final_project.model.User.User;
 import com.team08.csci205_final_project.model.DTO.UserRegister;
 import com.team08.csci205_final_project.service.UserService;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -54,7 +56,7 @@ public class UserController {
                             schema = @Schema(implementation = User.class))})
     })
     @PostMapping("/register")
-    public ResponseEntity<?> createUser(@Valid @RequestBody UserRegister userRegister) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody UserRegister userRegister) {
         if (userService.findUserByEmail(userRegister.getEmail()).isEmpty())
             return ResponseEntity.ok(userService.userRegister(userRegister));
         else {
@@ -70,13 +72,27 @@ public class UserController {
     }
 
     /** API endpoint to get user's information based on userId */
-    @Hidden
+    @Operation(summary = "Get current user info. User info from this API contains personal info")
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public ResponseEntity<User> getCurrentUserInfo() {
             String id = userService.getCurrentUserId();
-            User user = userService.findUserById(id);
-            return ResponseEntity.ok(user);
+            Optional<User> user = userService.findUserById(id);
+            return user.map(ResponseEntity::ok)
+                    .orElseThrow(() -> new ResourceNotFoundException("User " + id + " not found"));
     }
+
+    /** API endpoint to get user's information based on userId */
+    @Operation(summary = "Get user from User ID. Info from this API is public info")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserPublicInfo(
+            @Parameter(description = "User ID needed to see info") @PathVariable String id) {
+        Optional<User> user = userService.findUserById(id);
+        return user.map(ResponseEntity::ok)
+                .orElseThrow(() -> new ResourceNotFoundException("User " + id + " not found"));
+    }
+
 
     /** API endpoint to get user's information based on email */
     @Hidden

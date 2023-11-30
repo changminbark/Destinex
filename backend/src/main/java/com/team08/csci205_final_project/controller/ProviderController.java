@@ -28,6 +28,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
@@ -51,7 +52,7 @@ public class ProviderController {
     @Operation(summary = "Register becoming a provider")
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Provider> addProvider(@RequestBody ProviderRegister providerRegister) {
+    public ResponseEntity<Provider> addProvider(@Valid @RequestBody ProviderRegister providerRegister) {
         Provider provider = providerService.providerRegister(providerRegister);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
