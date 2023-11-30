@@ -19,6 +19,7 @@
 package com.team08.csci205_final_project.service;
 
 import com.team08.csci205_final_project.exception.DuplicateAccountException;
+import com.team08.csci205_final_project.exception.ResourceNotFoundException;
 import com.team08.csci205_final_project.model.Auth.Role;
 import com.team08.csci205_final_project.model.DTO.ProviderRegister;
 import com.team08.csci205_final_project.model.Job.Job;
@@ -60,12 +61,12 @@ public class ProviderService {
     public UserService userService;
 
     /** Add a new provider */
-    public Optional<Provider> providerRegister(ProviderRegister providerRegister) throws AccessDeniedException {
+    public Provider providerRegister(ProviderRegister providerRegister) throws AccessDeniedException {
         String id = userService.getCurrentUserId();
 
         // If there is user from authentication then return empty
         if (!userRepository.existsById(id)) {
-            return Optional.empty();
+            throw new ResourceNotFoundException("User not found");
         }
 
         // Account has to be user account
@@ -86,7 +87,7 @@ public class ProviderService {
         user.setRole(Role.ROLE_PROVIDER);
         userRepository.save(user);
 
-        return Optional.of(providerRepository.save(provider));
+        return providerRepository.save(provider);
     }
 
     /** Find a provider based on their userId */

@@ -20,8 +20,14 @@ package com.team08.csci205_final_project.controller;
 
 import com.team08.csci205_final_project.model.DTO.ProviderRegister;
 import com.team08.csci205_final_project.model.Provider.Provider;
+import com.team08.csci205_final_project.model.User.User;
 import com.team08.csci205_final_project.service.ProviderService;
 import com.team08.csci205_final_project.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
@@ -42,18 +48,16 @@ public class ProviderController {
     private ProviderService providerService;
 
     /** Create a new provider */
+    @Operation(summary = "Register becoming a provider")
     @PostMapping("/register")
-    public ResponseEntity<?> addProvider(@RequestBody ProviderRegister providerRegister) {
-        Optional <Provider> postProvider = providerService.providerRegister(providerRegister);
-        if (postProvider.isPresent()) {
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                    .path("/{id}")
-                    .buildAndExpand(postProvider.get().getProviderId())
-                    .toUri();
-            return ResponseEntity.created(location).body(postProvider.get());
-        }
-        //TODO
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Lol");
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Provider> addProvider(@RequestBody ProviderRegister providerRegister) {
+        Provider provider = providerService.providerRegister(providerRegister);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(provider.getProviderId())
+                .toUri();
+        return ResponseEntity.created(location).body(provider);
     }
 
     /** Get provider information based on userId */
