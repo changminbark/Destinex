@@ -1,7 +1,7 @@
 .commonQuestions {
     margin: 0 10%;
     color: #545454;
-    padding-bottom: 2.5rem;
+    padding-bottom: 2rem;
 }
 
 .commonQuestionsTitle {
@@ -35,5 +35,5 @@
 .commonQuestionsAnswer {
     color: #545454;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 400;
 }

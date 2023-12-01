@@ -37,11 +37,11 @@ function WishFormRecipient() {
         sessionStorage.setItem("receiverLastName", newLastName)
     }
 
-    const handleContactChange = (event) => {
+    const handleContactChange = (phoneNumber) => {
         // Might not need this until last page if using sessionStorage
-        const newContact = event.target.value
-        setPhone(newContact)
-        sessionStorage.setItem("receiverPhone", newContact)
+        const newPhone = phoneNumber
+        setPhone(newPhone)
+        sessionStorage.setItem("receiverPhone", newPhone)
     }
 
     const handleEmailChange = (event) => {
@@ -147,11 +147,11 @@ function WishFormRecipient() {
                     <div className='contactNumber'>
                         <label className='contactNumberText'>Recipient's Phone Number</label>
                         <div className="contactNumberInputContainer">
-                            <input
+                            <PhoneInput
                                 value={phone}
                                 onChange={handleContactChange}
-                                // international
-                                // defaultCountry="US"
+                                international
+                                defaultCountry="US"
                             />
                         </div>
                     </div>

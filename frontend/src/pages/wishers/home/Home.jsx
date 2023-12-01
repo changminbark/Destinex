@@ -35,8 +35,8 @@ function Home() {
                     <span className="commonQuestionsTitleText">Common Questions</span>
                 </div>
 
-                {CommonQuestionsData.map(({ question, answer }, index) => (
-                    <CommonQuestions key={index} question={question} answer={answer}></CommonQuestions>
+                {CommonQuestionsData.map(({ question, answer , options, additionalNote}, index) => (
+                    <CommonQuestions key={index} question={question} answer={answer} options={options} additionalNote={additionalNote}></CommonQuestions>
                 ))}
             </div>
             <Footer></Footer>

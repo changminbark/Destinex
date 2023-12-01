@@ -4,7 +4,6 @@ import './order_summary.css';
 
 function OrderSummary() {
 
-
     const itemPriceLow = sessionStorage.getItem("itemPrice").split(",")[0]
     const itemPriceHigh = sessionStorage.getItem("itemPrice").split(",")[1]
     const beforeTaxPriceLow = (parseInt(itemPriceLow) + 15).toString()
@@ -23,10 +22,14 @@ function OrderSummary() {
                 </div>
 
                 <div className='itemsAndShippingCost'>
-                    <span className='items'><span className='boldItems'>Items: </span>
+                    <div className='items'>
+                        <span className='boldItems'>Items: </span>
                         ${itemPriceLow} - ${itemPriceHigh}
-                    </span>
-                    <span className='shippingCost'><span className='boldShippingCost'>Shipping & Handling: </span>$15</span>
+                    </div>
+                    <div className='shippingCost'>
+                        <span className='boldShippingCost'>Shipping & Handling: </span>
+                        $15
+                    </div>
                 </div>
 
                 <div className='lineBreak'>
@@ -34,12 +37,14 @@ function OrderSummary() {
                 </div>
 
                 <div className='totalBeforeTaxAndEstimatedTaxCollected'>
-                    <span className='totalBeforeTax'><span className='boldTotalBeforeTax'>Total before tax: </span>
+                    <div className='totalBeforeTax'>
+                        <span className='boldTotalBeforeTax'>Total before tax: </span>
                         ${beforeTaxPriceLow} - ${beforeTaxPriceHigh}
-                    </span>
-                    <span className='estimatedTaxCollected'><span className='boldEstimatedTaxCollected'>Estimated tax to be collected: </span>
+                    </div>
+                    <div className='estimatedTaxCollected'>
+                        <span className='boldEstimatedTaxCollected'>Estimated tax to be collected: </span>
                         ${taxPrice}
-                    </span>
+                    </div>
                 </div>
 
                 <div className='lineBreak'>
@@ -47,9 +52,10 @@ function OrderSummary() {
                 </div>
 
                 <div className='orderTotal'>
-                    <span className='orderTotalText'><span className='boldOrderTotalText'>Order Total: </span>
+                    <div className='orderTotalText'>
+                        <span className='boldOrderTotalText'>Order Total: </span>
                         ${totalPriceLow} - ${totalPriceHigh}
-                    </span>
+                    </div>
                 </div>
 
             </div>

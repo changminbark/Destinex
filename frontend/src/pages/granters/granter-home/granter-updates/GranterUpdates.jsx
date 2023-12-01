@@ -100,7 +100,7 @@ function GranterUpdates () {
                             <button className="acceptButton" onClick={() => respondToJobOffer(offer.jobId, providerEmail, 'ACCEPTED')}>Accept</button>
                         </div>
                         <div className='wishBoxContainerRightDown'>
-                            <button className="declineButton" onClick={() => respondToJobOffer(offer.jobId, providerEmail, 'REJECTED')}>Reject</button>
+                            <button className="declineButton" onClick={() => respondToJobOffer(offer.jobId, providerEmail, 'DECLINED')}>Decline</button>
                         </div>
                     </div>
             </div>
