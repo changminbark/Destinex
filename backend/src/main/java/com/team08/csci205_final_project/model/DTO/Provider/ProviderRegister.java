@@ -2,6 +2,7 @@ package com.team08.csci205_final_project.model.DTO.Provider;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 @Schema(description = "Details required for registering a service provider")
 public class ProviderRegister {
     /** Store the provider's current location */
-    @NotBlank
+    @NotNull
     @Schema(description = "Current geographical location of the provider")
     private GeoJsonPoint currentLocation;
 
