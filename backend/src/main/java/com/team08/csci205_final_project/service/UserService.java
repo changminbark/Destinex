@@ -18,6 +18,7 @@
  */
 package com.team08.csci205_final_project.service;
 
+import com.team08.csci205_final_project.exception.ResourceNotFoundException;
 import com.team08.csci205_final_project.model.Auth.Role;
 import com.team08.csci205_final_project.model.User.CustomUserDetails;
 import com.team08.csci205_final_project.model.User.User;
@@ -76,23 +77,23 @@ public class UserService {
     }
 
     /** Update a user's information */
-    public User updateUser(User user) {
-        if (userRepository.existsById(user.getId())) {
-            return userRepository.save(user);
-        }
-        else {
-            throw new RuntimeException("User not found with ID: " + user.getId());
-        }
+    public User updateUser(UserRegister userRegister) {
+        String id = getCurrentUserId();
+        User user = findUserById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        BeanUtils.copyProperties(userRegister, user);
+
+        user.setRegisterDate(LocalDate.now());
+        user.setRole(Role.ROLE_USER);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        return userRepository.save(user);
+
     }
 
     /** Delete a user based on their userId */
-    public void deleteUser(String userId) {
-        if (userRepository.existsById(userId)) {
-            userRepository.deleteById(userId);
-        }
-        else {
-            throw new RuntimeException("User not found with ID: " + userId);
-        }
+    public void deleteUser() {
+        String userId = getCurrentUserId();
+        userRepository.deleteById(userId);
     }
 
     /** Find a user's full name based on their username */

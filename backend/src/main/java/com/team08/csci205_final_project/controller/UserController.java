@@ -105,21 +105,21 @@ public class UserController {
     }
 
     /** API endpoint to edit user's information */
-    @Hidden
-    @PutMapping("/{id}")
+    @Operation(summary = "Update this user register information")
+    @PutMapping("/me")
     @SecurityRequirement(name = "bearerAuth")
-    public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
-        if (!id.equals(user.getId())) {
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(userService.updateUser(user));
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<User> updateUser(@RequestBody UserRegister userRegister) {
+        return ResponseEntity.ok(userService.updateUser(userRegister));
     }
 
     /** API endpoint to delete a user based on userId */
-    @Hidden
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
-        userService.deleteUser(id);
+    @Operation(summary = "Delete this user information")
+    @DeleteMapping("/me")
+    @SecurityRequirement(name = "bearerAuth")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Void> deleteUser() {
+        userService.deleteUser();
         return ResponseEntity.noContent().build();
     }
 
