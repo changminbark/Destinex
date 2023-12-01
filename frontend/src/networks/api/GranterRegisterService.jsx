@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8080/api/providers/';
-const token = localStorage.getItem('jwtToken');
-
 export const granterRegister = async (granterData) => {
+    const API_URL = 'http://localhost:8080/api/providers/';
+    const token = localStorage.getItem('jwtToken');
+
     try {
         return await axios.post(`${API_URL}register`, granterData, {
             headers: {
