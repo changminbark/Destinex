@@ -18,19 +18,14 @@
  */
 package com.team08.csci205_final_project.controller;
 
-import com.team08.csci205_final_project.model.DTO.JobInfo;
-import com.team08.csci205_final_project.model.DTO.NewJobRequest;
+import com.team08.csci205_final_project.model.DTO.Job.JobInfo;
+import com.team08.csci205_final_project.model.DTO.Job.NewJobRequest;
 import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.Job.JobStatus;
-import com.team08.csci205_final_project.model.User.User;
 import com.team08.csci205_final_project.service.JobService;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,7 +39,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/jobs")
-
+@SecurityRequirement(name = "bearerAuth")
 public class JobController {
 
     @Autowired

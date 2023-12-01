@@ -60,7 +60,7 @@ public class AuthController {
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
             content = @Content(
                     examples = @ExampleObject(
-                            value = "{\"username\":\"user1\",\"password\":123}"
+                            value = "{\"username\":\"hqp001@bucknell.edu\",\"password\":1234}"
                     ))
             )
     )

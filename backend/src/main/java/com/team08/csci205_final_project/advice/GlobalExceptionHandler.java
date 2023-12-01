@@ -3,6 +3,7 @@ package com.team08.csci205_final_project.advice;
 import com.team08.csci205_final_project.exception.DuplicateAccountException;
 import com.team08.csci205_final_project.exception.ExceptionResponse;
 import com.team08.csci205_final_project.exception.ResourceNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.naming.AuthenticationException;
 import java.util.Date;
@@ -76,4 +78,14 @@ public class GlobalExceptionHandler {
                 new Date(), ex.getMessage(), "Resource not found in database"
         ));
     }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<ExceptionResponse> handleNoHandlerFound(NoHandlerFoundException ex, HttpServletRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                new Date(), ex.getMessage(), "The requested URL was not found on the server."
+        );
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
 }
