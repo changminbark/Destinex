@@ -40,7 +40,7 @@ function Payment() {
 
                 <div className="paymentContainer">
 
-                    <div className="submitButton">
+                    <div className="submitButtonForPayment">
                         <button type={'submit'} className='submitBtn'>
                             Submit
                         </button>
