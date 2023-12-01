@@ -25,26 +25,30 @@ function WishFormRecipient() {
 
     const handleFirstNameChange = (event) => {
         // Might not need this until last page if using sessionStorage
-        setReceiverFirstName(event.target.value)
-        sessionStorage.setItem("receiverFirstName", receiverFirstName)
+        const newFirstName = event.target.value
+        setReceiverFirstName(newFirstName)
+        sessionStorage.setItem("receiverFirstName", newFirstName)
     }
 
     const handleLastNameChange = (event) => {
         // Might not need this until last page if using sessionStorage
-        setReceiverLastName(event.target.value)
-        sessionStorage.setItem("receiverLastName", receiverLastName)
+        const newLastName = event.target.value
+        setReceiverLastName(newLastName)
+        sessionStorage.setItem("receiverLastName", newLastName)
     }
 
     const handleContactChange = (phoneNumber) => {
         // Might not need this until last page if using sessionStorage
-        setPhone(phoneNumber)
-        sessionStorage.setItem("receiverPhone", phone)
+        const newPhone = phoneNumber
+        setPhone(newPhone)
+        sessionStorage.setItem("receiverPhone", newPhone)
     }
 
     const handleEmailChange = (event) => {
         // Might not need this until last page if using sessionStorage
-        setEmail(event.target.value)
-        sessionStorage.setItem("receiverEmail", email)
+        const newEmail = event.target.value
+        setEmail(newEmail)
+        sessionStorage.setItem("receiverEmail", newEmail)
     }
 
     const getCoordinates = async (address) => {

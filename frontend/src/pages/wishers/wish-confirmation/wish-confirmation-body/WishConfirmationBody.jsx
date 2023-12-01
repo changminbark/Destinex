@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import {Link} from "react-router-dom";
 import './WishConfirmationBody.css';
 import Delivery_pic from "../../../../assets/img/delivery-proof.jpg"
-import {Link} from "react-router-dom";
 
 function WishConfirmationBody () {
 
@@ -14,9 +14,24 @@ function WishConfirmationBody () {
             <div className={'wishConfirmBody'}>
                 <div className={'wishConfirmTitleBox'}>
                     <div className={'wishConfirmTitle'}>
-                        <span className={'wishConfirmTitleOne'}>Your&nbsp;</span>
-                        <span className={'wishConfirmTitleTwo'}>Wish&nbsp;</span>
-                        <span className={'wishConfirmTitleOne'}>has been Granted!</span>
+                        <span className={'wishConfirmTitleOne'}>Wish&nbsp;</span>
+                        <span className={'wishConfirmTitleTwo'}>Status&nbsp;</span>
+                    </div>
+                </div>
+                <div className={'wishConfirmBoxContainer'}>
+                    <div className={'wishConfirmBox'}>
+                        <span className={'wishConfirmBoxTitle'}>Status</span>
+                    </div>
+                    <div className={'wishConfirmBox'}>
+                        <span className={'wishConfirmBoxDesc'}>You wish has been granted.</span>
+                    </div>
+                </div>
+                <div className={'wishConfirmBoxContainer'}>
+                    <div className={'wishConfirmBox'}>
+                        <span className={'wishConfirmBoxTitle'}>Delivered Address</span>
+                    </div>
+                    <div className={'wishConfirmBox'}>
+                        <span className={'wishConfirmBoxDesc'}>550 1st Ave, New York, NY 10016, USA</span>
                     </div>
                 </div>
                 <div className={'wishConfirmBoxContainer'}>

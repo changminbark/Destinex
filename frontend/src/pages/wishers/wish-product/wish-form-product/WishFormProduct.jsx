@@ -43,8 +43,9 @@ function WishFormProduct() {
     }
 
     const handleCategoryChange = (event) => {
-        setSelectedCategory(event.target.value);
-        sessionStorage.setItem("category", selectedCategory)
+        const newCategory = event.target.value
+        setSelectedCategory(newCategory);
+        sessionStorage.setItem("category", newCategory)
         setSelectedSubcategory(''); // Reset subcategory when category changes
     };
 
