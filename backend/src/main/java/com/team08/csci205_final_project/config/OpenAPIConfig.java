@@ -53,7 +53,7 @@ public class OpenAPIConfig {
     public GroupedOpenApi userApi() {
         return GroupedOpenApi.builder()
                 .group("user-api")
-                .pathsToMatch("/api/users/**", "/api/auth/**")
+                .pathsToMatch("/api/users/**")
                 .build();
     }
 
@@ -70,6 +70,14 @@ public class OpenAPIConfig {
         return GroupedOpenApi.builder()
                 .group("provider-api")
                 .pathsToMatch("/api/provider/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi loginApi() {
+        return GroupedOpenApi.builder()
+                .group("login-api")
+                .pathsToMatch("/api/auth/**")
                 .build();
     }
 }
