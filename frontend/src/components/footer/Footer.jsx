@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./footer.css"
 
 import Appstore_Icon from "../../assets/svg/appstore_icon.svg"
@@ -12,7 +13,7 @@ function Footer() {
     return (
         <div className={"bottom"}>
             <div className={"bottomTitle"}>
-                <span className={"bottomTitleText"}>Destinex</span>
+                <Link to={'/'} className={"bottomTitleText"}>Destinex</Link>
             </div>
             <div className={"bottomLinksContainer"}>
                 <img className={"Appstore_Logo"} src={Appstore_Icon} alt={"Appstore Logo"} />
