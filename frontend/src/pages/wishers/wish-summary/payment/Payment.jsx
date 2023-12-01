@@ -15,7 +15,7 @@ function Payment() {
         const itemPrice = sessionStorage.getItem("itemPrice")
         // Total price is calculated by adding $15 shipping/handling and multiplying by 1.05
         const category = sessionStorage.getItem("category")
-        const receiverName = sessionStorage.getItem("receiverFirstName") + sessionStorage.getItem("receiverLastName")
+        const receiverName = sessionStorage.getItem("receiverFirstName") + " " + sessionStorage.getItem("receiverLastName")
         const receiverPhone = sessionStorage.getItem("receiverPhone")
         const receiverEmail = sessionStorage.getItem("receiverEmail")
         const receiverAddress = sessionStorage.getItem("receiverAddress")
