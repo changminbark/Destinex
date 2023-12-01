@@ -21,7 +21,7 @@ package com.team08.csci205_final_project.controller;
 import com.team08.csci205_final_project.exception.DuplicateAccountException;
 import com.team08.csci205_final_project.exception.ResourceNotFoundException;
 import com.team08.csci205_final_project.model.User.User;
-import com.team08.csci205_final_project.model.DTO.UserRegister;
+import com.team08.csci205_final_project.model.DTO.User.UserRegister;
 import com.team08.csci205_final_project.service.UserService;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,13 +30,12 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.access.AccessDeniedException;
 
 import java.util.List;
 import java.util.Optional;
@@ -67,6 +66,7 @@ public class UserController {
     /** API endpoint to get all users' information */
     @Hidden
     @GetMapping("/admin/all")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(userService.findAllUsers());
     }
@@ -74,18 +74,20 @@ public class UserController {
     /** API endpoint to get user's information based on userId */
     @Operation(summary = "Get current user info. User info from this API contains personal info")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping
+    @GetMapping("/me")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<User> getCurrentUserInfo() {
-            String id = userService.getCurrentUserId();
-            Optional<User> user = userService.findUserById(id);
-            return user.map(ResponseEntity::ok)
-                    .orElseThrow(() -> new ResourceNotFoundException("User " + id + " not found"));
+        String id = userService.getCurrentUserId();
+        Optional<User> user = userService.findUserById(id);
+        return user.map(ResponseEntity::ok)
+                .orElseThrow(() -> new ResourceNotFoundException("User " + id + " not found"));
     }
 
     /** API endpoint to get user's information based on userId */
     @Operation(summary = "Get user from User ID. Info from this API is public info")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<User> getUserPublicInfo(
             @Parameter(description = "User ID needed to see info") @PathVariable String id) {
         Optional<User> user = userService.findUserById(id);
@@ -105,6 +107,7 @@ public class UserController {
     /** API endpoint to edit user's information */
     @Hidden
     @PutMapping("/{id}")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
         if (!id.equals(user.getId())) {
             return ResponseEntity.badRequest().build();

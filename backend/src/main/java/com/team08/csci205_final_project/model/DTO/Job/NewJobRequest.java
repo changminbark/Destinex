@@ -1,4 +1,4 @@
-package com.team08.csci205_final_project.model.DTO;
+package com.team08.csci205_final_project.model.DTO.Job;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

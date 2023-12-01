@@ -27,38 +27,49 @@ public class OpenAPIConfig {
         Info info = new Info()
                 .contact(contact)
                 .description("The documentation has the same version as the back-end code you run." +
-                        "\nThe documentation does not contain WebSocket endpoints")
+                        "\nThis documentation does not contain WebSocket endpoints." +
+                        "\nTo access secured endpoint, login using auth-controller and copy the JWT to the green authorize on top of the page")
                 .summary("Demo of Spring Boot 3 & Open API 3 Integration")
                 .title("API Documentation and User Instructions")
                 .version("V1.0.0")
                 .license(new License().name("Apache 2.0").url("http://springdoc.org"));
 
-        return new OpenAPI().info(info).addServersItem(localServer);
-    }
-
-    private OpenApiCustomizer securityOpenApiCustomiser() {
-        return openApi -> openApi.components(new io.swagger.v3.oas.models.Components()
+        return new OpenAPI().info(info).addServersItem(localServer).components(new io.swagger.v3.oas.models.Components()
                 .addSecuritySchemes("bearerAuth", new SecurityScheme()
                         .type(SecurityScheme.Type.HTTP)
                         .scheme("bearer")
-                        .bearerFormat("JWT") // Optional: Use if you want to specify JWT
+                        .bearerFormat("JWT")
                 ));
     }
+    @Bean
+    public GroupedOpenApi publicApi() {
+        return GroupedOpenApi.builder()
+                .group("public-api")
+                .pathsToMatch("/api/**")
+                .build();
+    }
 
-//
-//    @Bean
-//    public GroupedOpenApi userApi() {
-//        return GroupedOpenApi.builder()
-//                .group("public-api")
-//                .addOpenApiCustomizer(securityOpenApiCustomiser())
-//                .packagesToScan("com.team08.csci205_final_project")
-//                .build();
-//    }
-//
-//    @Bean
-//    public GroupedOpenApi devApi() {
-//        return GroupedOpenApi.builder()
-//                .group("dev")
-//                .build();
-//    }
+    @Bean
+    public GroupedOpenApi userApi() {
+        return GroupedOpenApi.builder()
+                .group("user-api")
+                .pathsToMatch("/api/users/**", "/api/auth/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi jobApi() {
+        return GroupedOpenApi.builder()
+                .group("job-api")
+                .pathsToMatch("/api/jobs/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi providerApi() {
+        return GroupedOpenApi.builder()
+                .group("provider-api")
+                .pathsToMatch("/api/provider/**")
+                .build();
+    }
 }

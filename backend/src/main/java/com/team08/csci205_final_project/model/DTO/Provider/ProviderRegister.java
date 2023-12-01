@@ -1,4 +1,4 @@
-package com.team08.csci205_final_project.model.DTO;
+package com.team08.csci205_final_project.model.DTO.Provider;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;

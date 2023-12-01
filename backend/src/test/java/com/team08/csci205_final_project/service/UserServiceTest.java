@@ -1,7 +1,7 @@
 package com.team08.csci205_final_project.service;
 
 import com.team08.csci205_final_project.model.User.User;
-import com.team08.csci205_final_project.model.DTO.UserRegister;
+import com.team08.csci205_final_project.model.DTO.User.UserRegister;
 import com.team08.csci205_final_project.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

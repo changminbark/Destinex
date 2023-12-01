@@ -18,7 +18,7 @@
  */
 package com.team08.csci205_final_project.service;
 
-import com.team08.csci205_final_project.model.DTO.JobOffer;
+import com.team08.csci205_final_project.model.DTO.Job.JobOffer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;

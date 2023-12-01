@@ -1,6 +1,7 @@
-package com.team08.csci205_final_project.model.DTO;
+package com.team08.csci205_final_project.model.DTO.User;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class UserRegister {
     private String lastName;
 
     /** Email address of the user */
+    @Email
     @NotBlank
     @Schema(description = "Email address of the user", example = "hqp001@bucknell.edu")
     private String email;

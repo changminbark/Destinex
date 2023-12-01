@@ -19,9 +19,8 @@
 package com.team08.csci205_final_project.service;
 
 import com.team08.csci205_final_project.event.JobPostedEvent;
-import com.team08.csci205_final_project.exception.DuplicateAccountException;
 import com.team08.csci205_final_project.exception.ResourceNotFoundException;
-import com.team08.csci205_final_project.model.DTO.NewJobRequest;
+import com.team08.csci205_final_project.model.DTO.Job.NewJobRequest;
 import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.Job.JobStatus;
 import com.team08.csci205_final_project.model.User.User;
@@ -29,8 +28,6 @@ import com.team08.csci205_final_project.repository.JobRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

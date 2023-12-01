@@ -19,10 +19,9 @@
 
 package com.team08.csci205_final_project.service;
 
-import com.team08.csci205_final_project.config.ApplicationLogicConfig;
 import com.team08.csci205_final_project.event.JobPostedEvent;
-import com.team08.csci205_final_project.model.DTO.JobOffer;
-import com.team08.csci205_final_project.model.DTO.JobTrackingStatus;
+import com.team08.csci205_final_project.model.DTO.Job.JobOffer;
+import com.team08.csci205_final_project.model.DTO.Job.JobTrackingStatus;
 import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.Job.JobStatus;
 import com.team08.csci205_final_project.model.Provider.Provider;

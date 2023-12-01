@@ -21,7 +21,7 @@ package com.team08.csci205_final_project.service;
 import com.team08.csci205_final_project.exception.DuplicateAccountException;
 import com.team08.csci205_final_project.exception.ResourceNotFoundException;
 import com.team08.csci205_final_project.model.Auth.Role;
-import com.team08.csci205_final_project.model.DTO.ProviderRegister;
+import com.team08.csci205_final_project.model.DTO.Provider.ProviderRegister;
 import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.Provider.Provider;
 import com.team08.csci205_final_project.model.User.User;
