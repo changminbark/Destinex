@@ -1,6 +1,6 @@
 export const CommonQuestionsData = [
     {
-        "question": "How does the Destinex wish and grant system function?\n",
+        "question": "How does the Destinex's wish and grant system function?\n",
         "answer": "Destinex functions as an innovative platform connecting wishers and granters across borders. Wishers, situated globally, articulate their desires—whether it's sending a thoughtful birthday gift from one country to another, fostering meaningful connections despite physical distances. Granters, localized in the destination region, play a pivotal role in actualizing these wishes and are rewarded for their contributions. ",
         "options" : [],
         "additionalNote": "Wishes extend beyond simple birthday gifts, offering wishers a myriad of possibilities to explore on their own. Destinex presents diverse wish options beyond traditional scenarios, allowing wishers to discover and request a wide range of fulfilling experiences and services."
@@ -34,7 +34,7 @@ export const CommonQuestionsData = [
         "additionalNote": "You can update or cancel your order as long as your granter hasn’t started shopping. If you need to make changes after shopping has started, you can use the app or website to approve replacements or chat with your granter."
     },
     {
-        "question": "What happens if there's an issue with my order?",
+        "question": "What happens if there's an issue with my wish?",
         "answer": "If something isn’t right, you’ve got options. In the Destinex app or website, you can report:",
         "options": [
             "Missing items",
@@ -43,6 +43,6 @@ export const CommonQuestionsData = [
             "Poor replacements",
             "Early/late wish"
         ],
-        "additionalNote": "If a wish was never granted, or you get someone else’s wish, you can reach out to Destinex Customer Experience."
+        "additionalNote": "If your wish was never granted, or you get someone else’s wish, you can reach out to Destinex's Customer Experience."
     }
 ];
