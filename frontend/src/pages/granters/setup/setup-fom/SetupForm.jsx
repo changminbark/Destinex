@@ -10,18 +10,21 @@ function SetupPage () {
     const [driverLicense, setDriverLicense] = useState('');
 
     const handleVehicleChange = (event) => {
-        setVehicleDetails(event.target.value)
-        sessionStorage.setItem("vehicleDetails", vehicleDetails)
+        const newVehicle = event.target.value
+        setVehicleDetails(newVehicle)
+        sessionStorage.setItem("vehicleDetails", newVehicle)
     }
 
     const handleIDChange = (event) => {
-        setNationalIdNumber(event.target.value)
-        sessionStorage.setItem("nationalIdNumber", nationalIdNumber)
+        const newId = event.target.value
+        setNationalIdNumber(newId)
+        sessionStorage.setItem("nationalIdNumber", newId)
     }
 
     const handleDriverLicenseChange = (event) => {
-        setDriverLicense(event.target.value)
-        sessionStorage.setItem("driverLicense", driverLicense)
+        const newLicense = event.target.value
+        setDriverLicense(newLicense)
+        sessionStorage.setItem("driverLicense", newLicense)
     }
 
 
