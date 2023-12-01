@@ -68,9 +68,6 @@ function SignupForm () {
             Zip: granterZip,
         };
 
-
-        console.log("adrs object: ", adrs);
-
         const adrsJSON = JSON.stringify(adrs);
 
         sessionStorage.setItem("granterAddress", adrsJSON);
