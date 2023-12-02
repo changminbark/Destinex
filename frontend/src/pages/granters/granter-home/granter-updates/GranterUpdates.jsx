@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import './granter_updates.css';
 import redRose from '../../../../assets/img/red-rose.png';
 import dollarSign from '../../../../assets/svg/dollar-sign.svg';
@@ -14,6 +14,7 @@ function GranterUpdates () {
     const [connected, setConnected] = useState(false);
     const token = localStorage.getItem('jwtToken');
     const providerEmail = localStorage.getItem('username');
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log('Component mounted'); // Log when component mounts
@@ -55,6 +56,7 @@ function GranterUpdates () {
         if (stompClient && stompClient.connected) {
             stompClient.send("/app/respondToJob", {}, JSON.stringify({ jobId, providerId, status }));
             setJobOffers(prevOffers => prevOffers.filter(offer => offer.jobId !== jobId));
+            navigate('/granter/details');
         } else {
             console.log('Not connected');
         }
