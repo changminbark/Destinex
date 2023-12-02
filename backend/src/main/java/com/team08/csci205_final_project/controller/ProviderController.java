@@ -19,6 +19,7 @@
 package com.team08.csci205_final_project.controller;
 
 import com.team08.csci205_final_project.model.DTO.Provider.ProviderRegister;
+import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.Provider.Provider;
 import com.team08.csci205_final_project.service.ProviderService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -109,5 +110,24 @@ public class ProviderController {
             return ResponseEntity.ok().build();
         else
             return ResponseEntity.badRequest().build();
+    }
+
+    /** Provider complete a job */
+    @PostMapping("/{providerEmail}/complete")
+    public ResponseEntity<HttpStatus> completeJob(@PathVariable String providerEmail) {
+        if (providerService.completeJob(providerEmail))
+            return ResponseEntity.ok().build();
+        else
+            return ResponseEntity.badRequest().build();
+    }
+
+    /** Show provider's currently assigned job */
+    @GetMapping("/{email}/my-assigned-job")
+    public ResponseEntity<Job> findAssignedJob(@PathVariable("email") String providerEmail) {
+        Optional<Job> assignedJob = providerService.findAssignedJob(providerEmail);
+
+        return assignedJob
+                .map(job -> new ResponseEntity<>(job, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
