@@ -40,14 +40,31 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Security configuration class for the Spring Boot application.
+ * This configuration sets up security-related aspects such as
+ * authentication, authorization, CORS settings, and password encoding.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+    /**
+     * Custom authentication entry point, injected for handling authentication errors.
+     */
     @Autowired
     @Qualifier("customAuthenticationEntryPoint")
     AuthenticationEntryPoint authEntryPoint;
 
+    /**
+     * Configures the security filter chain. This method defines the security rules
+     * for various API endpoints, sets up the JWT authentication filter, and configures
+     * exception handling.
+     *
+     * @param http the HttpSecurity to configure
+     * @return the configured SecurityFilterChain
+     * @throws Exception if an error occurs during configuration
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -99,6 +116,12 @@ public class SecurityConfig {
         };
     }
 
+    /**
+     * Creates a CORS filter bean with custom configuration.
+     * This filter handles CORS requests and applies the defined CORS policy.
+     *
+     * @return CorsFilter object
+     */
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

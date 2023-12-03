@@ -1,21 +1,3 @@
-/* *****************************************
- * CSCI 205 - Software Engineering and Design
- * Fall 2023
- * Instructor: Prof. Brian King / Prof. Joshua Stough
- *
- * Name: Hung Ngo
- * Section: YOUR SECTION
- * Date: 12/11/2023
- * Time: 00:23
- *
- * Project: csci205_final_project
- * Package: com.team08.csci205_final_project.controller
- * Class: ProviderController
- *
- * Description:
- *
- * ****************************************
- */
 package com.team08.csci205_final_project.controller;
 
 import com.team08.csci205_final_project.model.DTO.Provider.ProviderRegister;
@@ -36,6 +18,14 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller class for managing provider-related operations in the Spring application.
+ * It provides endpoints for provider registration, information retrieval, location updates,
+ * job handling, and searching for nearby providers.
+ *
+ * Utilizes {@link ProviderService} for business logic associated with provider operations.
+ *
+ */
 @RestController
 @RequestMapping("/api/providers")
 @SecurityRequirement(name = "bearerAuth")
@@ -67,13 +57,13 @@ public class ProviderController {
 
 //    /** Update provider's information */
 //    @PutMapping("/{id}")
-//    public ResponseEntity<Provider> updateProvider(@PathVariable String id, @RequestBody Provider provider) throws AccessDeniedException {
+//    public ResponseEntity<Provider> updateProvider(@PathVariable String id, @RequestBody Provider provider)  {
 //        return providerService.findProviderById(id)
 //                .map(existingProvider -> {
 //                    existingProvider.setJobHistory(provider.getJobHistory());
 //                    existingProvider.setCurrentLocation(provider.getCurrentLocation());
 //
-//                    //TODO
+//                    //TODO Need to update to follow new format
 //                    Provider updatedProvider = providerService.providerRegister().get();
 //                    return new ResponseEntity<>(updatedProvider, HttpStatus.OK);
 //                })

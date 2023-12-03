@@ -1,5 +1,8 @@
 package com.team08.csci205_final_project.model.Auth;
 
+/**
+ * Role for the account
+ */
 public enum Role {
     ROLE_USER(1), // User role represented by 1
     ROLE_PROVIDER(2), // Provider role by 2
