@@ -20,9 +20,20 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Global exception handler for the application.
+ * This class provides centralized exception handling across all
+ * {@code @RequestMapping} methods through {@code @ExceptionHandler} methods.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * Handles {@link AccessDeniedException} by returning an UNAUTHORIZED response.
+     *
+     * @param ex The exception that was thrown.
+     * @return ResponseEntity containing details of the exception.
+     */
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<ExceptionResponse> handleResourceNotFoundException(AccessDeniedException ex) {
@@ -31,6 +42,12 @@ public class GlobalExceptionHandler {
         ));
     }
 
+    /**
+     * Handles {@link BadCredentialsException} indicating bad credentials.
+     *
+     * @param ex The exception that was thrown.
+     * @return ResponseEntity with UNAUTHORIZED status and exception details.
+     */
     @ExceptionHandler({BadCredentialsException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<ExceptionResponse> handleAuthenticationException(Exception ex) {
@@ -39,6 +56,12 @@ public class GlobalExceptionHandler {
         ));
     }
 
+    /**
+     * Generic exception handler that catches all types of exceptions.
+     *
+     * @param ex The exception that was thrown.
+     * @return ResponseEntity with I_AM_A_TEAPOT status and exception details.
+     */
     @ExceptionHandler
     @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
     public ResponseEntity<ExceptionResponse> handleAllExceptions(Exception ex) {
@@ -47,6 +70,12 @@ public class GlobalExceptionHandler {
         ));
     }
 
+    /**
+     * Handles {@link MethodArgumentNotValidException} for input validation.
+     *
+     * @param ex The validation exception that was thrown.
+     * @return ResponseEntity with BAD_REQUEST status and details about the validation errors.
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ExceptionResponse> handleValidationExceptions(
@@ -62,6 +91,12 @@ public class GlobalExceptionHandler {
         ));
     }
 
+    /**
+     * Handles {@link DuplicateAccountException} indicating an attempt to create a duplicate account.
+     *
+     * @param ex The exception that was thrown.
+     * @return ResponseEntity with BAD_REQUEST status and exception details.
+     */
     @ExceptionHandler(DuplicateAccountException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ExceptionResponse> handleBadRequestException(Exception ex) {
@@ -70,6 +105,12 @@ public class GlobalExceptionHandler {
         ));
     }
 
+    /**
+     * Handles {@link ResourceNotFoundException} indicating that a requested resource was not found.
+     *
+     * @param ex The exception that was thrown.
+     * @return ResponseEntity with NOT_FOUND status and exception details.
+     */
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ExceptionResponse> handleResourceNotFoundException(
@@ -79,6 +120,13 @@ public class GlobalExceptionHandler {
         ));
     }
 
+    /**
+     * Handles {@link NoHandlerFoundException} for requests with no handler.
+     *
+     * @param ex The exception that was thrown.
+     * @param request The HttpServletRequest in which this exception occurred.
+     * @return ResponseEntity with NOT_FOUND status and exception details.
+     */
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ExceptionResponse> handleNoHandlerFound(NoHandlerFoundException ex, HttpServletRequest request) {

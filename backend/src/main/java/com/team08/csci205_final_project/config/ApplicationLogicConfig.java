@@ -1,26 +1,20 @@
-/* *****************************************
- * CSCI 205 - Software Engineering and Design
- * Fall 2023
- * Instructor: Prof. Brian King / Prof. Joshua Stough
- *
- * Name: Hung Ngo
- * Section: YOUR SECTION
- * Date: 16/11/2023
- * Time: 15:26
- *
- * Project: csci205_final_project
- * Package: com.team08.csci205_final_project.config
- * Class: ApplicationLogicConfig
- *
- * Description:
- *
- * ****************************************
- */
 package com.team08.csci205_final_project.config;
 
+/**
+ * This class represents the configuration for application logic
+ * used in the csci205_final_project. It includes settings for
+ * response wait time and geographical radius.
+ */
 public class ApplicationLogicConfig {
+
+    /**
+     * Wait time in seconds for a response from provider
+     */
     private double waitTimeForResponse = 60;
 
+    /**
+     * Radius in kilometers for geographical calculations in the application
+     */
     private double radiusInKm = 30;
 
     public ApplicationLogicConfig(double WAIT_TIME, double radiusInKm) {
