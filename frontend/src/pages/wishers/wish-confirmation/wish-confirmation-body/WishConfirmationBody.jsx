@@ -36,6 +36,8 @@ function WishConfirmationBody () {
         }
     }, [jobId]);
 
+    console.log(wishInfo)
+
     return (
         <form onSubmit={handleSubmitConfirmation}>
             <div className={'wishConfirmBody'}>
@@ -55,10 +57,10 @@ function WishConfirmationBody () {
                 </div>
                 <div className={'wishConfirmBoxContainer'}>
                     <div className={'wishConfirmBox'}>
-                        <span className={'wishConfirmBoxTitle'}>Delivered Address</span>
+                        <span className={'wishConfirmBoxTitle'}>Item price</span>
                     </div>
                     <div className={'wishConfirmBox'}>
-                        <span className={'wishConfirmBoxDesc'}>{wishInfo?.receiverAddress}</span>
+                        <span className={'wishConfirmBoxDesc'}>{wishInfo?.itemPrice}</span>
                     </div>
                 </div>
                 <div className={'wishConfirmBoxContainer'}>
@@ -69,6 +71,15 @@ function WishConfirmationBody () {
                         <span className={'wishConfirmBoxDesc'}>{wishInfo?.endDate}</span>
                     </div>
                 </div>
+                <div className={'wishConfirmBoxContainer'}>
+                    <div className={'wishConfirmBox'}>
+                        <span className={'wishConfirmBoxTitle'}>Granter Name</span>
+                    </div>
+                    <div className={'wishConfirmBox'}>
+                        <span className={'wishConfirmBoxDesc'}>{wishInfo?.providerId || 'Hold on... We are finding a provider for you!'}</span>
+                    </div>
+                </div>
+
                 <div className={'wishConfirmBoxContainer'}>
                     <div className={'wishConfirmBox'}>
                         <span className={'wishConfirmBoxTitle'}>Proof of Delivery</span>
