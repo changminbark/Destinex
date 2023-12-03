@@ -19,6 +19,9 @@ function AddBankAcc () {
         const nationalIdNumber = sessionStorage.getItem("nationalIdNumber")
         const driverLicense = sessionStorage.getItem("driverLicense")
 
+        console.log("----------")
+        console.log(currentLocation, email, vehicleDetails, nationalIdNumber, driverLicense);
+
         const successGranterRegister = await granterRegister(currentLocation, email, vehicleDetails, nationalIdNumber, driverLicense)
         if (successGranterRegister) {
             navigate("/granter/congrats");

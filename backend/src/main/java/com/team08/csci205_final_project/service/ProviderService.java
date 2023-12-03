@@ -95,6 +95,19 @@ public class ProviderService {
         return providerRepository.findById(id);
     }
 
+    /** Find a provider based on their email */
+    public Optional<Provider> findProviderByEmail (String email) {
+        return providerRepository.findByEmail(email);
+    }
+
+    /** Update a provider's information */
+    public Provider updateProvider(Provider providerRegister) {
+        String id = providerRegister.getProviderId();
+        Provider provider = findProviderById(id).orElseThrow(() -> new ResourceNotFoundException("Provider not found"));
+        BeanUtils.copyProperties(providerRegister, provider);
+        return providerRepository.save(provider);
+    }
+
     /** Update a provider's location */
     public void updateProviderLocation(String providerId, double latitude, double longtitude) {
         Optional<Provider> providerOpt = providerRepository.findById(providerId);
@@ -116,6 +129,26 @@ public class ProviderService {
         return mongoTemplate.find(query, Provider.class, "providers");
     }
 
+    /**
+     * Find assigned job for provider
+     */
+    public Optional<Job> findAssignedJob(String providerEmail) {
+        Optional<Provider> providerOpt = findProviderByEmail(providerEmail);
+
+        if (providerOpt.isEmpty()) {
+            throw new ResourceNotFoundException("Provider not found with email: " + providerEmail);
+        }
+
+        Provider provider = providerOpt.get();
+        String assignedJobId = provider.getActiveJob();
+
+        if (assignedJobId == null || assignedJobId.isEmpty()) {
+            return Optional.empty(); // No assigned job
+        }
+
+        return jobService.findJobById(assignedJobId);
+    }
+
     /** Delete provider */
     public void deleteProvider(String userId) {
         if (providerRepository.existsById(userId)) {
@@ -134,15 +167,29 @@ public class ProviderService {
         Optional <Provider> provider = providerRepository.findById(id);
         if (provider.isPresent()) {
             Provider updatedProvider = provider.get();
-            Job updateJob = updatedProvider.getActiveJob();
+            String updateJob = updatedProvider.getActiveJob();
             if (updateJob != null) {
-                jobService.acceptJob(updateJob.getId(), provider.get().getUserId());
+                jobService.acceptJob(updateJob, provider.get().getUserId());
                 updatedProvider.setActiveJob(null);
                 updatedProvider.setProviderAvail(false);
                 providerRepository.save(updatedProvider);
                 return true;
             }
             return false;
+        }
+        return false;
+    }
+
+    public boolean completeJob(String providerEmail) {
+        Optional <Provider> provider = providerRepository.findByEmail(providerEmail);
+        if (provider.isPresent()) {
+            Provider providerInformation = provider.get();
+            String currentJobId = providerInformation.getActiveJob();
+            jobService.completeJob(currentJobId);
+            providerInformation.setActiveJob(null);
+            providerInformation.setProviderAvail(true);
+            providerRepository.save(providerInformation);
+            return true;
         }
         return false;
     }

@@ -27,7 +27,6 @@ function SetupPage () {
         sessionStorage.setItem("driverLicense", newLicense)
     }
 
-
     return (
         <div className='setupForm'>
 

@@ -51,7 +51,7 @@ public class Provider {
     private GeoJsonPoint currentLocation;
 
     /** Store the wait-for-response job */
-    private Job activeJob;
+    private String activeJob;
 
     /** Store status of the provider */
     private boolean providerAvail;

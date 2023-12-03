@@ -138,4 +138,15 @@ public class JobService {
         }
         return null;
     }
+
+    public void completeJob(String currentJobId) {
+        System.out.println("Job " + currentJobId + " is marked COMPLETED!!");
+        Optional <Job> job = jobRepository.findById(currentJobId);
+        if (job.isPresent()) {
+            Job updatedJob = job.get();
+            updatedJob.setStatus(JobStatus.COMPLETED);
+            updatedJob.setIS_DELETED(true);
+            jobRepository.save(updatedJob);
+        }
+    }
 }

@@ -87,7 +87,6 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return userRepository.save(user);
-
     }
 
     /** Delete a user based on their userId */
@@ -139,5 +138,21 @@ public class UserService {
             throw new org.springframework.security.access.AccessDeniedException("User is not authenticated");
         }
         return authentication.getName();
+    }
+
+    /**
+     * Get role from current username
+     * @return role
+     * @throws RuntimeException if there is no username
+     */
+    public Role getRoleByUsername(String username) {
+        Optional<User> userOpt = userRepository.findByEmail(username);
+
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            return user.getRole();
+        } else {
+            throw new RuntimeException("User not found with username: " + username);
+        }
     }
 }

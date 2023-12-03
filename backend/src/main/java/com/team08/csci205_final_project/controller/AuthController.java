@@ -18,6 +18,7 @@
  */
 package com.team08.csci205_final_project.controller;
 
+import com.team08.csci205_final_project.model.Auth.Role;
 import com.team08.csci205_final_project.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -76,8 +77,9 @@ public class AuthController {
 
         final String jwt = jwtUtil.generateToken(authenticate);
         final String fullName = userService.getFullNameByUsername(loginRequest.getUsername());
+        final Role role = userService.getRoleByUsername(loginRequest.getUsername());
         final String email = loginRequest.getUsername();
 
-        return ResponseEntity.ok(new LoginResponse(jwt, fullName, email));
+        return ResponseEntity.ok(new LoginResponse(jwt, fullName, email, role));
     }
 }

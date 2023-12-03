@@ -1,13 +1,42 @@
-import React, { useState } from 'react';
-import {Link} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {Link, useSearchParams} from "react-router-dom";
 import './WishConfirmationBody.css';
 import Delivery_pic from "../../../../assets/img/delivery-proof.jpg"
+import axios from "axios";
 
 function WishConfirmationBody () {
+
+    const [searchParams] = useSearchParams();
+    const jobId = searchParams.get('jobId');
+    const [wishInfo, setWishInfo] = useState(null);
 
     const handleSubmitConfirmation = async (event) => {
         event.preventDefault();
     }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const token = localStorage.getItem('jwtToken');
+
+            try {
+                const response = await axios.get(`http://localhost:8080/api/jobs/${jobId}`, { // Make sure the URL is correct
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                setWishInfo(response.data);
+                console.log(response.data)
+            } catch (error) {
+                console.error('Error fetching wish data:', error);
+            }
+        };
+
+        if (jobId) {
+            fetchData();
+        }
+    }, [jobId]);
+
+    console.log(wishInfo)
 
     return (
         <form onSubmit={handleSubmitConfirmation}>
@@ -23,15 +52,15 @@ function WishConfirmationBody () {
                         <span className={'wishConfirmBoxTitle'}>Status</span>
                     </div>
                     <div className={'wishConfirmBox'}>
-                        <span className={'wishConfirmBoxDesc'}>You wish has been granted.</span>
+                        <span className={'wishConfirmBoxDesc'}>You wish status: {wishInfo?.status}</span>
                     </div>
                 </div>
                 <div className={'wishConfirmBoxContainer'}>
                     <div className={'wishConfirmBox'}>
-                        <span className={'wishConfirmBoxTitle'}>Delivered Address</span>
+                        <span className={'wishConfirmBoxTitle'}>Item price</span>
                     </div>
                     <div className={'wishConfirmBox'}>
-                        <span className={'wishConfirmBoxDesc'}>550 1st Ave, New York, NY 10016, USA</span>
+                        <span className={'wishConfirmBoxDesc'}>{wishInfo?.itemPrice}</span>
                     </div>
                 </div>
                 <div className={'wishConfirmBoxContainer'}>
@@ -39,9 +68,18 @@ function WishConfirmationBody () {
                         <span className={'wishConfirmBoxTitle'}>Actual Delivery</span>
                     </div>
                     <div className={'wishConfirmBox'}>
-                        <span className={'wishConfirmBoxDesc'}>Wed, Nov 8, 2023, at 4:30 PM</span>
+                        <span className={'wishConfirmBoxDesc'}>{wishInfo?.endDate}</span>
                     </div>
                 </div>
+                <div className={'wishConfirmBoxContainer'}>
+                    <div className={'wishConfirmBox'}>
+                        <span className={'wishConfirmBoxTitle'}>Granter Name</span>
+                    </div>
+                    <div className={'wishConfirmBox'}>
+                        <span className={'wishConfirmBoxDesc'}>{wishInfo?.providerId || 'Hold on... We are finding a provider for you!'}</span>
+                    </div>
+                </div>
+
                 <div className={'wishConfirmBoxContainer'}>
                     <div className={'wishConfirmBox'}>
                         <span className={'wishConfirmBoxTitle'}>Proof of Delivery</span>
