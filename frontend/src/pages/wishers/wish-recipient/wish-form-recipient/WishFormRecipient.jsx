@@ -20,8 +20,24 @@ function WishFormRecipient() {
     const [zip, setZip] = useState('');
     const [address, setAddress] = useState('');
     const [addressPoint, setAddressPoint] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const navigate = useNavigate();
+
+    const validateForm = () => {
+        if (!receiverFirstName || !receiverLastName || !phone || !email || !firstAddress || !country || !region || !city || !zip) {
+            setErrorMessage('Please fill in all required information!');
+            return false;
+        }
+        return true;
+    };
+
+    const handleNextClick = () => {
+        const isValid = validateForm();
+        if (isValid) {
+            navigate('/wish-additional');
+        }
+    };
 
     const handleFirstNameChange = (event) => {
         // Might not need this until last page if using sessionStorage
@@ -70,27 +86,17 @@ function WishFormRecipient() {
         }
     };
 
-    const handleAddressChange = async (event) => {
-        // Might not need this until last page if using sessionStorage
-
-        event.preventDefault();
-
-        // Gets coordinates based on first address
-        const coords = await getCoordinates(firstAddress + ", " + city);
-
+    const processAddress = async () => {
+        const coords = await getCoordinates(`${firstAddress}, ${city}`);
         if (coords) {
             const geoJsonPoint = {
                 type: "Point",
-                coordinates: [coords.lon, coords.lat], // Note: Longitude and Latitude order
+                coordinates: [coords.lon, coords.lat],
             };
-
             setAddressPoint(geoJsonPoint);
-
             sessionStorage.setItem("receiverAddressPoint", JSON.stringify(geoJsonPoint.coordinates));
-            console.log('sessionstorage', sessionStorage.getItem("receiverAddressPoint"))
         }
-
-        const adrs = {
+        const addressObject = {
             FirstAddress: firstAddress,
             SecondAddress: secondAddress,
             City: city,
@@ -98,24 +104,24 @@ function WishFormRecipient() {
             Country: country,
             Zip: zip,
         };
+        sessionStorage.setItem("receiverAddress", JSON.stringify(addressObject));
+        sessionStorage.setItem("receiverAddressString", `${firstAddress}, ${secondAddress}, ${city}, ${region}, ${country}`);
+    };
 
-
-        console.log("adrs object: ", adrs);
-
-        const adrsJSON = JSON.stringify(adrs);
-
-        sessionStorage.setItem("receiverAddress", adrsJSON);
-
-        sessionStorage.setItem("receiverAddressString", firstAddress + ", " + secondAddress + ", " + city + ", " + region + ", " + country)
-
-        navigate("/wish-additional")
-    }
+    const handleSubmit = async () => {
+        const isValid = validateForm();
+        if (isValid) {
+            await processAddress();
+            navigate('/wish-additional');
+        }
+    };
 
     return (
         <div className="wishFormForRecipient">
             <div className="wishFormForRecipientTitle">
                 <span className="wishFormForRecipientTitleText">Make a </span>
                 <span className="wishFormForRecipientTitleWish">Wish</span>
+                <p>{errorMessage && <span>{errorMessage}</span>}</p>
             </div>
 
             <div className='wishFormForRecipientContainer'>
@@ -221,9 +227,9 @@ function WishFormRecipient() {
                     <Link to='/wish-product' className='backButton'>
                         Back
                     </Link>
-                    <Link className='nextButton' onClick={handleAddressChange}>
+                    <button className="nextButton" onClick={handleSubmit}>
                         Next
-                    </Link>
+                    </button>
                 </div>
             </div>
         </div>

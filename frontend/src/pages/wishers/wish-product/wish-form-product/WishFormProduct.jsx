@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import './wish_form_product.css';
 import Slider from '@material-ui/core/Slider';
 
@@ -26,7 +26,25 @@ function WishFormProduct() {
     const [date, setDate] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedSubcategory, setSelectedSubcategory] = useState('');
+    const [value, setValue] =  React.useState([50,200]);
+    const [isFormValid, setIsFormValid] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
+    const validateForm = () => {
+        if (!selectedCategory && !productName.trim() && !date) {
+            setErrorMessage('Please fill in all information!');
+            return false
+        }
+        return true;
+    };
+
+    const handleNextClick = () => {
+        const isValid = validateForm();
+        if (isValid) {
+            navigate('/wish-recipient');
+        }
+    };
 
     const handleProductNameChange = (event) => {
         const newName = event.target.value
@@ -58,9 +76,6 @@ function WishFormProduct() {
     const minValue = 0;
     const maxValue = 500;
 
-    // Our States
-    const [value, setValue] =  React.useState([50,200]);
-
     // Changing State when volume increases/decreases
     const rangeSelector = (event, newValue) => {
         setValue(newValue);
@@ -75,6 +90,7 @@ function WishFormProduct() {
             <div className="wishFormForProductTitle">
                 <span className="wishFormForProductTitleText">Make a </span>
                 <span className="wishFormForProductTitleWish">Wish</span>
+                <p>{errorMessage && <span>{errorMessage}</span>}</p>
             </div>
 
             <div className='wishFormForProductContainer'>
@@ -149,9 +165,9 @@ function WishFormProduct() {
                 </div>
             </div>
 
-            <Link to='/wish-recipient' className='nextButton'>
+            <button className="nextButton" onClick={handleNextClick}>
                 Next
-            </Link>
+            </button>
         </div>
     )
 }
