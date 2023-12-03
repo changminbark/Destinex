@@ -62,7 +62,7 @@ public class JobInfo {
     /** The overall status of the job. */
     private JobStatus status;
 
-    public static List<JobInfo> convertToUserDtoList(List<Job> jobs) {
+    public static List<JobInfo> convertToJobDtoList(List<Job> jobs) {
         List<JobInfo> jobDTOs = new ArrayList<>();
         for (Job job : jobs) {
             JobInfo dto = new JobInfo();
