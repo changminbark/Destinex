@@ -26,6 +26,6 @@
     transform: translate(-50%, -50%);
 }
 
-.submit:hover {
+.submitBtn:hover {
     background-color: #7000CD;
 }
