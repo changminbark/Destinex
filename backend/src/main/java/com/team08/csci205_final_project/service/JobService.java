@@ -20,6 +20,7 @@ package com.team08.csci205_final_project.service;
 
 import com.team08.csci205_final_project.event.JobPostedEvent;
 import com.team08.csci205_final_project.exception.ResourceNotFoundException;
+import com.team08.csci205_final_project.model.DTO.Job.JobInfo;
 import com.team08.csci205_final_project.model.DTO.Job.NewJobRequest;
 import com.team08.csci205_final_project.model.Job.Job;
 import com.team08.csci205_final_project.model.Job.JobStatus;
@@ -106,6 +107,25 @@ public class JobService {
         else {
             // This will never happen
             throw new RuntimeException("Job not found with ID: " + job.getId());
+        }
+    }
+
+    /**
+     * Change the job info from user
+     * @param id id of the job to update
+     * @param job job after updated
+     * @return Job after updated
+     */
+    public Job changeJobInfo(String id, NewJobRequest job) {
+        Optional<Job> jobOptional = jobRepository.findById(id);
+        if (jobOptional.isPresent()) {
+            Job updatedJob = jobOptional.get();
+            BeanUtils.copyProperties(job, updatedJob);
+            return jobRepository.save(updatedJob);
+        }
+        else {
+            // This should not happen
+            throw new ResourceNotFoundException("Job not found. Update failed");
         }
     }
 
