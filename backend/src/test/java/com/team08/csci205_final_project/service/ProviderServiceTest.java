@@ -1,88 +1,105 @@
-//package com.team08.csci205_final_project.service;
-//
-//import com.team08.csci205_final_project.service.ProviderService;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.MockitoAnnotations;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//import static org.mockito.Mockito.*;
-//
-//import com.team08.csci205_final_project.model.Job.Job;
-//import com.team08.csci205_final_project.model.Provider.Provider;
-//import com.team08.csci205_final_project.repository.ProviderRepository;
-//import com.team08.csci205_final_project.service.JobService;
-//import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-//import org.springframework.test.context.junit.jupiter.SpringExtension;
-//
-//import java.util.Optional;
-//
-//@ExtendWith(SpringExtension.class)
-//class ProviderServiceTest {
-//
-//    @Mock
-//    private ProviderRepository providerRepository;
-//
-//    @Mock
-//    private JobService jobService;
-//
-//    @InjectMocks
-//    private ProviderService providerService;
-//
-//    @BeforeEach
-//    void setUp() {
-//        MockitoAnnotations.openMocks(this);
-//    }
-//
-//    @Test
-//    void acceptJobWhenProviderExistsAndHasActiveJob() {
-//        String providerId = "providerId";
-//        String jobId = "jobId";
-//        Job activeJob = new Job();
-//        activeJob.setId(jobId);
-//
-//        Provider provider = new Provider();
-//        provider.setActiveJob(activeJob);
-//        provider.setUserId(providerId);
-//
-//        when(providerRepository.findById(providerId)).thenReturn(Optional.of(provider));
-//        when(jobService.acceptJob(jobId, providerId)).thenReturn(new Job());
-//
-//        boolean result = providerService.acceptJob(providerId);
-//
-//        assertTrue(result);
-//        verify(providerRepository).findById(providerId);
-//        verify(jobService).acceptJob(jobId, providerId);
-//    }
-//
-//    @Test
-//    void acceptJobWhenProviderExistsButNoActiveJob() {
-//        String providerId = "providerId";
-//
-//        Provider provider = new Provider();
-//        provider.setActiveJob(null);
-//
-//        when(providerRepository.findById(providerId)).thenReturn(Optional.of(provider));
-//
-//        boolean result = providerService.acceptJob(providerId);
-//
-//        assertFalse(result);
-//        verify(providerRepository).findById(providerId);
-//        verify(jobService, never()).acceptJob(any(), any());
-//    }
-//
-//    @Test
-//    void acceptJobWhenProviderDoesNotExist() {
-//        String providerId = "providerId";
-//        when(providerRepository.findById(providerId)).thenReturn(Optional.empty());
-//
-//        boolean result = providerService.acceptJob(providerId);
-//
-//        assertFalse(result);
-//        verify(providerRepository).findById(providerId);
-//        verify(jobService, never()).acceptJob(any(), any());
-//    }
-//}
+package com.team08.csci205_final_project.service;
+
+import com.team08.csci205_final_project.model.Auth.Role;
+import com.team08.csci205_final_project.model.DTO.Provider.ProviderRegister;
+import com.team08.csci205_final_project.model.Provider.Provider;
+import com.team08.csci205_final_project.model.User.User;
+import com.team08.csci205_final_project.repository.ProviderRepository;
+import com.team08.csci205_final_project.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Optional;
+
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(SpringExtension.class)
+public class ProviderServiceTest {
+
+    @Mock
+    private ProviderRepository providerRepository;
+
+    @Mock
+    private MongoTemplate mongoTemplate;
+
+    @Mock
+    private JobService jobService;
+
+    @Mock
+    private UserRepository userRepository;
+
+    @Mock
+    private UserService userService;
+
+    @InjectMocks
+    private ProviderService providerService;
+
+    @Test
+    public void testProviderRegister() {
+        ProviderRegister providerRegister = new ProviderRegister();
+        // set properties for providerRegister
+
+        String currentUserId = "userId";
+        User user = new User();
+        user.setId(currentUserId);
+        user.setRole(Role.ROLE_USER);
+
+        when(userService.getCurrentUserId()).thenReturn(currentUserId);
+        when(userRepository.existsById(currentUserId)).thenReturn(true);
+        when(userRepository.findById(currentUserId)).thenReturn(Optional.of(user));
+
+        Provider provider = new Provider();
+        when(providerRepository.save(any(Provider.class))).thenReturn(provider);
+
+        Provider result = providerService.providerRegister(providerRegister);
+
+        assertNotNull(result);
+        verify(providerRepository).save(any(Provider.class));
+    }
+
+    @Test
+    public void testFindProviderById() {
+        String providerId = "providerId";
+        Optional<Provider> mockProvider = Optional.of(new Provider());
+        when(providerRepository.findById(providerId)).thenReturn(mockProvider);
+
+        Optional<Provider> result = providerService.findProviderById(providerId);
+
+        assertTrue(result.isPresent());
+        assertEquals(mockProvider.get(), result.get());
+        verify(providerRepository).findById(providerId);
+    }
+
+
+    @Test
+    public void testUpdateProvider() {
+        Provider providerRegister = new Provider();
+        providerRegister.setProviderId("providerId");
+
+        Provider provider = new Provider();
+        when(providerRepository.findById(providerRegister.getProviderId())).thenReturn(Optional.of(provider));
+        when(providerRepository.save(any(Provider.class))).thenReturn(provider);
+
+        Provider result = providerService.updateProvider(providerRegister);
+
+        assertNotNull(result);
+        verify(providerRepository).save(any(Provider.class));
+    }
+
+    @Test
+    public void testDeleteProvider() {
+        String userId = "userId";
+        when(providerRepository.existsById(userId)).thenReturn(true);
+
+        providerService.deleteProvider(userId);
+
+        verify(providerRepository).deleteById(userId);
+    }
+
+}

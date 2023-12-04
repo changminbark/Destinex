@@ -42,7 +42,7 @@ public class UserService {
 
     /** A BcryptPassword Encoder object to encode the password */
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserRepository userRepository;
