@@ -27,7 +27,5 @@ We've utilized the following third-party libraries, which are not part of the st
 1. **Spring Boot** - Simplifies the development and deployment of Spring applications. [Spring Boot Main Page](https://spring.io/projects/spring-boot)
 2. **React Native** - A framework for building native apps using React. [React Native Main Page](https://reactnative.dev/)
 
-*Note: Replace "[Other Library Name]" and "[Another Library]" with the actual names and version numbers of any additional libraries used in the project.*
-
 ## Video Presentation
 
