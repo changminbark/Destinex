@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import './wish_form_additional.css';
 
 function WishFormAdditional() {
 
     const [description, setDescription] = useState('');
+    const [error, setError] = useState('');
+
+    const navigate = useNavigate();
 
     const handleDescriptionChange = (event) => {
         const newDesc = event.target.value
         setDescription(newDesc)
         sessionStorage.setItem("description", newDesc)
+    }
+
+    const checkRequiredField = () => {
+        if (!description) {
+            setError('Description must not be blank!');
+            return false;
+        }
+        navigate('/wish-summary');
+        return true;
     }
 
     return (
@@ -18,6 +30,7 @@ function WishFormAdditional() {
             <div className="wishFormForAdditionalTitle">
                 <span className="wishFormForAdditionalTitleText">Make a </span>
                 <span className="wishFormForAdditionalTitleWish">Wish</span>
+                <p>{error}</p>
             </div>
 
             <div className='wishFormForAdditionalContainer'>
@@ -45,9 +58,9 @@ function WishFormAdditional() {
                     <Link to='/wish-recipient' className='backButton'>
                         Back
                     </Link>
-                    <Link to='/wish-summary' className='nextButton'>
+                    <button className='nextButton' onClick={checkRequiredField}>
                         Next
-                    </Link>
+                    </button>
                 </div>
             </div>
 
